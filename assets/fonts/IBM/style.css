@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'ibmarabic';
+    font-weight: 300;
+    src: url('IBMPlexSansArabic-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ibmarabic';
+    font-weight: 400;
+    src: url('IBMPlexSansArabic-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ibmarabic';
+    font-weight: 500;
+    src: url('IBMPlexSansArabic-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ibmarabic';
+    font-weight: 600;
+    src: url('IBMPlexSansArabic-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ibmarabic';
+    font-weight: 700;
+    src: url('IBMPlexSansArabic-Bold.ttf') format('truetype');
+}

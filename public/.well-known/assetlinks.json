@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "solutions.ejad.saleem",
+      "sha256_cert_fingerprints": [
+        "B9:A5:0B:31:9D:82:C8:9B:E1:C8:1E:DD:19:C0:B8:4C:B3:54:31:DA:9E:CE:D8:7B:E7:96:F4:34:F4:9D:ED:D9"
+      ]
+    }
+  }
+]

@@ -1,0 +1,59 @@
+.label {
+  @apply text-md;
+}
+
+.flex-between-wrap {
+  @apply flex flex-col md:flex-row justify-between gap-2;
+}
+
+// overrides on vuetify
+.v-pagination__list {
+  justify-content: end !important;
+}
+
+.v-breadcrumbs-item--link {
+  text-decoration: none !important;
+}
+
+.v-list-item--nav {
+  padding: 0px 14px !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+// Remove default arrows for number inputs
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+div::-webkit-scrollbar,
+main::-webkit-scrollbar,
+ol::-webkit-scrollbar,
+pre::-webkit-scrollbar,
+span::-webkit-scrollbar,
+ul::-webkit-scrollbar {
+  width: 14px;
+  background-color: white;
+}
+
+div::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb,
+ol::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb,
+span::-webkit-scrollbar-thumb,
+ul::-webkit-scrollbar-thumb {
+  background-color: #dde3e9;
+  border: 4px solid rgba(0, 0, 0, 0);
+  border-radius: 9999px;
+  background-clip: padding-box;
+}

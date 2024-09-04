@@ -1,0 +1,44 @@
+<template>
+  <div
+    class="flex items-center gap-x-4 border-dark border-1 border-dashed elevation-2 rounded-lg py-2 px-4"
+  >
+    <v-icon size="x-large">mdi-alert-circle-outline</v-icon>
+
+    <div class="flex flex-col flex-grow-1">
+      <div class="font-weight-bold text-subtitle-1">
+        <slot name="title"> {{ props.item }} </slot>
+      </div>
+
+      <div v-if="!props.minimal" class="text-blue-grey-lighten-1">
+        <slot name="subtitle" />
+      </div>
+    </div>
+
+    <v-switch
+      class="flex-grow-0"
+      :model-value="modelValue || false"
+      @update:modelValue="$emit('update:modelValue', $event)"
+      color="secondary"
+    >
+    </v-switch>
+  </div>
+</template>
+
+<script setup lang="ts">
+const props = defineProps({
+  modelValue: { type: Boolean, default: false },
+  item: { type: String, default: 'تفعيل العنصر' },
+  minimal: { type: Boolean, default: false },
+  color: { type: String, default: 'secondary' },
+  mode: { type: String, default: 'normal' }
+})
+</script>
+
+<style lang="scss">
+.input-status {
+  display: flex;
+  align-items: center;
+  border: 2px dashed;
+  gap: 1rem;
+}
+</style>
