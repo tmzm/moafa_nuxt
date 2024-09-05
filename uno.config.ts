@@ -1,5 +1,5 @@
 import { defineConfig } from 'unocss'
-import transformerDirectives from '@unocss/transformer-directives'
+// import transformerDirectives from '@unocss/transformer-directives'
 import colors from './utils/colors'
 
 export default defineConfig({
@@ -14,5 +14,5 @@ export default defineConfig({
     }
   },
 
-  transformers: [transformerDirectives()]
+  // transformers: [transformerDirectives()]
 })

@@ -7,13 +7,7 @@
     </template>
 
     <template #menu>
-      <v-list-item :title="authStore.user?.name">
-        <template #prepend>
-          <div class="bg-secondary-lighten-1 p-2 mt-3 mb-2 mr-4 rounded-lg">
-            <v-icon size="30" color="white">mdi-account</v-icon>
-          </div>
-        </template>
-      </v-list-item>
+      <user-item class="mx-5 my-3" :id="authStore.user.id" :name="authStore.user.name" />
 
       <v-divider class="my-2" />
 

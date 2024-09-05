@@ -1,27 +1,17 @@
 <template>
   <base-page-header
-    title="Users"
+    title="Products Rates"
     :breadcrumbs="[
       {
         title: 'Home',
         to: '/admin'
       },
       {
-        title: 'Users',
+        title: 'Products Rates',
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button
-        to="/admin/users/create"
-        variant="tonal"
-        icon="mdi-plus"
-      >
-        Add Admin
-      </base-action-button>
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
     <v-card-text>
@@ -37,7 +27,7 @@
         <v-col md="4" cols="6">
           <v-text-field
             type="number"
-            :max="usersTotalCount"
+            :max="ratesTotalCount"
             min="5"
             @update:model-value="itemsPerPage = parseInt($event, 10)"
             :model-value="itemsPerPage"
@@ -53,30 +43,42 @@
     <v-data-table-server
       density="comfortable"
       class="text-no-wrap"
-      :items="users"
-      :items-length="users?.length ?? 0"
+      :items="rates"
+      :items-length="rates?.length ?? 0"
       :loading="pending"
       item-key="id"
-      :headers="userHeaders"
+      :headers="rateHeaders"
     >
-      <template #item.actions="{ item }">
-        <base-icon-button @click="navigateTo(`/admin/users/${item.id}`)"
-          >mdi-eye</base-icon-button
-        >
+      <template #item.product="{ item }">
+        <div class="flex items-center gap-3">
+          <v-img
+            lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
+            cover
+            rounded="lg"
+            class="!max-w-14 !my-4"
+            width="50"
+            aspect-ratio="1"
+            :src="`http://127.0.0.1:8000${item.product?.image}`"
+          />
+          <div>{{ item.product?.name }}</div>
+        </div>
       </template>
 
-      <template #item.name="{ item }">
+      <template #item.user="{ item }">
         <user-item
-          :id="item.id"
-          :name="item.name"
-          @click="navigateTo(`/admin/users/${item?.id}`)"
+          :id="item.user?.id ?? 0"
+          :name="item.user?.name ?? ''"
+          @click="navigateTo(`/admin/users/${item.user?.id}`)"
         />
       </template>
 
-      <template #item.verified="{ item }">
-        <v-chip :color="item.verified ? 'success' : 'error'">{{
-          item.verified ? 'Verified' : 'Not Verified'
-        }}</v-chip>
+      <template #item.number="{ item }">
+        <v-rating
+          size="sm"
+          color="secondary"
+          disabled
+          :model-value="item.number"
+        />
       </template>
 
       <template #item.created_at="{ item }">
@@ -94,8 +96,6 @@
       </template>
     </v-data-table-server>
   </v-card>
-
-  <nuxt-page />
 </template>
 
 <style></style>
@@ -107,17 +107,15 @@ definePageMeta({
   layout: 'admin'
 })
 
-const authStore = useAuthStore()
+const rateStore = useRateStore()
 
 const page = ref(1)
 const itemsPerPage = ref(10)
 
-const { users, paginationOptions, search, usersTotalCount } =
-  storeToRefs(authStore)
+const { rates, paginationOptions, search, ratesTotalCount } =
+  storeToRefs(rateStore)
 
-const { pending, refresh } = await useAsyncData('list_all_users', () =>
-  authStore.list()
-)
+const { pending, refresh } = await useAsyncData(() => rateStore.list())
 
 watch(page, () => {
   paginationOptions.value.page = page.value
@@ -133,6 +131,6 @@ watch(itemsPerPage, (oldValue, newValue) => {
 watch(search, () => refresh())
 
 const pageCount = computed(() => {
-  return Math.ceil(usersTotalCount.value / itemsPerPage.value)
+  return Math.ceil(ratesTotalCount.value / itemsPerPage.value)
 })
 </script>

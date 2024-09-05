@@ -3,7 +3,7 @@ export const useBrandStore = defineStore('brand', () => {
 
   const brand = ref<Brand>({} as Brand)
 
-  const selectedBrand = ref<number[]>([])
+  const selectedBrand = ref<number>()
 
   const imageFileInput = ref()
 

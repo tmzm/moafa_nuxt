@@ -47,11 +47,30 @@
       :items-length="prescriptions?.length ?? 0"
       :loading="pending"
       item-key="id"
+      :headers="prescriptionHeaders"
     >
+      <template #item.user="{ item }">
+        <user-item
+          :id="item.user.id"
+          :name="item.user.name"
+          @click="navigateTo(`/admin/users/${item.user?.id}`)"
+        />
+      </template>
+
       <template #item.actions="{ item }">
-        <base-icon-button class="me-2" color="primary"
+        <base-icon-button
+          :to="`/admin/prescriptions/${item.id}`"
+          class="me-2"
+          color="primary"
           >mdi-eye-outline</base-icon-button
         >
+        <v-tooltip v-if="item.order" text="Click to copy order url">
+          <template #activator="{ props }">
+            <base-icon-button color="secondary" v-bind="props"
+              >mdi-link</base-icon-button
+            >
+          </template>
+        </v-tooltip>
       </template>
 
       <template #item.image="{ item }">
@@ -60,12 +79,20 @@
             lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
             cover
             rounded="lg"
-            class="!my-4"
+            class="!my-4 !max-w-24"
             width="50"
             aspect-ratio="1"
             :src="`http://127.0.0.1:8000${item.image}`"
           />
         </div>
+      </template>
+
+      <template #item.order="{ item }">
+        {{ item.order ? 'Created' : 'Not Created yet' }}
+      </template>
+
+      <template #item.created_at="{ item }">
+        {{ dayjs(item.created_at).format('DD MMM YYYY, h:mm a') }}
       </template>
 
       <template v-slot:bottom>

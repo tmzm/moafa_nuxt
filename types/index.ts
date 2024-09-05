@@ -34,6 +34,8 @@ declare global {
     offer: number
     is_offer: boolean
     quantity: number
+    rate: number
+    rates: Rate[]
     is_quantity: boolean
     category_products: CategoryProduct[]
     description: string
@@ -131,5 +133,17 @@ declare global {
     title: string
     body: string
     is_read: boolean
+  }
+
+  export interface Rate {
+    created_at: Date
+    updated_at: Date
+    id: number
+    user_id: number
+    product_id: number
+    product?: Product
+    user?: User
+    comment: string
+    number: number
   }
 }

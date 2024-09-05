@@ -6,7 +6,7 @@
       <img src="/images/login-bg.svg" width="500" alt="" />
       <img class="absolute top-4 start-4 w-24" src="/logo.png" />
     </div>
-    <div class="p-8 flex flex-col justify-between">
+    <div class="p-8 flex flex-col justify-between bg-white">
       <div>
         <div class="text-3xl font-semi-bold">Welcome back to Moafa</div>
         <div>Your Beautiful online pharmacy</div>

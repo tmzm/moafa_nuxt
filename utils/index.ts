@@ -14,6 +14,10 @@ export const navigationItems = [
         link: '/admin/products'
       },
       {
+        text: 'Rates',
+        link: '/admin/rates'
+      },
+      {
         text: 'Add product',
         link: '/admin/products/create'
       }
@@ -28,6 +32,11 @@ export const navigationItems = [
     text: 'Brands',
     icon: 'mdi-check-decagram',
     link: '/admin/brands'
+  },
+  {
+    text: 'Coupons',
+    icon: 'mdi-tag-off',
+    link: '/admin/coupons'
   },
   {
     text: 'Orders',
@@ -52,7 +61,11 @@ export const navigationItems = [
         link: '/admin/users/create'
       },
       {
-        text: 'Website sittings',
+        text: 'Account Sittings',
+        link: '/admin/my-account'
+      },
+      {
+        text: 'Website Sittings'
       }
     ]
   }
@@ -62,6 +75,14 @@ export const productHeaders = [
   {
     title: '',
     key: 'image'
+  },
+  {
+    title: 'Name',
+    key: 'name'
+  },
+  {
+    title: 'Rate',
+    key: 'rate'
   },
   {
     title: 'Price',
@@ -125,6 +146,56 @@ export const orderHeaders = [
   {
     title: 'Products count',
     key: 'order_items_count'
+  },
+  {
+    title: 'Actions',
+    key: 'actions'
+  }
+]
+
+export const rateHeaders = [
+  {
+    title: 'Customer',
+    key: 'user'
+  },
+  {
+    title: 'Product',
+    key: 'product'
+  },
+  {
+    title: 'Rate',
+    key: 'number'
+  },
+  {
+    title: 'Comment',
+    key: 'comment'
+  },
+  {
+    title: 'Rated At',
+    key: 'created_at'
+  }
+]
+
+export const prescriptionHeaders = [
+  {
+    title: 'Customer',
+    key: 'user'
+  },
+  {
+    title: 'Image',
+    key: 'image'
+  },
+  {
+    title: 'Description',
+    key: 'description'
+  },
+  {
+    title: 'Order status',
+    key: 'order'
+  },
+  {
+    title: 'Added At',
+    key: 'created_at'
   },
   {
     title: 'Actions',

@@ -3,9 +3,6 @@ export const useProductStore = defineStore('product', () => {
   const products = ref<Product[]>()
   const quantityShow = ref()
   const fileInput = ref()
-  const categoryStore = useCategoryStore()
-  const { selectedCategories } =
-    storeToRefs(categoryStore)
 
   const search = ref()
   const productsTotalCount = ref(0)
@@ -22,54 +19,26 @@ export const useProductStore = defineStore('product', () => {
 
   const product = ref<Product>({} as Product)
 
-  const loadingImport = ref()
-  const loading = ref()
   const router = useRouter()
 
   const create = async () => {
-    loading.value = true
+    const formData = appendNewProductData()
 
-    try {
-      const formData = appendNewProductData()
-
-      await api('/products/create', {
-        method: 'post',
-        body: formData
-      })
-
-      showSuccessToaster('Product created successfully')
-    } catch (e: any) {
-      showErrorToaster(e.message)
-      loading.value = false
-    }
-
-    selectedCategories.value = []
-
-    loading.value = false
+    await api('/products/create', {
+      method: 'post',
+      body: formData
+    })
 
     router.push('/admin/products/list')
   }
 
   const edit = async (id: number) => {
-    loading.value = true
+    const formData = appendNewProductData()
 
-    try {
-      const formData = appendNewProductData()
-
-      await api(`/products/${id}/update`, {
-        method: 'post',
-        body: formData
-      })
-
-      showSuccessToaster('Product edited successfully')
-    } catch (e: any) {
-      showErrorToaster(e.message)
-      loading.value = false
-    }
-
-    selectedCategories.value = []
-
-    loading.value = false
+    await api(`/products/${id}/update`, {
+      method: 'post',
+      body: formData
+    })
 
     router.push(`/admin/products/${id}`)
   }
@@ -96,67 +65,37 @@ export const useProductStore = defineStore('product', () => {
   }
 
   const getPrice = async (id: number) => {
-    try {
-      const res = await api(`/products/${id}/price`)
-      return res.data
-    } catch (e) {
-      console.log(e)
-      return 0
-    }
+    const res = await api(`/products/${id}/price`)
+    return res.data
   }
 
   const getImage = async (id: number) => {
-    try {
-      const res = await api(`/products/${id}/image`)
-      return res.data
-    } catch (e) {
-      console.log(e)
-      return null
-    }
+    const res = await api(`/products/${id}/image`)
+    return res.data
   }
 
   const getProduct = async (slug: string) => {
     if (slug) {
-      try {
-        const res = await api(`/products/slug/${slug}`)
-        product.value = res.data
-        return res.data
-      } catch (e) {
-        console.log('text', e)
-        product.value = {} as Product
-        return {} as Product
-      }
+      const res = await api(`/products/slug/${slug}`)
+      product.value = res.data
+      return res.data
     } else {
       return {} as Product
     }
   }
 
   const getProductById = async (id: number) => {
-    loading.value = true
-
     if (id) {
-      try {
-        const res = await api(`/products/id/${id}`)
-        product.value = res.data
-        loading.value = false
+      const res = await api(`/products/id/${id}`)
+      product.value = res.data
 
-        return res.data
-      } catch (e) {
-        console.log('text', e)
-        product.value = {} as Product
-
-        loading.value = false
-
-        return {} as Product
-      }
+      return res.data
     } else {
-      loading.value = false
       return {} as Product
     }
   }
 
   const importProducts = async () => {
-    loadingImport.value = true
     const formData = new FormData()
 
     formData.append('excel', fileInput.value[0])
@@ -165,25 +104,12 @@ export const useProductStore = defineStore('product', () => {
       method: 'post',
       body: formData
     })
-
-    loadingImport.value = false
   }
 
   const deleteProduct = async (id: number) => {
-    loading.value = true
-
-    try {
-      await api(`/products/${id}/delete`, {
-        method: 'delete'
-      })
-
-      showSuccessToaster('product deleted successfully')
-    } catch (e) {
-      loading.value = false
-      showErrorToaster('Error deleting product!')
-    }
-
-    loading.value = false
+    await api(`/products/${id}/delete`, {
+      method: 'delete'
+    })
   }
 
   return {
@@ -201,8 +127,6 @@ export const useProductStore = defineStore('product', () => {
     getImage,
     create,
     edit,
-    loading,
-    loadingImport,
     product,
     paginationOptions,
     priceFilter,

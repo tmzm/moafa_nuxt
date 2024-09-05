@@ -32,8 +32,8 @@ export default defineNuxtConfig({
   i18n: {
     baseUrl: 'http://localhost:3000',
     locales: [
-      { code: 'en', file: 'en.ts', iso: 'en-US' },
-      { code: 'ar', file: 'ar.ts', iso: 'ar-SY' }
+      { code: 'en', file: 'en.ts' },
+      { code: 'ar', file: 'ar.ts' }
     ],
 
     langDir: 'locale',
@@ -42,9 +42,16 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false
   },
 
+  css: [
+    '~/assets/fonts/IBM/style.css',
+    'vuetify/styles',
+    'assets/vuetify/overrides.scss',
+    'assets/scss/index.scss'
+  ],
+
   vuetify: {
     moduleOptions: {
-      styles: { configFile: '/assets/vuetify/settings.scss' }
+      styles: { configFile: 'assets/vuetify/settings.scss' }
     },
 
     vuetifyOptions: './vuetify.config.ts'
@@ -52,26 +59,25 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: 'http://127.0.0.1:8000/api/'
+      apiBaseUrl: 'http://127.0.0.1:8000/api/',
+      baseUrl: 'http://127.0.0.1:8000'
     }
   },
 
   modules: [
-    'vuetify-nuxt-module',
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/i18n',
+    'vuetify-nuxt-module',
     '@nuxtjs/device'
-  ],
-
-  css: [
-    '~/assets/fonts/IBM/style.css',
-    '~/assets/vuetify/overrides.scss',
-    '~/assets/scss/index.scss'
   ],
 
   imports: {
     dirs: ['types/*.ts']
+  },
+
+  features: {
+    inlineStyles: false
   }
 })

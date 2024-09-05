@@ -18,7 +18,10 @@
       ]"
     >
       <template #actions>
-        <base-action-button @click="deleteDialog = true" color="error" icon="mdi-delete"
+        <base-action-button
+          @click="deleteDialog = true"
+          color="error"
+          icon="mdi-delete"
           >Delete User</base-action-button
         >
       </template>
@@ -79,7 +82,7 @@
         <v-col v-if="userDetails.role == 'user'" cols="12" md="8">
           <!-- Recent user orders -->
           <v-card class="overflow-hidden">
-            <v-card-title>User Orders</v-card-title>
+            <v-card-title>Recent Orders</v-card-title>
 
             <v-divider></v-divider>
             <v-data-table-server
@@ -87,7 +90,7 @@
               class="text-no-wrap"
               :items="orders"
               :items-length="orders?.length ?? 0"
-              :loading="loadingOrders"
+              :loading="loading"
               item-key="id"
               :headers="orderHeaders.filter((h) => h.key !== 'user')"
             >
@@ -146,6 +149,118 @@
             </v-data-table-server>
           </v-card>
           <!-- / Recent user orders -->
+
+          <!-- Recent user rates -->
+          <v-card class="overflow-hidden mt-6">
+            <v-card-title>Recent Rates</v-card-title>
+
+            <v-divider></v-divider>
+            <v-data-table-server
+              density="comfortable"
+              class="text-no-wrap"
+              :items="rates"
+              :items-length="rates?.length ?? 0"
+              :loading="loading"
+              item-key="id"
+              :headers="rateHeaders.filter((h) => h.key !== 'user')"
+            >
+              <template #item.product="{ item }">
+                <div class="flex items-center gap-3">
+                  <v-img
+                    lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
+                    cover
+                    rounded="lg"
+                    class="!max-w-14 !my-4"
+                    width="50"
+                    aspect-ratio="1"
+                    :src="`http://127.0.0.1:8000${item.product?.image}`"
+                  />
+                  <div>{{ item.product?.name }}</div>
+                </div>
+              </template>
+
+              <template #item.user="{ item }">
+                <v-list-item
+                  nav
+                  class="my-2"
+                  @click="navigateTo(`/admin/users/${item.user?.id}`)"
+                  :title="item.user?.name"
+                >
+                  <template #prepend>
+                    <div class="bg-secondary-lighten-1 my-2 mr-4 rounded-lg">
+                      <v-icon size="30" color="white">mdi-account</v-icon>
+                    </div>
+                  </template>
+                </v-list-item>
+              </template>
+
+              <template #item.number="{ item }">
+                <v-rating
+                  size="sm"
+                  color="secondary"
+                  disabled
+                  :model-value="item.number"
+                />
+              </template>
+
+              <template #item.created_at="{ item }">
+                {{ dayjs(item.created_at).format('DD MMM YYYY, h:mm a') }}
+              </template>
+            </v-data-table-server>
+          </v-card>
+          <!-- / Recent user rates -->
+
+          <!-- Recent user orders -->
+          <v-card class="overflow-hidden">
+            <v-card-title>Recent Prescriptions</v-card-title>
+
+            <v-divider></v-divider>
+            <v-data-table-server
+              density="comfortable"
+              class="text-no-wrap"
+              :items="prescriptions"
+              :items-length="prescriptions?.length ?? 0"
+              :loading="loading"
+              item-key="id"
+              :headers="prescriptionHeaders.filter((h) => h.key !== 'user')"
+            >
+              <template #item.actions="{ item }">
+                <base-icon-button class="me-2" color="primary"
+                  >mdi-eye-outline</base-icon-button
+                >
+                <v-tooltip v-if="item.order" text="Click to copy order url">
+                  <template #activator="{ props }">
+                    <base-icon-button color="secondary" v-bind="props"
+                      >mdi-link</base-icon-button
+                    >
+                  </template>
+                </v-tooltip>
+              </template>
+
+              <template #item.image="{ item }">
+                <div class="flex items-center gap-3">
+                  <v-img
+                    lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
+                    cover
+                    rounded="lg"
+                    class="!my-4 !max-w-24"
+                    width="50"
+                    aspect-ratio="1"
+                    :src="`http://127.0.0.1:8000${item.image}`"
+                  />
+                </div>
+              </template>
+
+              <template #item.order="{ item }">
+                {{ item.order ? 'Created' : 'Not Created yet' }}
+              </template>
+
+              <template #item.created_at="{ item }">
+                {{ dayjs(item.created_at).format('DD MMM YYYY, h:mm a') }}
+              </template>
+            </v-data-table-server>
+          </v-card>
+          <!-- / Recent user orders -->
         </v-col>
       </v-row>
     </div>
@@ -155,7 +270,7 @@
         <v-col cols="12" md="4">
           <v-skeleton-loader
             type="avatar, list-item-two-line"
-            loading
+            :loading="true"
             :height="500"
           />
         </v-col>
@@ -199,17 +314,29 @@ const deleteDialog = ref(false)
 
 const authStore = useAuthStore()
 const orderStore = useOrderStore()
+const rateStore = useRateStore()
+const prescriptionStore = usePrescriptionStore()
 
 const { userDetails } = storeToRefs(authStore)
 const { orders } = storeToRefs(orderStore)
+const { rates } = storeToRefs(rateStore)
+const { prescriptions } = storeToRefs(prescriptionStore)
 
 const userId = useRoute().params.user_id
 
 const { pending } = await useAsyncData(() => authStore.get(Number(userId)))
 
-const { pending: loadingOrders } = await useAsyncData(() =>
-  orderStore.listByUserId(Number(userId))
-)
+const { pending: loading } = await useAsyncData(() => {
+  if (userDetails.value.role == 'user') {
+    orderStore.listByUserId(Number(userId))
+
+    rateStore.list(Number(userId))
+
+    prescriptionStore.list(Number(userId))
+  }
+
+  return Promise.resolve({})
+})
 
 const goBack = () => navigateTo('/admin/users')
 

@@ -13,7 +13,11 @@
     ]"
   >
     <template #actions>
-      <base-action-button variant="tonal" to="/admin/products/create" icon="mdi-plus">
+      <base-action-button
+        variant="tonal"
+        to="/admin/products/create"
+        icon="mdi-plus"
+      >
         Add products</base-action-button
       >
     </template>
@@ -94,6 +98,10 @@
         </div>
       </template>
 
+      <template #item.rate="{ item }">
+        <v-rating size="sm" color="secondary" disabled :model-value="item.rate" />
+      </template>
+
       <template #item.brand="{ item }">
         <div class="text-no-wrap">
           <v-chip>{{ item.brand.name }}</v-chip>
@@ -164,10 +172,11 @@ const productStore = useProductStore()
 const page = ref(1)
 const itemsPerPage = ref(10)
 
-const { products, paginationOptions, sort, search, productsTotalCount } = storeToRefs(productStore)
+const { products, paginationOptions, sort, search, productsTotalCount } =
+  storeToRefs(productStore)
 const { selectedCategories } = storeToRefs(useCategoryStore())
 
-const { pending, refresh } = await useAsyncData('list_all_products', () =>
+const { pending, refresh } = await useLazyAsyncData('list_all_products', () =>
   productStore.getAllProducts()
 )
 

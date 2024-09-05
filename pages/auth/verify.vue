@@ -11,10 +11,10 @@
       <v-card-text>
         <div class="mb-4">
           We’ve send you code on
-          <span v-for="_ in authStore.user.phone_number.length - 4">*</span>
+          <span v-for="_ in authStore.user.phone_number.length - 3">*</span>
           <span>{{
             authStore.user.phone_number.slice(
-              authStore.user.phone_number.length - 4,
+              authStore.user.phone_number.length - 3,
               authStore.user.phone_number.length
             )
           }}</span>
@@ -28,7 +28,7 @@
         </Form>
         <div class="flex gap-2 items-center mt-4">
           <div>Did not receive the SMS? Check your messages, or</div>
-          <v-btn color="secondary" class="text-white">resend</v-btn>
+          <nuxt-link>Resend Code</nuxt-link>
         </div>
       </v-card-text>
     </v-card>

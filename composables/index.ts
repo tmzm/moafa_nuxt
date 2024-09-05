@@ -34,6 +34,7 @@ export const appendNewProductData = () => {
     'quantity',
     quantityShow.value === 2 ? product.value.quantity.toString() : '0'
   )
+  console.log(quantityShow.value)
   formData.append('is_quantity', quantityShow.value === 0 ? '0' : '1')
   formData.append('is_offer', product.value.is_offer === false ? '0' : '1')
   formData.append(

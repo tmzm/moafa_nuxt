@@ -66,18 +66,11 @@
       </template>
 
       <template #item.user="{ item }">
-        <v-list-item
-          nav
-          class="my-2"
-          @click="navigateTo('#')"
-          :title="item.user?.name"
-        >
-          <template #prepend>
-            <div class="bg-secondary-lighten-1 my-2 mr-4 rounded-lg">
-              <v-icon size="30" color="white">mdi-account</v-icon>
-            </div>
-          </template>
-        </v-list-item>
+        <user-item
+          :id="item.user.id"
+          :name="item.user.name"
+          @click="navigateTo(`/admin/users/${item.user?.id}`)"
+        />
       </template>
 
       <template #item.is_prescription="{ item }">

@@ -28,10 +28,11 @@ export const usePrescriptionStore = defineStore('prescription', () => {
 
   const edit = async () => {}
 
-  const list = async () => {
+  const list = async (userId?: number) => {
     const res = await api('prescriptions', {
       method: 'post',
       body: {
+        user_id: userId,
         // sort: sort.value != 'Newest' ? sort.value.toLowerCase() : undefined,
         search: search.value,
         ...paginationParams(paginationOptions.value, prescriptionsTotalCount.value)
