@@ -9,7 +9,12 @@
 
     <Form v-slot="{ errors }" @submit="submit">
       <base-label>Image</base-label>
-      <base-image-input v-model="imageFileInput" />
+      <base-image-input
+        :model-url="
+          editMode ? `http://127.0.0.1:8000${brand.image}` : undefined
+        "
+        v-model="imageFileInput"
+      />
 
       <base-label>Name</base-label>
 
@@ -88,7 +93,6 @@ const { pending } = useLazyAsyncData<Brand>(() => {
 })
 
 const remove = async (callback: any) => {
-  console.log('test')
   try {
     await brandStore.remove(Number(brandId))
 

@@ -6,6 +6,8 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User>({} as User)
   const otp = ref()
 
+  const userDetails = ref({} as User)
+
   const search = ref()
   const usersTotalCount = ref(15)
   const paginationOptions = ref({
@@ -59,9 +61,8 @@ export const useAuthStore = defineStore('auth', () => {
   const logout = async () => {
     await api('users/destroy')
 
-    const cookieToken = useCookie('token')
-
-    cookieToken.value = null
+    accessToken.value = null
+    refreshToken.value = null
 
     router.push('/auth/login')
   }
@@ -117,8 +118,30 @@ export const useAuthStore = defineStore('auth', () => {
     })
   }
 
+  const get = async (id: number) => {
+    const res = await api(`users/${id}/show`)
+
+    userDetails.value = res.data
+  }
+
+  const remove = async (id: number) => {
+    await api(`users/${id}/delete`,{
+      method:'delete'
+    })
+  }
+
+  const deactivate = async () => {
+    await api(`users/delete`, {
+      method: 'delete'
+    })
+
+    accessToken.value = undefined
+    refreshToken.value = undefined
+  }
+
   return {
     me,
+    get,
     verify,
     editFCMToken,
     refreshTokens,
@@ -128,11 +151,14 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     logout,
     signup,
+    remove,
+    deactivate,
     loading,
     otp,
     accessToken,
     refreshToken,
     users,
+    userDetails,
     search,
     usersTotalCount,
     paginationOptions

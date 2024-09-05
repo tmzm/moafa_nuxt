@@ -5,6 +5,8 @@ export const useCategoryStore = defineStore('categoryStore', () => {
 
   const dialogDelete = ref(false)
 
+  const imageFileInput = ref()
+
   const deleteId = ref()
 
   const dialogEdit = ref(false)
@@ -28,25 +30,33 @@ export const useCategoryStore = defineStore('categoryStore', () => {
   }
 
   const create = async () => {
+    const formData = new FormData()
+    formData.append('name', category.value.name)
+    if (imageFileInput.value) {
+      formData.append('image', imageFileInput.value)
+    }
+
+    console.log(formData)
     await api(`/categories/create`, {
       method: 'post',
-      body: {
-        name: category.value.name,
-        image: ''
-      }
+      body: formData
     })
   }
 
   const edit = async (id: number) => {
+    const formData = new FormData()
+    if (category.value.name) {
+      formData.append('name', category.value.name)
+    }
+    if (imageFileInput.value) {
+      formData.append('image', imageFileInput.value)
+    }
+
     await api(`/categories/${id}/update`, {
       method: 'post',
-      body: {
-        name: category.value.name,
-        image: ''
-      }
+      body: formData
     })
   }
-
   const remove = async (id: number) => {
     await api(`/categories/${id}/delete`)
   }
@@ -57,6 +67,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     deleteId,
     editId,
     loading,
+    imageFileInput,
     categories,
     category,
     getAllCategories,

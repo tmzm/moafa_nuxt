@@ -1,70 +1,70 @@
-import type { Prescription } from '@/types'
-
 export const usePrescriptionStore = defineStore('prescription', () => {
-  const prescriptions = ref<Prescription[]>()
+  const prescriptions = ref<Prescription[]>([])
   const prescription = ref<Prescription>({} as Prescription)
   const imageFileInput = ref<any>([])
 
-  const loading = ref()
+  const search = ref()
+  const prescriptionsTotalCount = ref(0)
+  const paginationOptions = ref({
+    groupBy: [],
+    itemsPerPage: 10,
+    page: 1,
+    sortBy: []
+  })
 
   const create = async () => {
-    loading.value = true
-
     const formData = new FormData()
 
-    try {
-      formData.append('description', prescription.value.description)
-      formData.append('image', imageFileInput.value[0].originFileObj)
+    formData.append('description', prescription.value.description)
+    formData.append('image', imageFileInput.value[0].originFileObj)
 
-      await api('/prescriptions/create', {
-        method: 'post',
-        body: formData
-      })
+    await api('/prescriptions/create', {
+      method: 'post',
+      body: formData
+    })
 
-      showSuccessToaster('Prescription Uploaded Successfully')
-    } catch {
-      showErrorToaster('Error!, try agin later')
-      loading.value = false
-    }
-
-    loading.value = false
+    showSuccessToaster('Prescription Uploaded Successfully')
   }
 
   const edit = async () => {}
 
-  const getAllPrescriptions = async () => {
-    const res = await api('prescriptions')
+  const list = async () => {
+    const res = await api('prescriptions', {
+      method: 'post',
+      body: {
+        // sort: sort.value != 'Newest' ? sort.value.toLowerCase() : undefined,
+        search: search.value,
+        ...paginationParams(paginationOptions.value, prescriptionsTotalCount.value)
+      }
+    })
+
+    prescriptions.value = res.data.prescriptions
+    prescriptionsTotalCount.value = res.data.count
+  }
+
+  const get = async (id: number) => {
+    const res = await api(`prescriptions/${id}`)
 
     prescriptions.value = res.data
   }
 
-  const getPrescription = async (id: number) => {}
-
   const deletePrescription = async (id: number) => {
-    loading.value = true
-
-    try {
-      await api(`prescriptions/${id}/delete`, {
-        method: 'delete'
-      })
-
-      showSuccessToaster('prescription deleted successfully')
-
-      loading.value = false
-    } catch (e) {
-      loading.value = false
-    }
+    await api(`prescriptions/${id}/delete`, {
+      method: 'delete'
+    })
   }
 
   return {
     deletePrescription,
-    getPrescription,
+    prescriptionsTotalCount,
+    search,
+    paginationOptions,
+    get,
     prescriptions,
     imageFileInput,
-    getAllPrescriptions,
+    list,
     prescription,
     create,
-    edit,
-    loading
+    edit
   }
 })

@@ -6,6 +6,10 @@
   @apply flex flex-col md:flex-row justify-between gap-2;
 }
 
+.hide-scrollbar .v-navigation-drawer__content::-webkit-scrollbar {
+  display: none !important;
+}
+
 // overrides on vuetify
 .v-pagination__list {
   justify-content: end !important;
@@ -16,7 +20,7 @@
 }
 
 .v-list-item--nav {
-  padding: 0px 14px !important;
+  padding: 0px 11px !important;
 }
 
 a {

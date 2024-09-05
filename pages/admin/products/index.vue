@@ -67,7 +67,7 @@
       class="text-no-wrap"
       :items="products"
       :items-length="products?.length ?? 0"
-      :loading="pending || loading"
+      :loading="pending"
       item-key="id"
       :headers="productHeaders"
     >
@@ -89,11 +89,7 @@
             class="!my-4"
             width="50"
             aspect-ratio="1"
-            :src="
-              item.image
-                ? `http://127.0.0.1:8000${item.image}`
-                : 'http://127.0.0.1:8000/images/placeholder.jpg'
-            "
+            :src="`http://127.0.0.1:8000${item.image}`"
           />
         </div>
       </template>
@@ -168,28 +164,12 @@ const productStore = useProductStore()
 const page = ref(1)
 const itemsPerPage = ref(10)
 
-const { products } = storeToRefs(productStore)
+const { products, paginationOptions, sort, search, productsTotalCount } = storeToRefs(productStore)
 const { selectedCategories } = storeToRefs(useCategoryStore())
 
 const { pending, refresh } = await useAsyncData('list_all_products', () =>
   productStore.getAllProducts()
 )
-const { loading, paginationOptions, sort, search, productsTotalCount } =
-  storeToRefs(productStore)
-
-const dialogDelete = ref(false)
-const deleteId = ref()
-
-const deleteModuleAction = (id: number) => {
-  dialogDelete.value = true
-  deleteId.value = id
-}
-
-const deleteProduct = () => {
-  dialogDelete.value = false
-  productStore.deleteProduct(deleteId.value)
-  refresh()
-}
 
 watch(page, () => {
   paginationOptions.value.page = page.value

@@ -4,10 +4,11 @@ export const useProductStore = defineStore('product', () => {
   const quantityShow = ref()
   const fileInput = ref()
   const categoryStore = useCategoryStore()
-  const { selectedCategories, categories: currentCategories } =
+  const { selectedCategories } =
     storeToRefs(categoryStore)
+
   const search = ref()
-  const productsTotalCount = ref(15)
+  const productsTotalCount = ref(0)
   const paginationOptions = ref({
     groupBy: [],
     itemsPerPage: 10,

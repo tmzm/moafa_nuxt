@@ -66,6 +66,7 @@ export default defineVuetifyConfiguration({
 
     VBtn: {
       elevation: 0,
+      variant: 'tonal',
       color: 'primary'
     },
 

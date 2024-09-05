@@ -16,7 +16,11 @@
           disabled: true
         }
       ]"
-    />
+    >
+      <template #actions>
+        <base-action-button icon="mdi-link">Copy order url</base-action-button>
+      </template>
+    </base-page-header>
 
     <div v-if="!pending">
       <v-row>
@@ -90,6 +94,7 @@
         <v-divider />
 
         <v-data-table
+          :items-per-page="100"
           :headers="[
             {
               title: 'Product',

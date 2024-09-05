@@ -102,6 +102,12 @@ export const useOrderStore = defineStore('order', () => {
     ordersTotalCount.value = res.data.count
   }
 
+  const listByUserId = async (id: number) => {
+    const res = await api(`/orders/user/${id}`)
+
+    orders.value = res.data
+  }
+
   const getOrder = async (id: number) => {
     const res = await api(`/orders/${id}/show`)
 
@@ -114,6 +120,7 @@ export const useOrderStore = defineStore('order', () => {
     createByCart,
     deleteOrder,
     getOrder,
+    listByUserId,
     search,
     ordersTotalCount,
     paginationOptions,

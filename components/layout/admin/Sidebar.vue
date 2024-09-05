@@ -2,6 +2,9 @@
   <v-navigation-drawer
     :rail="rail"
     rail-width="76"
+    :class="{
+      'hide-scrollbar': rail
+    }"
     width="300"
     :expand-on-hover="rail"
     :model-value="themeStore.sideOpen || !smAndDown"
@@ -15,13 +18,7 @@
       nav
     >
       <v-list-item>
-        <v-img
-          :class="{
-            'mt-4 w-44': !rail
-          }"
-          class="min-w-26 mb-12 mx-1 my-2"
-          src="/logo.png"
-        />
+        <v-img class="min-w-26 w-26 my-8 ml-1" src="/logo.png" />
       </v-list-item>
 
       <template v-for="item in navigationItems">
@@ -49,7 +46,7 @@
             :title="child.text"
           >
             <template #prepend>
-              <v-icon class="ms-4" size="24">mdi-circle-small</v-icon>
+              <v-icon class="ms-3" size="24">mdi-circle-small</v-icon>
             </template>
           </v-list-item>
         </v-list-group>

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap'
+          href: 'https://fonts.googleapis.com/css2?family=Beiruti:wght@200..900&display=swap'
         },
         {
           rel: 'stylesheet',
@@ -21,7 +21,6 @@ export default defineNuxtConfig({
           href: 'https://fonts.googleapis.com/icon?family=Material+Icons+Outlined'
         }
       ],
-
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

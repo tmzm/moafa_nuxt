@@ -53,7 +53,6 @@ export const navigationItems = [
       },
       {
         text: 'Website sittings',
-        link: '/admin/#'
       }
     ]
   }

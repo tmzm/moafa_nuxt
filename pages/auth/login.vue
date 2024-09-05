@@ -50,7 +50,7 @@
           </Field>
         </div>
 
-        <v-btn type="submit" :loading class="w-full">Sign in</v-btn>
+        <v-btn type="submit" :loading block>Sign in</v-btn>
       </Form>
 
       <div class="flex gap-2 mt-3">

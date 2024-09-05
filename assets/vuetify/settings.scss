@@ -4,7 +4,8 @@
 // we need to subscribe this issue
 
 @use 'vuetify/settings' with (
-  $body-font-family: 'ibmarabic',
+  $body-font-family: 'Beiruti',
+  $font-size-root: 18px,
 
   // CARD
   $card-title-font-weight: 600,
@@ -16,12 +17,11 @@
   // List
   $list-item-nav-title-font-size: 0.95rem,
   $list-item-nav-title-line-height: 1.1rem,
-  $list-item-icon-size: 18px,
-  $list-nav-padding: 20px,
+  $list-item-icon-size: 16px,
+  $list-nav-padding: 16px,
   $list-item-border-radius: 7px,
   $list-item-rounded-border-radius: 7px,
   $list-item-one-line-min-height: 44px,
-
   $list-item-icon-margin-start: 10px,
 
   // Text Field

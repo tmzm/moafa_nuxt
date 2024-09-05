@@ -35,7 +35,7 @@
 <script setup lang="ts">
 const fileInput = ref<HTMLElement>()
 const model = defineModel()
-const url = ref('')
+const url = ref()
 
 const previewUrl = computed(() => {
   return url.value ? url.value : props.modelUrl ? props.modelUrl : 'http://127.0.0.1:8000/images/placeholder.jpg' 

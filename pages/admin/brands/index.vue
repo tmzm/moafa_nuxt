@@ -1,6 +1,6 @@
 <template>
   <base-page-header
-    title="Categories"
+    title="Brands"
     :breadcrumbs="[
       {
         title: 'Home',
