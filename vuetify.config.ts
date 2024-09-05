@@ -3,6 +3,8 @@ import { defineVuetifyConfiguration } from 'vuetify-nuxt-module/custom-configura
 import type { ThemeDefinition } from 'vuetify'
 import { ar } from 'vuetify/locale'
 import colors from './utils/colors'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 const theme: ThemeDefinition = {
   dark: false,

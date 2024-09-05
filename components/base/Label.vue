@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center gap-2 mb-1">
     <v-icon v-if="icon" size="small" color="blue">{{ icon }}</v-icon>
-    <div class="label"><slot /></div>
+    <div class="text-[1.075rem] font-semibold"><slot /></div>
 
     <v-tooltip v-if="tooltip" :text="tooltip">
       <template #activator="{ props }">

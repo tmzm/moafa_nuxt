@@ -68,7 +68,7 @@
                         <v-item
                           :value="i"
                           v-slot="{ isSelected, toggle, selectedClass }"
-                          >
+                        >
                           <v-card
                             elevation="2"
                             @click="toggle"
@@ -78,11 +78,9 @@
                               ><v-radio
                                 :color="isSelected ? 'secondary' : 'dark'"
                                 :label="i.title"
-                                :model-value="
-                                  isSelected
-                                " /></v-card-text></v-card
-                        >
-                      </v-item>
+                                :model-value="isSelected" /></v-card-text
+                          ></v-card>
+                        </v-item>
                       </v-col>
                     </v-row>
                   </v-item-group>
@@ -233,8 +231,6 @@
           </v-card>
         </v-col>
 
-
-
         <v-col cols="12" md="3">
           <v-card :loading="pending">
             <v-card-text>
@@ -261,7 +257,7 @@
 
                 <v-select
                   v-model="selectedCategories"
-                  :loading="pendingCategories"
+                  :loading="pending"
                   :items="categories"
                   multiple
                   hide-details
@@ -278,7 +274,7 @@
 
                 <v-select
                   v-model="selectedBrand"
-                  :loading="pendingBrands"
+                  :loading="pending"
                   :items="brands"
                   hide-details
                   item-title="name"
@@ -309,16 +305,16 @@
         </base-action-button>
       </div>
     </Form>
-
-    <base-alert-dialog
-      :title="$t('delete_dialog.text')"
-      :action="$t('actions.yes_delete')"
-      v-model="deleteDialog"
-      @close="deleteDialog = false"
-      :item="$t('product')"
-      @action="remove"
-    />
   </div>
+
+  <base-alert-dialog
+    :title="$t('delete_dialog.text')"
+    :action="$t('actions.yes_delete')"
+    v-model="deleteDialog"
+    @close="deleteDialog = false"
+    :item="$t('product')"
+    @action="remove"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -361,13 +357,7 @@ const productId = route.params.product_id as string
 
 const editMode = productId != 'create'
 
-const { pending: pendingCategories } = useLazyAsyncData(() =>
-  categoryStore.getAllCategories()
-)
-
-const { pending: pendingBrands } = useLazyAsyncData(() => brandStore.list())
-
-const { pending } = useLazyAsyncData<Product>(() => {
+const { pending } = useLazyAsyncData<Product>(async () => {
   // reset
   product.value = {} as Product
 
@@ -376,13 +366,17 @@ const { pending } = useLazyAsyncData<Product>(() => {
   selectedBrand.value = undefined
 
   if (editMode) {
+    await brandStore.list()
+
+    await categoryStore.getAllCategories()
+
+    await productStore.getProductById(Number(productId))
+
     product.value.category_products.forEach((categoryProduct) =>
       selectedCategories.value.push(categoryProduct.category.id)
     )
 
     selectedBrand.value = product.value.brand_id
-
-    return productStore.getProductById(Number(productId))
   }
 
   return Promise.resolve({} as Product)
@@ -419,6 +413,12 @@ const submit = async () => {
 const goBack = () => {
   navigateTo(`/admin/products`)
 }
+
+// const { pending } = useLazyAsyncData<Product>(() => {
+//   // reset
+
+//   return Promise.resolve({} as Product)
+// })
 </script>
 
 <style>

@@ -44,7 +44,6 @@ export default defineNuxtConfig({
 
   css: [
     '~/assets/fonts/IBM/style.css',
-    'vuetify/styles',
     'assets/vuetify/overrides.scss',
     'assets/scss/index.scss'
   ],

@@ -99,7 +99,12 @@
       </template>
 
       <template #item.rate="{ item }">
-        <v-rating size="sm" color="secondary" disabled :model-value="item.rate" />
+        <v-rating
+          size="sm"
+          color="secondary"
+          disabled
+          :model-value="item.rate"
+        />
       </template>
 
       <template #item.brand="{ item }">

@@ -17,7 +17,7 @@ export const appendNewProductData = () => {
     formData.append('image', imageFileInput.value)
   }
   formData.append('name', product.value.name)
-  formData.append('brand_id', selectedBrand.value.toString())
+  formData.append('brand_id', selectedBrand.value?.toString() as string)
   formData.append('price', product.value.price.toString())
   formData.append(
     'expiration',
