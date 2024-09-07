@@ -12,7 +12,7 @@ export const api = function (
 }> {
   const runtimeConfig = useRuntimeConfig()
   const accessToken = useCookie('moafa.accessToken')
-
+  
   const res = $fetch(url, {
     baseURL: runtimeConfig.public.apiBaseUrl,
     headers: {

@@ -43,7 +43,7 @@ export const useProductStore = defineStore('product', () => {
     router.push(`/admin/products/${id}`)
   }
 
-  const getAllProducts = async () => {
+  const list = async () => {
     const res = await api('/products', {
       method: 'post',
       body: {
@@ -121,7 +121,7 @@ export const useProductStore = defineStore('product', () => {
     importProducts,
     quantityShow,
     products,
-    getAllProducts,
+    list,
     getTopProductSellers,
     getPrice,
     getImage,

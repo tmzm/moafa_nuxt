@@ -46,17 +46,16 @@ export const usePrescriptionStore = defineStore('prescription', () => {
   const get = async (id: number) => {
     const res = await api(`prescriptions/${id}`)
 
-    prescriptions.value = res.data
+    prescription.value = res.data
   }
 
-  const deletePrescription = async (id: number) => {
+  const remove = async (id: number) => {
     await api(`prescriptions/${id}/delete`, {
       method: 'delete'
     })
   }
 
   return {
-    deletePrescription,
     prescriptionsTotalCount,
     search,
     paginationOptions,
@@ -64,6 +63,7 @@ export const usePrescriptionStore = defineStore('prescription', () => {
     prescriptions,
     imageFileInput,
     list,
+    remove,
     prescription,
     create,
     edit

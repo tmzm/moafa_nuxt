@@ -87,7 +87,7 @@ const submit = async () => {
   try {
     await authStore.signup()
 
-    showSuccessToaster('Login successfully')
+    showSuccessToaster('Signed up successfully')
 
     if (authStore.user.role == 'user') {
       navigateTo('/')
@@ -95,7 +95,7 @@ const submit = async () => {
       navigateTo('/admin')
     }
   } catch (e) {
-    showErrorToaster('Login not success')
+    showErrorToaster('Phone number has already been taken')
   } finally {
     loading.value = false
   }

@@ -1,5 +1,5 @@
 export const useRateStore = defineStore('rate', () => {
-  const rates = ref<Rate[]>()
+  const rates = ref<Rate[]>([])
 
   const search = ref()
   const ratesTotalCount = ref(0)

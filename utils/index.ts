@@ -16,10 +16,6 @@ export const navigationItems = [
       {
         text: 'Rates',
         link: '/admin/rates'
-      },
-      {
-        text: 'Add product',
-        link: '/admin/products/create'
       }
     ]
   },
@@ -55,10 +51,6 @@ export const navigationItems = [
       {
         text: 'Users',
         link: '/admin/users'
-      },
-      {
-        text: 'Add Admin',
-        link: '/admin/users/create'
       },
       {
         text: 'Account Sittings',
@@ -120,6 +112,10 @@ export const orderHeaders = [
     key: 'user'
   },
   {
+    title: 'Coupon',
+    key: 'coupon'
+  },
+  {
     title: 'Type',
     key: 'is_prescription'
   },
@@ -173,6 +169,33 @@ export const rateHeaders = [
   {
     title: 'Rated At',
     key: 'created_at'
+  }
+]
+
+export const couponHeaders = [
+  {
+    title: 'Code',
+    key: 'code'
+  },
+  {
+    title: 'Discount type',
+    key: 'discount_type'
+  },
+  {
+    title: 'Discount',
+    key: 'discount'
+  },
+  {
+    title: 'User',
+    key: 'user'
+  },
+  {
+    title: 'Created At',
+    key: 'created_at'
+  },
+  {
+    title: 'Actions',
+    key: 'actions'
   }
 ]
 

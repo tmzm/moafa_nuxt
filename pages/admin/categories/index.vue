@@ -82,21 +82,7 @@ const categoryStore = useCategoryStore()
 
 const { categories } = storeToRefs(categoryStore)
 
-const { pending, refresh } = await useAsyncData(() =>
-  categoryStore.getAllCategories()
+const { pending } = await useAsyncData(() =>
+  categoryStore.list()
 )
-
-const dialogDelete = ref(false)
-const deleteId = ref()
-
-const deleteModuleAction = (id: number) => {
-  dialogDelete.value = true
-  deleteId.value = id
-}
-
-const deleteCategory = () => {
-  dialogDelete.value = false
-  categoryStore.remove(deleteId.value)
-  refresh()
-}
 </script>

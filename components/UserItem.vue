@@ -1,26 +1,47 @@
 <template>
-  <div class="flex items-center cursor-pointer">
+  <div class="m-4 flex items-center cursor-pointer">
     <v-card
-      class="w-12 mr-4 aspect-square !rounded-full !flex items-center justify-center"
+      class="aspect-square !rounded-full !flex items-center justify-center"
+      :class="classes.avatar"
       variant="tonal"
       :color
       elevation="0"
     >
-      <div class="text-xl font-semibold">
+      <div :class="classes.font" class="font-semibold">
         {{ name.slice(0, 1).toUpperCase() }}
       </div>
     </v-card>
-    <div class="text-xl text-dark hover:text-secondary transition-all">
-      {{ name }}
+    <div>
+      <div :class="classes.font" class="text-dark transition-all">
+        {{ name }}
+      </div>
+      <div :class="classes.subtitleFont" class="text-gray">
+        {{ subtitle }}
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{
-  name: string
-  id: number
-}>()
+const props = withDefaults(
+  defineProps<{
+    subtitle?: string
+    size?: 'small' | 'large'
+    name: string
+    id: number
+  }>(),
+  {
+    size: 'large'
+  }
+)
+
+const classes = computed(() => {
+  return {
+    font: props.size === 'small' ? 'text-lg' : 'text-xl',
+    subtitleFont: props.size === 'small' ? 'text-xs' : 'text-lg',
+    avatar: props.size === 'small' ? 'w-10 mr-2' : 'w-12 mr-3'
+  }
+})
 
 const colors = [
   {

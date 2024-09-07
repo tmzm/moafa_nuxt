@@ -17,7 +17,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
 
   const loading = ref(false)
 
-  const getAllCategories = async () => {
+  const list = async () => {
     const res = await api('/categories')
 
     categories.value = res.data
@@ -70,7 +70,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     imageFileInput,
     categories,
     category,
-    getAllCategories,
+    list,
     get,
     selectedCategories,
     edit,

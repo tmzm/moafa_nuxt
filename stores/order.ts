@@ -89,10 +89,12 @@ export const useOrderStore = defineStore('order', () => {
 
   const edit = async () => {}
 
-  const getAllOrders = async () => {
+  const list = async (userId?: number, couponId?: number) => {
     const res = await api('/orders', {
       method: 'post',
       body: {
+        coupon_id: couponId,
+        user_id: userId,
         search: search.value,
         ...paginationParams(paginationOptions.value, ordersTotalCount.value)
       }
@@ -102,31 +104,24 @@ export const useOrderStore = defineStore('order', () => {
     ordersTotalCount.value = res.data.count
   }
 
-  const listByUserId = async (id: number) => {
-    const res = await api(`/orders/user/${id}`)
-
-    orders.value = res.data
-  }
-
-  const getOrder = async (id: number) => {
+  const get = async (id: number) => {
     const res = await api(`/orders/${id}/show`)
 
     order.value = res.data
   }
 
-  const deleteOrder = async (id: number) => {}
+  const remove = async (id: number) => {}
 
   return {
     createByCart,
-    deleteOrder,
-    getOrder,
-    listByUserId,
+    remove,
+    get,
     search,
     ordersTotalCount,
     paginationOptions,
     orders,
     order,
-    getAllOrders,
+    list,
     create,
     edit,
     loading,

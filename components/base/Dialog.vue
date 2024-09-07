@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <baseIconButton
+          <base-icon-button
             v-if="!noCloseBtn"
             variant="text"
             icon="mdi-close"

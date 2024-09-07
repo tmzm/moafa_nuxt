@@ -87,7 +87,7 @@ const { pending } = useLazyAsyncData<Category>(() => {
   // reset
   category.value = {} as Category
 
-  if (editMode) return categoryStore.get(Number(categoryId))
+  if (editMode) categoryStore.get(Number(categoryId))
 
   return Promise.resolve({} as Category)
 })
@@ -98,7 +98,7 @@ const remove = async (callback: any) => {
     await categoryStore.remove(Number(categoryId))
 
     // re-get groups information
-    await categoryStore.getAllCategories()
+    await categoryStore.list()
   } finally {
     callback()
     goBack()
@@ -113,8 +113,8 @@ const submit = async () => {
       ? await categoryStore.edit(Number(categoryId))
       : await categoryStore.create()
 
-    // re-get groups information
-    await categoryStore.getAllCategories()
+    // re-get categories information
+    await categoryStore.list()
 
     goBack()
   } finally {

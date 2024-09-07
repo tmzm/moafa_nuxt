@@ -1,8 +1,10 @@
 export const useCouponStore = defineStore('coupon', () => {
-  const rates = ref<Rate[]>()
+  const coupons = ref<Coupon[]>([])
+
+  const userCoupon = ref(false)
 
   const search = ref()
-  const ratesTotalCount = ref(0)
+  const couponsTotalCount = ref(0)
   const paginationOptions = ref({
     groupBy: [],
     itemsPerPage: 10,
@@ -10,28 +12,56 @@ export const useCouponStore = defineStore('coupon', () => {
     sortBy: []
   })
 
-  const rate = ref<Rate>({} as Rate)
+  const coupon = ref<Coupon>({} as Coupon)
 
-  const list = async (userId?: number) => {
-    const res = await api('/rates', {
+  const list = async () => {
+    const res = await api('/coupons', {
       method: 'post',
       body: {
-        user_id: userId,
         search: search.value,
-        ...paginationParams(paginationOptions.value, ratesTotalCount.value)
+        ...paginationParams(paginationOptions.value, couponsTotalCount.value)
       }
     })
 
-    rates.value = res.data.rates
-    ratesTotalCount.value = res.data.count
+    coupons.value = res.data.coupons
+    couponsTotalCount.value = res.data.count
+  }
+
+  const get = async (id: number) => {
+    const res = await api(`/coupons/${id}`)
+
+    coupon.value = res.data
+  }
+
+  const create = async () => {
+    await api(`/coupons/create`, {
+      method: 'post',
+      body: coupon.value
+    })
+  }
+
+  const edit = async (id: number) => {
+    await api(`/coupons/${id}/update`, {
+      method: 'post',
+      body: coupon.value
+    })
+  }
+
+  const remove = async (id: number) => {
+    await api(`/coupons/${id}/delete`)
   }
 
   return {
     paginationOptions,
-    rates,
-    rate,
+    coupons,
+    coupon,
     list,
-    ratesTotalCount,
-    search
+    get,
+    create,
+    edit,
+    remove,
+    couponsTotalCount,
+    search,
+    userCoupon
   }
 })

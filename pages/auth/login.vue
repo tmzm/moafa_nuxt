@@ -83,7 +83,7 @@ const submit = async () => {
       navigateTo('/admin')
     }
   } catch (e) {
-    showErrorToaster('Login not success')
+    showErrorToaster('Phone number or password isn`t valid')
   } finally {
     loading.value = false
   }

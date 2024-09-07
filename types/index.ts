@@ -146,4 +146,14 @@ declare global {
     comment: string
     number: number
   }
+
+  export interface Coupon {
+    created_at: Date
+    updated_at: Date
+    id: number
+    user_id?: number
+    code: number
+    discount: number
+    discount_type: 'percentage' | 'fixed'
+  }
 }

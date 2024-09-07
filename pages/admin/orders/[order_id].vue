@@ -179,7 +179,7 @@ const { order } = storeToRefs(orderStore)
 const orderId = useRoute().params.order_id
 
 const { pending } = await useAsyncData(() =>
-  orderStore.getOrder(Number(orderId))
+  orderStore.get(Number(orderId))
 )
 </script>
 
