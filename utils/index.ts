@@ -65,20 +65,12 @@ export const navigationItems = [
 
 export const productHeaders = [
   {
-    title: '',
+    title: 'Product',
     key: 'image'
-  },
-  {
-    title: 'Name',
-    key: 'name'
   },
   {
     title: 'Rate',
     key: 'rate'
-  },
-  {
-    title: 'Price',
-    key: 'price'
   },
   {
     title: 'Brand',

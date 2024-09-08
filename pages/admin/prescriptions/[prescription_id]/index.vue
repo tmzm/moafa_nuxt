@@ -18,6 +18,7 @@
   >
     <template #actions>
       <base-action-button
+        v-if="!prescription.order_id"
         :to="`/admin/prescriptions/${prescriptionId}/create-order`"
         icon="mdi-shopping"
         >Create Order</base-action-button

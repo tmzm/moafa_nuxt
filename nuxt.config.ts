@@ -38,19 +38,19 @@ export default defineNuxtConfig({
 
     langDir: 'locale',
     defaultLocale: 'en',
-    strategy: 'no_prefix',
-    detectBrowserLanguage: false
+    strategy: 'no_prefix'
   },
 
   css: [
     '~/assets/fonts/IBM/style.css',
     'assets/vuetify/overrides.scss',
+    'vuetify/styles',
     'assets/scss/index.scss'
   ],
 
   vuetify: {
     moduleOptions: {
-      styles: { configFile: 'assets/vuetify/settings.scss' }
+      styles: { configFile: 'assets/vuetify/settings.scss' },
     },
 
     vuetifyOptions: './vuetify.config.ts'
@@ -59,7 +59,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: 'http://127.0.0.1:8000/api/',
-      baseUrl: 'http://127.0.0.1:8000'
+      baseUrl: 'http://127.0.0.1:8000',
+      basePlaceholderUrl: 'http://127.0.0.1:8000/images/placeholder.jpg'
     }
   },
 
@@ -78,5 +79,7 @@ export default defineNuxtConfig({
 
   features: {
     inlineStyles: false
-  }
+  },
+
+  compatibilityDate: '2024-09-07'
 })

@@ -9,7 +9,7 @@
     <base-image-input
       class="mx-auto w-fit"
       :model-url="
-        editMode ? `http://127.0.0.1:8000${product.image}` : undefined
+        editMode ? $config.public.baseUrl + product.image : undefined
       "
       v-model="imageFileInput"
     />

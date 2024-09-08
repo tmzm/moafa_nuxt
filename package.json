@@ -10,10 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@unocss/nuxt": "^0.60.4",
-    "@unocss/transformer-directives": "^0.60.4",
-    "sass": "^1.70.0",
-    "vuetify-nuxt-module": "^0.13.5"
+    "@unocss/nuxt": "^0.62.3",
+    "@unocss/transformer-directives": "^0.62.3",
+    "sass": "1.70.0",
+    "vuetify-nuxt-module": "0.13.5"
   },
   "dependencies": {
     "@nuxt/image": "^1.8.0",
@@ -22,17 +22,19 @@
     "@pinia/nuxt": "^0.5.1",
     "@vee-validate/i18n": "^4.12.5",
     "@vee-validate/rules": "^4.12.5",
-    "@vueuse/core": "^10.9.0",
-    "@vueuse/nuxt": "^10.9.0",
-    "dayjs": "^1.11.11",
     "@vueup/vue-quill": "^1.2.0",
-    "nuxt": "^3.11.2",
+    "@vueuse/core": "^11.0.3",
+    "@vueuse/nuxt": "^11.0.3",
+    "apexcharts": "^3.53.0",
+    "dayjs": "^1.11.11",
+    "nuxt": "3.13.0",
     "pinia": "^2.1.7",
     "vee-validate": "^4.12.8",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "vue-virtual-scroller": "2.0.0-beta.8",
-    "vuetify": "3.6.4"
+    "vue-chartjs": "^5.3.0",
+    "vuetify": "^3.6.4"
   },
   "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"
 }

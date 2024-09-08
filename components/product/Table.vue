@@ -1,47 +1,50 @@
 <template>
   <v-card class="overflow-hidden">
-    <slot name="title" />
+    <slot name="title">
+      <div>
+        {{ title }}
+      </div>
+    </slot>
 
     <v-card-text>
       <slot />
 
-      <v-row>
-        <v-col md="6" cols="12">
-          <v-text-field
-            v-model="search"
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-          ></v-text-field>
-        </v-col>
-        <v-col md="3" cols="6">
-          <v-text-field
-            type="number"
-            :max="productsTotalCount"
-            min="5"
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-            :model-value="itemsPerPage"
-            label="items per page"
-            hide-details
-          ></v-text-field>
-        </v-col>
-        <v-col md="3" cols="6">
-          <v-select
-            density="compact"
-            return-object
-            v-model="sort"
-            hide-details
-            :items="[
-              'Newest',
-              'A-Z',
-              'Oldest',
-              'Prices (Low First)',
-              'Prices (High First)'
-            ]"
-            bg-color="white"
-          />
-        </v-col>
-      </v-row>
+      <div class="flex justify-between items-center">
+        <v-row>
+          <v-col md="6" cols="12">
+            <v-text-field
+              v-model="search"
+              placeholder="Search for product"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+            ></v-text-field>
+          </v-col>
+          <v-col md="3" cols="6">
+            <v-select
+              density="compact"
+              return-object
+              v-model="sort"
+              hide-details
+              :items="[
+                'Newest',
+                'A-Z',
+                'Oldest',
+                'Prices (Low First)',
+                'Prices (High First)'
+              ]"
+              bg-color="white"
+            />
+          </v-col>
+        </v-row>
+        <div class="flex gap-2">
+          <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
+            >mdi-filter</base-icon-button
+          > -->
+          <base-icon-button color="primary" :loading="pending" @click="refresh"
+            >mdi-refresh</base-icon-button
+          >
+        </div>
+      </div>
     </v-card-text>
 
     <v-divider></v-divider>
@@ -88,16 +91,7 @@
       </template>
 
       <template #item.image="{ item }">
-        <div class="flex items-center gap-3">
-          <v-img
-            lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
-            cover
-            rounded="lg"
-            class="!my-4 !max-w-18"
-            aspect-ratio="1"
-            :src="`http://127.0.0.1:8000${item.image}`"
-          />
-        </div>
+        <product-item :product="item" />
       </template>
 
       <template #item.rate="{ item }">
@@ -147,9 +141,7 @@
       </template>
 
       <template #item.is_offer="{ item }">
-        <v-chip :color="!item.is_offer ? 'error' : 'primary'">{{
-          item.is_offer ? item.offer + '% OFF' : 'No offer'
-        }}</v-chip>
+        <product-offer-chip :product="item" />
       </template>
 
       <template v-slot:bottom>
@@ -169,9 +161,12 @@
 import dayjs from 'dayjs'
 
 defineProps<{
+  title?: string
   showSelect?: boolean
   show?: string[]
 }>()
+
+const isVisible = ref(false)
 
 const model = defineModel()
 

@@ -19,7 +19,7 @@
           to="/admin/my-account"
         />
 
-        <!-- <layout-language-switcher list-item /> -->
+        <layout-language-switcher list-item />
 
         <v-list-item
           prepend-icon="mdi-logout"

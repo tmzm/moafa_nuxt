@@ -1,5 +1,5 @@
 <template>
-  <v-card class="min-w-fit" :color="color" :variant="variant" elevation="0">
+  <v-card :color="color" :variant="variant" elevation="0">
     <v-card-text class="py-1">
       <div class="text-4xl">
         {{ number }}
@@ -25,7 +25,7 @@ withDefaults(
     number: number
     icon?: string
     color: string
-    variant: NonNullable<"tonal" | "flat" | "text" | "elevated" | "outlined" | "plain">
+    variant?: NonNullable<"tonal" | "flat" | "text" | "elevated" | "outlined" | "plain">
   }>(),
   {
     variant: 'tonal'

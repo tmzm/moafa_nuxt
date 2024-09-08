@@ -31,7 +31,18 @@
       <v-row>
         <v-col cols="12" md="4">
           <v-card>
-            <v-card-title> #{{ coupon.code }} </v-card-title>
+            <v-card-title>
+              <div
+                @click="
+                  () => {
+                    useClipboard().copy(coupon.code)
+                    showSuccessToaster('Copied!')
+                  }
+                "
+              >
+                #{{ coupon.code }}
+              </div>
+            </v-card-title>
 
             <v-divider />
 
@@ -54,7 +65,7 @@
                   </template>
                 </v-list-item>
 
-                <v-list-item prepend-icon="mdi-tag-search" title="Discount">
+                <v-list-item prepend-icon="mdi-tag-multiple" title="Discount">
                   <template #subtitle>
                     <p>{{ coupon.discount }}</p>
                   </template>

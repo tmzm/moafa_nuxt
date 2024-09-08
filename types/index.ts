@@ -75,8 +75,11 @@ declare global {
     location: Location
     user: User
     total_price: number
+    prescription?: Prescription
     time: any
     is_time: boolean
+    coupon_id: number
+    coupon: Coupon
     order_items: OrderItem[]
     is_prescription: boolean
     accepted_by_user: boolean
@@ -152,7 +155,8 @@ declare global {
     updated_at: Date
     id: number
     user_id?: number
-    code: number
+    user?: User
+    code: string
     discount: number
     discount_type: 'percentage' | 'fixed'
   }

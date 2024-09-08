@@ -1,7 +1,7 @@
 <template>
   <div class="flex whitespace-nowrap justify-between !items-center w-full mb-4">
     <div>
-      <div class="text-2xl mb-2 text-dark font-semibold" v-if="!pending">
+      <div class="text-2xl text-dark font-semibold" v-if="!pending">
         {{ title }}
       </div>
 

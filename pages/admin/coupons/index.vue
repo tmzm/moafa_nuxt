@@ -25,27 +25,26 @@
 
   <v-card class="overflow-hidden">
     <v-card-text>
-      <v-row>
-        <v-col md="8" cols="12">
-          <v-text-field
-            v-model="search"
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-          ></v-text-field>
-        </v-col>
-        <v-col md="4" cols="6">
-          <v-text-field
-            type="number"
-            :max="couponsTotalCount"
-            min="5"
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-            :model-value="itemsPerPage"
-            label="items per page"
-            hide-details
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <div class="flex justify-between items-center">
+        <v-row>
+          <v-col md="6" cols="12">
+            <v-text-field
+              v-model="search"
+              placeholder="Search for coupons"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <div class="flex gap-2">
+          <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
+            >mdi-filter</base-icon-button
+          > -->
+          <base-icon-button color="primary" :loading="pending" @click="refresh"
+            >mdi-refresh</base-icon-button
+          >
+        </div>
+      </div>
     </v-card-text>
 
     <v-divider></v-divider>
@@ -77,8 +76,8 @@
           <user-item
             @click="navigateTo(`/admin/users/${item.user.id}`)"
             size="small"
-            :name="item.user.name"
-            :id="item.user.id"
+            :name="item.user?.name"
+            :id="item.user?.id"
           />
         </template>
         <template v-else>

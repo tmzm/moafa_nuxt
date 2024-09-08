@@ -11,7 +11,7 @@
       <base-label>Image</base-label>
       <base-image-input
         :model-url="
-          editMode ? `http://127.0.0.1:8000${category.image}` : undefined
+          editMode ? $config.public.baseUrl + category.image : undefined
         "
         v-model="imageFileInput"
       />

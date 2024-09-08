@@ -9,27 +9,28 @@
     </template>
 
     <v-card-text>
-      <v-row>
-        <v-col md="8" cols="12">
-          <v-text-field
-            v-model="search"
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-          ></v-text-field>
-        </v-col>
-        <v-col md="4" cols="6">
-          <v-text-field
-            type="number"
-            :max="ratesTotalCount"
-            min="5"
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-            :model-value="itemsPerPage"
-            label="items per page"
-            hide-details
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <slot />
+
+      <div class="flex justify-between items-center">
+        <v-row>
+          <v-col md="6" cols="12">
+            <v-text-field
+              v-model="search"
+              placeholder="Search for rate"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <div class="flex gap-2">
+          <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
+            >mdi-filter</base-icon-button
+          > -->
+          <base-icon-button color="primary" :loading="pending" @click="refresh"
+            >mdi-refresh</base-icon-button
+          >
+        </div>
+      </div>
     </v-card-text>
 
     <v-divider></v-divider>
@@ -46,13 +47,13 @@
       <template #item.product="{ item }">
         <div class="flex items-center gap-3">
           <v-img
-            lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
+            :lazy-src="$config.public.basePlaceholderUrl"
             cover
             rounded="lg"
-            class="!max-w-14 !my-4"
+            class="!my-4 !max-w-24"
             width="50"
             aspect-ratio="1"
-            :src="`http://127.0.0.1:8000${item.product?.image}`"
+            :src="$config.public.baseUrl + item.product?.image"
           />
           <div>{{ item.product?.name }}</div>
         </div>

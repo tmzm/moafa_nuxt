@@ -48,21 +48,22 @@ export default defineVuetifyConfiguration({
     },
 
     VCard: {
-      elevation: 4
+      elevation: 2,
+      border: true
     },
 
     VTextField: {
-      variant: 'outlined',
+      variant: 'solo-filled',
       density: 'compact'
     },
 
     VTextarea: {
-      variant: 'outlined',
+      variant: 'solo-filled',
       density: 'compact'
     },
 
     VSelect: {
-      variant: 'outlined',
+      variant: 'solo-filled',
       density: 'compact'
     },
 

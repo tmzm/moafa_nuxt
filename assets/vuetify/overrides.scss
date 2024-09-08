@@ -27,6 +27,10 @@ a {
   text-decoration: none;
 }
 
+.v-input__control .v-field {
+  box-shadow: none !important;
+}
+
 // Remove default arrows for number inputs
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

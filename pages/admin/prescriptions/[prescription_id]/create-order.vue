@@ -19,7 +19,12 @@
         disabled: true
       }
     ]"
-  />
+  >
+    <template #actions>
+      <v-btn @click="goBack" color="gray">Cancel</v-btn>
+      <v-btn @click="create">Save</v-btn>
+    </template>
+  </base-page-header>
 
   <v-row v-if="!pending">
     <v-col cols="12" md="3">
@@ -69,22 +74,11 @@
           </div>
           <div v-else class="m-1 mt-2">
             <div class="grid grid-cols-3 gap-4">
-              <v-list-item
+              <product-item
+                class="border border-dark rounded-lg"
                 v-for="selectedProduct in selectedProducts"
-                class="!p-3 border border-dark rounded-lg"
-                :title="selectedProduct.product.name"
-                :subtitle="'Price: $' + selectedProduct.product.price"
-              >
-                <template #prepend>
-                  <v-img
-                    class="!w-14 me-4 aspect-square object-cover"
-                    rounded="lg"
-                    :src="
-                      $config.public.baseUrl + selectedProduct.product.image
-                    "
-                  />
-                </template>
-              </v-list-item>
+                :product="selectedProduct.product"
+              />
             </div>
           </div>
         </div>
@@ -108,10 +102,7 @@
             </v-col>
             <v-col cols="12" md="6">
               <transition>
-                <div v-if="selectCoupon">
-                  <base-label>Select Coupon</base-label>
-                  <v-select hide-details> </v-select>
-                </div>
+                <coupon-lookup v-if="selectCoupon"> </coupon-lookup>
               </transition>
             </v-col>
           </v-row>
@@ -152,11 +143,25 @@ definePageMeta({
   layout: 'admin'
 })
 
-const selectedProducts = ref<{ product: Product; orderedQuantity: number }[]>(
-  []
-)
+const prescriptionStore = usePrescriptionStore()
+const orderStore = useOrderStore()
 
-const selectCoupon = ref(false)
+const { prescription } = storeToRefs(prescriptionStore)
+const { selectedProducts, selectCoupon } = storeToRefs(orderStore)
+
+const prescriptionId = useRoute().params.prescription_id
+
+const { pending } = await useAsyncData(async () => {
+  await prescriptionStore.get(Number(prescriptionId))
+
+  if (prescription.value.order_id) {
+    showErrorToaster('Order Created Already')
+
+    goBack()
+  }
+})
+
+const loading = ref(false)
 
 const showImage = ref(false)
 
@@ -175,15 +180,21 @@ const totalPrice = computed(() => {
   return totalPrice
 })
 
-const prescriptionStore = usePrescriptionStore()
+const create = () => {
+  loading.value = true
 
-const { prescription } = storeToRefs(prescriptionStore)
+  try {
+    orderStore.create(prescription.value.user_id, Number(prescriptionId))
 
-const prescriptionId = useRoute().params.prescription_id
+    showSuccessToaster('Order created successfully')
 
-const { pending } = await useLazyAsyncData(() =>
-  prescriptionStore.get(Number(prescriptionId))
-)
+    goBack()
+  } catch {
+    showErrorToaster('Something happened, Try again')
+  } finally {
+    loading.value = false
+  }
+}
 
 const goBack = () => navigateTo('/admin/prescriptions')
 </script>

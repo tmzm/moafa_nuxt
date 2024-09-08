@@ -9,27 +9,28 @@
     </template>
 
     <v-card-text>
-      <v-row>
-        <v-col md="8" cols="12">
-          <v-text-field
-            v-model="search"
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-          ></v-text-field>
-        </v-col>
-        <v-col md="4" cols="12">
-          <v-text-field
-            type="number"
-            :max="ordersTotalCount"
-            min="5"
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-            :model-value="itemsPerPage"
-            label="items per page"
-            hide-details
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <slot />
+
+      <div class="flex justify-between items-center">
+        <v-row>
+          <v-col md="6" cols="12">
+            <v-text-field
+              v-model="search"
+              placeholder="Search for order"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <div class="flex gap-2">
+          <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
+            >mdi-filter</base-icon-button
+          > -->
+          <base-icon-button color="primary" :loading="pending" @click="refresh"
+            >mdi-refresh</base-icon-button
+          >
+        </div>
+      </div>
     </v-card-text>
 
     <v-divider></v-divider>
@@ -61,12 +62,8 @@
 
       <template #item.coupon="{ item }">
         <template v-if="item.coupon">
-          <v-tooltip>
-            <template
-              text="Click to view coupon"
-              location="end"
-              #activator="{ props }"
-            >
+          <v-tooltip text="Click to edit coupon" location="end">
+            <template #activator="{ props }">
               <v-chip
                 v-bind="props"
                 @click="navigateTo(`/admin/coupons/${item.coupon.id}`)"
@@ -92,7 +89,7 @@
       </template>
 
       <template #item.is_prescription="{ item }">
-        {{ item.is_prescription ? 'prescription order' : 'regular order' }}
+        {{ item.is_prescription ? 'Prescription Order' : 'Regular Order' }}
       </template>
 
       <template #item.status="{ item }">

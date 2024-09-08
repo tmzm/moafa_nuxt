@@ -56,12 +56,13 @@
       <template #item.image="{ item }">
         <div class="flex items-center gap-3">
           <v-img
-            lazy-src="http://127.0.0.1:8000/images/placeholder.jpg"
+            :lazy-src="$config.public.basePlaceholderUrl"
             cover
             rounded="lg"
             class="!my-4 !max-w-16"
+            width="50"
             aspect-ratio="1"
-            :src="`http://127.0.0.1:8000${item.image}`"
+            :src="$config.public.baseUrl + item.image"
           />
         </div>
       </template>

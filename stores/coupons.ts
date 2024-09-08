@@ -51,6 +51,10 @@ export const useCouponStore = defineStore('coupon', () => {
     await api(`/coupons/${id}/delete`)
   }
 
+  const unique = async (code: string) => {
+    await api(`/coupons/${code}/unique`)
+  }
+
   return {
     paginationOptions,
     coupons,
@@ -59,6 +63,7 @@ export const useCouponStore = defineStore('coupon', () => {
     get,
     create,
     edit,
+    unique,
     remove,
     couponsTotalCount,
     search,
