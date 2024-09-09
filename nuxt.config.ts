@@ -44,17 +44,11 @@ export default defineNuxtConfig({
   css: [
     '~/assets/fonts/IBM/style.css',
     'assets/vuetify/overrides.scss',
+    '@mdi/font/css/materialdesignicons.css',
+    '~/assets/vuetify/settings.scss',
     'vuetify/styles',
     'assets/scss/index.scss'
   ],
-
-  vuetify: {
-    moduleOptions: {
-      styles: { configFile: 'assets/vuetify/settings.scss' },
-    },
-
-    vuetifyOptions: './vuetify.config.ts'
-  },
 
   runtimeConfig: {
     public: {
@@ -69,16 +63,11 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/i18n',
-    'vuetify-nuxt-module',
     '@nuxtjs/device'
   ],
 
-  imports: {
-    dirs: ['types/*.ts']
-  },
-
-  features: {
-    inlineStyles: false
+  build: {
+    transpile: ['vuetify']
   },
 
   compatibilityDate: '2024-09-07'
