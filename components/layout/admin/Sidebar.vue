@@ -7,7 +7,7 @@
     }"
     width="300"
     :expand-on-hover="rail"
-    :model-value="themeStore.sideOpen || !smAndDown"
+    :model-value="themeStore.sideOpen || !$vuetify.display.smAndDown"
   >
     <v-list
       :class="{
@@ -57,7 +57,6 @@
 
 <script lang="ts" setup>
 const themeStore = useThemeStore()
-const { smAndDown } = useDisplay()
 
 const { rail } = storeToRefs(themeStore)
 </script>

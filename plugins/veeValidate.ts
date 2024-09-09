@@ -12,17 +12,8 @@ import ar from '@vee-validate/i18n/dist/locale/ar.json'
 import en from '@vee-validate/i18n/dist/locale/en.json'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  defineRule('required', required)
-  defineRule('email', email)
-  defineRule('min', min_value)
-  defineRule('max', max_value)
-  defineRule('url', url)
-  defineRule('length', length)
-
   localize({ en, ar })
 
-  nuxtApp.vueApp.component('Field', Field)
-  nuxtApp.vueApp.component('Form', Form)
 
   configure({
     generateMessage: localize('ar', {

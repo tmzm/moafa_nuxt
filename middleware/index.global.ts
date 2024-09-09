@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   try {
     await authStore.me()
 
-    if (authStore.user.role == 'user' && to.path.includes('admin'))
+    if (authStore.user.role === 'user' && to.path.includes('admin'))
       return await navigateTo('/')
 
     if (!authStore.user.verified)

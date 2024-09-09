@@ -1,3 +1,4 @@
+import vuetify from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
@@ -63,7 +64,18 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/i18n',
-    '@nuxtjs/device'
+    '@nuxtjs/device',
+    async (options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig', (config) =>
+        // @ts-ignore
+        config.plugins?.push(
+          vuetify({
+            styles: { configFile: '/assets/vuetify/settings.scss' },
+            autoImport: true
+          })
+        )
+      )
+    }
   ],
 
   build: {

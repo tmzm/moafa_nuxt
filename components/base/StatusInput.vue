@@ -16,7 +16,7 @@
 
     <v-switch
       class="flex-grow-0"
-      :model-value="modelValue || false"
+      v-model="value"
       @update:modelValue="$emit('update:modelValue', $event)"
       color="secondary"
     >
@@ -25,13 +25,20 @@
 </template>
 
 <script setup lang="ts">
+import { useField } from 'vee-validate'
+
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
   item: { type: String, default: 'تفعيل العنصر' },
   minimal: { type: Boolean, default: false },
   color: { type: String, default: 'secondary' },
-  mode: { type: String, default: 'normal' }
+  mode: { type: String, default: 'normal' },
+  name: { type: String, required: false }
 })
+
+const { value } = useField(props.name ?? '')
+
+value.value = props.modelValue
 </script>
 
 <style lang="scss">

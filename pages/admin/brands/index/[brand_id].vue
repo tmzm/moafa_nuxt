@@ -7,7 +7,7 @@
   >
     <template #title>Brand details</template>
 
-    <Form v-slot="{ errors }" @submit="submit">
+    <form @submit.prevent="submit">
       <base-label>Image</base-label>
       <base-image-input
         :model-url="editMode ? $config.public.baseUrl + brand.image : undefined"
@@ -16,19 +16,7 @@
 
       <base-label>Name</base-label>
 
-      <Field
-        v-model="brand.name"
-        rules="required"
-        name="name"
-        v-slot="{ field }"
-      >
-        <v-text-field
-          v-bind="field"
-          variant="outlined"
-          label=""
-          :error-messages="errors.name"
-        />
-      </Field>
+      <base-text-field v-model="brand.name" name="name" />
 
       <div class="flex justify-between">
         <base-action-button
@@ -49,13 +37,12 @@
           <v-btn
             type="submit"
             :loading="loading"
-            :disabled="!!Object.keys(errors)?.length"
           >
             Save
           </v-btn>
         </div>
       </div>
-    </Form>
+    </form>
   </base-dialog>
 
   <base-alert-dialog
@@ -69,6 +56,9 @@
 </template>
 
 <script setup lang="ts">
+import * as yup from 'yup'
+import { useForm } from 'vee-validate'
+
 const brandStore = useBrandStore()
 const route = useRoute()
 
@@ -81,11 +71,17 @@ const brandId = route.params.brand_id
 
 const editMode = brandId != 'create'
 
+const { handleSubmit } = useForm({
+  validationSchema: yup.object().shape({
+    name: yup.string().required().min(8).max(120)
+  })
+})
+
 const { pending } = useLazyAsyncData<Brand>(() => {
   // reset
   brand.value = {} as Brand
 
-  if (editMode) return brandStore.get(Number(brandId))
+  if (editMode) brandStore.get(Number(brandId))
 
   return Promise.resolve({} as Brand)
 })
@@ -102,7 +98,7 @@ const remove = async (callback: any) => {
   }
 }
 
-const submit = async () => {
+const submitFun = async () => {
   loading.value = true
 
   try {
@@ -118,6 +114,8 @@ const submit = async () => {
     loading.value = false
   }
 }
+
+const submit = handleSubmit(submitFun)
 
 const goBack = () => navigateTo('/admin/brands')
 </script>

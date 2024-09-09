@@ -1,6 +1,6 @@
 export const useProductStore = defineStore('product', () => {
   const sort = ref('Newest')
-  const products = ref<Product[]>()
+  const products = ref<Product[]>([])
   const quantityShow = ref()
   const fileInput = ref()
 
@@ -17,7 +17,10 @@ export const useProductStore = defineStore('product', () => {
 
   const imageFileInput = ref()
 
-  const product = ref<Product>({} as Product)
+  const product = ref<Product>({
+    description: '',
+    name: '',
+  } as Product)
 
   const router = useRouter()
 

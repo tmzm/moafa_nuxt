@@ -27,9 +27,16 @@ export const appendNewProductData = () => {
     formData.append('categories[]', selectedCategories.value[i].toString())
   }
   formData.append('description', product.value.description)
-  formData.append('meta_description', product.value.meta_description)
-  formData.append('meta_subtitle', product.value.meta_subtitle)
-  formData.append('meta_title', product.value.meta_title)
+
+  if (product.value.meta_description)
+    formData.append('meta_description', product.value.meta_description)
+
+  if (product.value.meta_subtitle)
+    formData.append('meta_subtitle', product.value.meta_subtitle)
+
+  if (product.value.meta_title)
+    formData.append('meta_title', product.value.meta_title)
+
   formData.append(
     'quantity',
     quantityShow.value === 2 ? product.value.quantity.toString() : '0'

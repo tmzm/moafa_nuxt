@@ -8,9 +8,7 @@
   >
     <base-image-input
       class="mx-auto w-fit"
-      :model-url="
-        editMode ? $config.public.baseUrl + product.image : undefined
-      "
+      :model-url="editMode ? $config.public.baseUrl + product.image : undefined"
       v-model="imageFileInput"
     />
     <div class="text-center">
@@ -20,43 +18,26 @@
 
     <v-divider class="my-6" />
 
-    <Form @submit="submit" v-slot="{ errors }">
+    <form @submit.prevent="submit">
       <v-row>
         <v-col cols="12" md="6">
           <base-label>Name</base-label>
 
-          <Field
-            v-model="product.name"
-            rules="required"
-            name="name"
-            v-slot="{ field }"
-          >
-            <v-text-field v-bind="field" :error-messages="errors.name" />
-          </Field>
+          <base-text-field v-model="product.name" name="name" />
         </v-col>
 
         <v-col cols="12" md="6">
           <base-label>Price</base-label>
 
-          <Field
-            v-model="product.price"
-            rules="required"
-            name="price"
-            v-slot="{ field }"
+          <base-text-field type="number" v-model="product.price" name="price"
+            ><template #append> SP </template></base-text-field
           >
-            <v-text-field
-              type="number"
-              v-bind="field"
-              :error-messages="errors.price"
-              ><template v-slot:append> SP </template></v-text-field
-            >
-          </Field>
         </v-col>
 
         <v-col cols="12">
           <base-label>Quantity Option</base-label>
 
-          <v-item-group mandatory v-model="quantityShow">
+          <v-item-group mandatory name="is_quantity" v-model="quantityShow">
             <v-row>
               <v-col v-for="i in quantityOptions" cols="6" md="4">
                 <v-item
@@ -84,38 +65,25 @@
           <transition
             ><div v-if="quantityShow.value === 2">
               <base-label>Quantity</base-label>
-              <Field
+              <v-text-field
                 v-model="product.quantity"
-                :rules="quantityShow.value === 2 ? 'required' : undefined"
+                type="number"
                 name="quantity"
-                v-slot="{ field }"
-              >
-                <v-text-field
-                  v-bind="field"
-                  type="number"
-                  :error-messages="errors.quantity"
-                />
-              </Field></div
+              /></div
           ></transition>
         </v-col>
 
         <v-col cols="12">
           <base-label>Expiration</base-label>
-          <Field
+          <base-date-picker
             v-model="product.expiration"
-            rules="required"
             name="expiration"
-            v-slot="{ field }"
-          >
-            <base-date-picker
-              v-bind="field"
-              :errors="errors.expiration"
-            ></base-date-picker>
-          </Field>
+          ></base-date-picker>
         </v-col>
 
         <v-col cols="12" md="6">
           <base-status-input
+            name="is_offer"
             v-model="product.is_offer"
             item="Is this product has offer ?"
           />
@@ -125,20 +93,13 @@
           <transition>
             <div v-if="product.is_offer">
               <base-label>Offer</base-label>
-              <Field
+              <base-text-field
                 v-model="product.offer"
-                :rules="product.is_offer ? 'required' : undefined"
+                type="number"
                 name="offer"
-                v-slot="{ field }"
               >
-                <v-text-field
-                  v-bind="field"
-                  type="number"
-                  :error-messages="errors.offer"
-                >
-                  <template v-slot:append> % </template>
-                </v-text-field>
-              </Field>
+                <template #append> % </template>
+              </base-text-field>
             </div>
           </transition>
         </v-col>
@@ -146,105 +107,75 @@
         <ClientOnly>
           <v-col cols="12">
             <base-label>Description</base-label>
-            <Field
-              :model-value="product.description"
-              name="description"
-              rules="required"
-              v-slot="{ field }"
-            >
-              <div id="app">
-                <client-only>
-                  <QuillEditor
-                    v-bind="field"
-                    class="min-h-44"
-                    :content="product.description"
-                    @update:content="
+            <div id="app">
+              <client-only>
+                <QuillEditor
+                  class="min-h-44"
+                  name="description"
+                  :content="product.description"
+                  @update:content="
                               (cont: any) => (product.description = cont)
                             "
-                  />
-                </client-only>
-
-                <div class="ms-2 mt-1 text-xs text-red">
-                  {{ errors.description }}
-                </div>
-              </div>
-            </Field>
+                />
+              </client-only>
+            </div>
           </v-col>
         </ClientOnly>
 
         <v-col cols="12" md="6">
           <base-label>Meta title</base-label>
 
-          <Field
-            v-model="product.meta_title"
-            rules="required"
-            name="meta_title"
-            v-slot="{ field }"
-          >
-            <v-text-field v-bind="field" :error-messages="errors.meta_title" />
-          </Field>
+          <v-text-field v-model="product.meta_title" name="meta_title" />
         </v-col>
 
         <v-col cols="12" md="6">
           <base-label>Meta subtitle</base-label>
 
-          <Field
+          <v-text-field
             v-model="product.meta_subtitle"
-            rules="required"
             name="meta_subtitle"
-            v-slot="{ field }"
-          >
-            <v-text-field
-              v-bind="field"
-              :error-messages="errors.meta_subtitle"
-            />
-          </Field>
+          />
         </v-col>
 
         <v-col cols="12">
           <base-label>Meta Description</base-label>
-          <Field
-            v-model:content="product.meta_description"
-            rules="required"
-            name="meta_description"
-            v-slot="{ field }"
-          >
-            <v-textarea
-              v-bind="field"
-              :error-messages="errors.meta_description"
-            />
-          </Field>
+
+          <v-textarea
+            v-model="product.meta_description"
+          />
         </v-col>
       </v-row>
 
       <div>
         <base-label>Categories</base-label>
 
-        <v-select
+        <base-select
           v-model="selectedCategories"
           :loading="pending"
           :items="categories"
           multiple
           hide-details
           chips
+          name="categories"
           closable-chips
           item-title="name"
           item-value="id"
-        ></v-select>
+        ></base-select>
         <div class="mt-1 text-xs">Add product to a categories.</div>
       </div>
 
       <div class="mt-5">
         <base-label>Brands</base-label>
 
-        <v-select
+        <base-select
           v-model="selectedBrand"
           :loading="pending"
           :items="brands"
+          name="brand"
           hide-details
           item-title="name"
           item-value="id"
-        ></v-select>
+        ></base-select>
         <div class="mt-1 text-xs">Add product to brands.</div>
       </div>
 
@@ -265,7 +196,9 @@
           Delete Product
         </base-action-button>
       </div>
-    </Form>
+    {{ errors }}
+
+    </form>
   </base-dialog>
 
   <base-alert-dialog
@@ -279,6 +212,9 @@
 </template>
 
 <script lang="ts" setup>
+import * as yup from 'yup'
+import { useForm } from 'vee-validate'
+
 definePageMeta({
   layout: 'admin'
 })
@@ -318,9 +254,26 @@ const productId = route.params.product_id as string
 
 const editMode = productId != 'create'
 
+const { handleSubmit, errors, setValues } = useForm<Product>({
+  validationSchema: yup.object().shape({
+    name: yup.string().required().min(8).max(120),
+    offer: yup
+      .string()
+      .when('is_offer', { is: true, then: (s) => s.required() }),
+    price: yup.string().required(),
+    quantity: yup
+      .string()
+      .when('is_quantity', { is: true, then: (s) => s.required() }),
+    brand: yup.string().required(),
+    categories: yup.array().required()
+  })
+})
+
 const { pending } = useLazyAsyncData<Product>(async () => {
   // reset
-  product.value = {} as Product
+  product.value = {
+    expiration: new Date()
+  } as Product
 
   selectedCategories.value = []
 
@@ -338,6 +291,12 @@ const { pending } = useLazyAsyncData<Product>(async () => {
     )
 
     selectedBrand.value = product.value.brand_id
+
+    setValues({
+      ...product.value,
+      brand: selectedBrand.value,
+      categories: selectedCategories.value
+    })
   }
 
   return Promise.resolve({} as Product)
@@ -355,7 +314,7 @@ const remove = async (callback: any) => {
   }
 }
 
-const submit = async () => {
+const submitFun = async () => {
   loading.value = true
 
   try {
@@ -370,6 +329,8 @@ const submit = async () => {
     loading.value = false
   }
 }
+
+const submit = handleSubmit(submitFun)
 
 const goBack = () => {
   navigateTo(`/admin/products`)

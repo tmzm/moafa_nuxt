@@ -5,22 +5,11 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <Form v-slot="{ errors }" @submit="submit">
-
+      <form @submit.prevent="submit">
         <div class="item-center md:grid grid-cols-3 flex flex-col gap-2">
           <base-label>Name</base-label>
 
-            <Field
-              v-model="user.name"
-              rules="required"
-              name="name"
-              v-slot="{ field }"
-            >
-              <v-text-field
-                v-bind="field"
-                :error-messages="errors.name"
-              />
-            </Field>
+          <base-text-field v-model="user.name" name="name" />
         </div>
 
         <div class="flex justify-end gap-4">
@@ -30,7 +19,7 @@
 
           <v-btn type="submit" :loading> {{ $t('actions.save') }}</v-btn>
         </div>
-      </Form>
+      </form>
     </v-card-text>
   </v-card>
 </template>

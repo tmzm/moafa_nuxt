@@ -12,58 +12,34 @@
         <div>Your Beautiful online pharmacy</div>
       </div>
 
-      <Form class="flex flex-col gap-4" v-slot="{ errors }" @submit="submit">
+      <form class="flex flex-col gap-4" @submit.prevent="submit">
         <div>
           <base-label>Name</base-label>
-          <Field
-            v-model="user.name"
-            v-slot="{ field }"
-            rules="required"
-            name="name"
-          >
-            <v-text-field :error-messages="errors.name" v-bind="field" />
-          </Field>
+          <base-text-field v-model="user.name" name="name" />
         </div>
 
         <div>
           <base-label>Phone number</base-label>
-          <Field
-            v-model="user.phone_number"
-            v-slot="{ field }"
-            rules="required"
-            name="phone_number"
-          >
-            <v-text-field
-              :error-messages="errors.phone_number"
-              v-bind="field"
-            />
-          </Field>
+          <base-text-field v-model="user.phone_number" name="phone_number" />
         </div>
 
         <div>
           <base-label>Password</base-label>
-          <Field
+          <base-text-field
             v-model="user.password"
-            v-slot="{ field }"
-            rules="required"
+            :type="showPassword ? 'text' : 'password'"
             name="password"
           >
-            <v-text-field
-              :type="showPassword ? 'text' : 'password'"
-              :error-messages="errors.password"
-              v-bind="field"
-            >
-              <template #append-inner>
-                <v-icon @click="showPassword = !showPassword">{{
-                  showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                }}</v-icon>
-              </template>
-            </v-text-field>
-          </Field>
+            <template #append-inner>
+              <v-icon @click="showPassword = !showPassword">{{
+                showPassword ? 'mdi-eye' : 'mdi-eye-off'
+              }}</v-icon>
+            </template>
+          </base-text-field>
         </div>
 
         <v-btn type="submit" :loading class="w-full">Sign up</v-btn>
-      </Form>
+      </form>
 
       <div class="flex gap-2 mt-3">
         <div>Already have an Account?</div>
@@ -74,6 +50,9 @@
 </template>
 
 <script lang="ts" setup>
+import * as yup from 'yup'
+import { useForm } from 'vee-validate'
+
 const authStore = useAuthStore()
 
 const { user } = storeToRefs(authStore)
@@ -81,7 +60,15 @@ const { user } = storeToRefs(authStore)
 const loading = ref(false)
 const showPassword = ref(false)
 
-const submit = async () => {
+const { handleSubmit } = useForm<User>({
+  validationSchema: yup.object().shape({
+    name: yup.string().required().min(8),
+    phone_number: yup.string().required().min(8),
+    password: yup.string().required()
+  })
+})
+
+const submitFun = async () => {
   loading.value = true
 
   try {
@@ -100,6 +87,8 @@ const submit = async () => {
     loading.value = false
   }
 }
+
+const submit = handleSubmit(submitFun)
 
 definePageMeta({
   layout: 'blank'

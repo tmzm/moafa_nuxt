@@ -1,6 +1,4 @@
 import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
 import type { ThemeDefinition } from 'vuetify'
 import { ar } from 'vuetify/locale'
 
@@ -118,9 +116,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       defaultTheme: 'theme',
       themes: { theme }
     },
-
-    components,
-    directives
   })
   nuxtApp.vueApp.use(vuetify)
 })
