@@ -9,7 +9,7 @@
                 <v-chip class="mr-4" size="x-large" color="secondary">{{
                   counts?.products_count
                 }}</v-chip>
-                <v-icon>mdi-cart</v-icon>
+                <v-icon>mdi-cart-outline</v-icon>
                 <div class="flex gap-4 items-center mt-4">
                   <div class="text-lg text-gray">All Products</div>
                   <base-icon-button to="/admin/products/create">mdi-plus</base-icon-button>
@@ -41,7 +41,7 @@
             <v-chip class="mr-4" size="x-large" color="secondary">{{
               counts?.brands_count
             }}</v-chip>
-            <v-icon>mdi-check-decagram</v-icon>
+            <v-icon>mdi-check-decagram-outline</v-icon>
             <div class="flex gap-4 items-center mt-4">
               <div class="text-lg text-gray">All Brands</div>
               <base-icon-button to="/admin/brands/create">mdi-plus</base-icon-button>
@@ -56,7 +56,7 @@
             <v-chip class="mr-4" size="x-large" color="secondary">{{
               counts?.orders_count
             }}</v-chip>
-            <v-icon>mdi-shopping</v-icon>
+            <v-icon>mdi-shopping-outline</v-icon>
             <div class="flex gap-4 items-center mt-4">
               <div class="text-lg text-gray">All Orders</div>
             </div>
@@ -70,7 +70,7 @@
             <v-chip class="mr-4" size="x-large" color="secondary">{{
               counts?.coupons_count
             }}</v-chip>
-            <v-icon>mdi-tag</v-icon>
+            <v-icon>mdi-tag-outline</v-icon>
             <div class="flex gap-4 items-center mt-4">
               <div class="text-lg text-gray">All Coupons</div>
               <base-icon-button to="/admin/coupons/create">mdi-plus</base-icon-button>
@@ -85,7 +85,7 @@
             <v-chip class="mr-4" size="x-large" color="secondary">{{
               counts?.prescriptions_count
             }}</v-chip>
-            <v-icon>mdi-medication</v-icon>
+            <v-icon>mdi-medication-outline</v-icon>
             <div class="flex gap-4 items-center mt-4">
               <div class="text-lg text-gray">All Prescriptions</div>
             </div>
@@ -99,7 +99,7 @@
             <v-chip class="mr-4" size="x-large" color="secondary">{{
               counts?.rates_count
             }}</v-chip>
-            <v-icon>mdi-star</v-icon>
+            <v-icon>mdi-star-outline</v-icon>
             <div class="flex gap-4 items-center mt-4">
               <div class="text-lg text-gray">All Rates</div>
             </div>

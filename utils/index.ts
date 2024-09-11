@@ -1,12 +1,12 @@
 export const navigationItems = [
   {
     text: 'Home',
-    icon: 'mdi-view-dashboard',
+    icon: 'mdi-view-dashboard-outline',
     link: '/admin'
   },
   {
     text: 'Products',
-    icon: 'mdi-cart',
+    icon: 'mdi-cart-outline',
     link: '/admin/products',
     children: [
       {
@@ -21,22 +21,22 @@ export const navigationItems = [
   },
   {
     text: 'Categories',
-    icon: 'mdi-file-tree',
+    icon: 'mdi-file-tree-outline',
     link: '/admin/categories'
   },
   {
     text: 'Brands',
-    icon: 'mdi-check-decagram',
+    icon: 'mdi-check-decagram-outline',
     link: '/admin/brands'
   },
   {
     text: 'Coupons',
-    icon: 'mdi-tag-off',
+    icon: 'mdi-tag-off-outline',
     link: '/admin/coupons'
   },
   {
     text: 'Orders',
-    icon: 'mdi-shopping',
+    icon: 'mdi-shopping-outline',
     link: '/admin/orders'
   },
   {
@@ -46,7 +46,7 @@ export const navigationItems = [
   },
   {
     text: 'User Management',
-    icon: 'mdi-account-cog',
+    icon: 'mdi-account-cog-outline',
     children: [
       {
         text: 'Users',

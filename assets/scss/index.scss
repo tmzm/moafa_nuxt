@@ -36,3 +36,8 @@
   background-color: rgba($color: var(--v-theme-dark), $alpha: 0.05) !important;
   @apply bg-light;
 }
+
+.v-field.v-field--active.v-field--appended.v-field--center-affix.v-field--dirty.v-field--has-background.v-field--no-label.v-field--variant-solo-filled.v-theme--darkTheme.bg-white.v-locale--is-ltr {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: gray !important;
+}
