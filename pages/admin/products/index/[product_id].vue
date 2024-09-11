@@ -283,6 +283,7 @@ const { pending } = useLazyAsyncData<Product>(async () => {
 
     setValues({
       ...product.value,
+      // @ts-ignore
       brand: selectedBrand.value,
       categories: selectedCategories.value
     })

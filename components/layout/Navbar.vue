@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation="0" border>
+  <v-app-bar height="90" elevation="0" border>
     <v-container>
       <div class="flex items-center justify-between p-4">
         <img src="/logo.png" width="120" />

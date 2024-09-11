@@ -1,12 +1,9 @@
 <template>
-  <div
-    class="relative w-full min-h-screen bg-background flex items-center justify-center"
-  >
-    <img class="absolute top-4 start-4 w-24" src="/logo.png" />
-    <v-card :loading="pending || loading" v-if="!error">
-      <v-card-title>Enter Verification Code</v-card-title>
-      <v-card-text>
-        <div class="mb-4">
+  <div class="grid grid-cols-3 min-h-screen bg-background">
+    <div class="p-8 flex flex-col justify-between bg-white">
+      <div>
+        <div class="text-3xl font-semi-bold">Enter Verification Code</div>
+        <div v-if="pending && !error">
           We’ve send you code on
           <span v-for="_ in authStore.user.phone_number.length - 3">*</span>
           <span>{{
@@ -16,27 +13,31 @@
             )
           }}</span>
         </div>
+      </div>
 
-        <form @submit.prevent="submit" class="flex flex-col gap-4">
+      <form @submit.prevent="submit" class="flex flex-col gap-4">
+        <v-otp-input variant="solo-filled" v-model="otp" />
 
-          <v-otp-input
-            v-model="otp"
-          />
+        <v-btn
+          :loading="loading"
+          :disabled="otp < 6 || loading"
+          @click="submit"
+          block
+          >Verify</v-btn
+        >
+      </form>
 
-          <v-btn :loading="loading" :disabled="otp < 6 || loading" @click="submit" block>Verify</v-btn>
-
-        </form>
-
-        <div class="flex gap-2 items-center mt-4">
-          <div>Did not receive the SMS? Check your messages, or</div>
-          <nuxt-link>Resend Code</nuxt-link>
-        </div>
-      </v-card-text>
-    </v-card>
-
-    <v-card title="An error happened" v-else>
-      <v-card-text> </v-card-text>
-    </v-card>
+      <div class="flex gap-2 mt-3">
+        <div>Did not receive the SMS? Check your messages, or</div>
+        <nuxt-link to="/auth/register">Resend Code</nuxt-link>
+      </div>
+    </div>
+    <div
+      class="relative col-span-2 bg-[#F0F1F3] flex justify-center items-center"
+    >
+      <img src="/smartphone-2.svg" width="500" alt="" />
+      <img class="absolute top-4 end-4 w-24" src="/logo.png" />
+    </div>
   </div>
 </template>
 
