@@ -1,29 +1,56 @@
-export const initGroup = (): Group => ({
-  name: ''
+export const initProduct = (): Product => ({
+  name: '',
+  brand_id: 0,
+  description: '',
+  expiration: new Date(),
+  id: 0,
+  is_offer: false,
+  is_quantity: false,
+  meta_description: '',
+  meta_subtitle: '',
+  meta_title: '',
+  offer: 0,
+  price: 0,
+  quantity: 0,
+  rate: 0
+} as Product)
+
+export const initBrand = (): Brand => ({
+  id: 0,
+  name: '',
+} as Brand)
+
+export const initCategory = (): Category => ({
+  id: 0,
+  name: '',
+} as Category)
+
+export const initOrder = (): Order => ({
+  id: 0,
+  accepted_by_user: true,
+  coupon: {} as Coupon,
+  coupon_id: 0,
+  is_prescription: false,
+  is_time: false,
+  location: {} as Location,
+  location_id: 0,
+  name: '',
+  order_items: [],
+  payment_status: false,
+  status: '',
+  time: '',
+  user: {} as User,
+  user_id: 0,
+  prescription: {} as Prescription,
+  created_at: new Date(),
+  updated_at: new Date(),
+  total_price: 0
 })
 
-export const initHabit = (): Habit => ({
-  amount: 1,
-  category_id: 0,
-  goal: 1,
-  icon: 'apple_2',
+export const initCoupon = (): Coupon => ({
   id: 0,
-  interval: 'ANY',
-  name: '',
-  notification: '12:00',
-  start_date: new Date(),
-  unit: 'مرة',
-  days: [
-    'MONDAY',
-    'WEDNESDAY',
-    'FRIDAY',
-    'SUNDAY',
-    'TUESDAY',
-    'THURSDAY',
-    'SATURDAY'
-  ],
-  notes: '',
-  penalty_note: undefined,
-  group_id: 0,
-  consecutive: false
-})
+  code: '',
+  discount: 0,
+  discount_type: 'percentage',
+  user_id: 0
+} as Coupon)

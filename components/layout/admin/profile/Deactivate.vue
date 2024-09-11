@@ -16,7 +16,7 @@
         >
 
         <div>
-          <div class="text-xl text-black mb-2">
+          <div class="text-xl text-dark mb-2">
             You are deactivating you account
           </div>
         </div>

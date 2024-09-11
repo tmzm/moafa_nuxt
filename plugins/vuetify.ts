@@ -3,10 +3,16 @@ import type { ThemeDefinition } from 'vuetify'
 import { ar } from 'vuetify/locale'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const theme: ThemeDefinition = {
+  const lightTheme: ThemeDefinition = {
     dark: false,
 
-    colors
+    colors: lightColors
+  }
+
+  const darkTheme: ThemeDefinition = {
+    dark: true,
+
+    colors: darkColors
   }
 
   const vuetify = createVuetify({
@@ -113,9 +119,16 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
 
     theme: {
-      defaultTheme: 'theme',
-      themes: { theme }
-    },
+      defaultTheme: 'darkTheme',
+
+      variations: {
+        colors: ['primary', 'secondary'],
+        lighten: 1,
+        darken: 2
+      },
+
+      themes: { lightTheme, darkTheme }
+    }
   })
   nuxtApp.vueApp.use(vuetify)
 })

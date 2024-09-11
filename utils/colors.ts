@@ -1,21 +1,31 @@
-export default {
+export const darkColors = {
   primary: '#1A6350',
   secondary: '#F8D33F',
-  'secondary-lighten-1': '#f4df9f',
-  'secondary-lighten-2': '#F6EFDA',
   'on-primary': '#fff',
   'on-secondary': '#fff',
-  blue: '#5caadb',
-  'blue-lighten-1': '#ccecf7',
-  'blue-lighten-2': '#E9F3FF',
-  'blue-darken-1': '#248FB1',
-  dark: '#27232A',
-  light: '#bbc5c9',
-  light_white: '#F7F7F7',
+  dark: '#fff',
+  light: '#454545',
+  'light-2': '#323232',
+  warning: '#ffd240',
+  error: '#f1416c',
+  background: '#0F1014',
+  slate: '#90a4ae',
+  'on-background': '#fff',
+  'on-surface': '#fff'
+}
+
+export const lightColors = {
+  primary: '#1A6350',
+  secondary: '#F8D33F',
+  'on-primary': '#fff',
+  'on-secondary': '#fff',
+  dark: '#262229',
+  light: '#F8F8F9',
+  'light-2': '#F0F1F3',
   warning: '#ffd240',
   error: '#f1416c',
   background: '#F6F6F6',
   slate: '#90a4ae',
-  'on-background': '#2C3D4F',
-  'on-surface': '#2C3D4F'
+  'on-background': '#262229',
+  'on-surface': '#262229'
 }

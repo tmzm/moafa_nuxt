@@ -7,81 +7,47 @@
   >
     <template #title>Admin details</template>
 
-    <Form class="flex flex-col gap-4" v-slot="{ errors }" @submit="submit">
+    <form class="flex flex-col gap-4" @submit.prevent="submit">
       <div>
         <base-label>Name</base-label>
 
-        <Field
-          v-model="user.name"
-          rules="required"
-          name="name"
-          v-slot="{ field }"
-        >
-          <v-text-field
-            v-bind="field"
-            variant="outlined"
-            label=""
-            :error-messages="errors.name"
-          />
-        </Field>
+        <base-text-field v-model="user.name" name="name" />
       </div>
 
       <div>
         <base-label>Phone Number</base-label>
 
-        <Field
-          v-model="user.phone_number"
-          rules="required"
-          name="phone_number"
-          v-slot="{ field }"
-        >
-          <v-text-field
-            v-bind="field"
-            variant="outlined"
-            label=""
-            :error-messages="errors.phone_number"
-          />
-        </Field>
+        <base-text-field v-model="user.phone_number" name="phone_number" />
       </div>
 
       <div>
         <base-label>Password</base-label>
-        <Field
+        <base-text-field
           v-model="user.password"
-          v-slot="{ field }"
-          rules="required"
+          :type="showPassword ? 'text' : 'password'"
           name="password"
         >
-          <v-text-field
-            :type="showPassword ? 'text' : 'password'"
-            :error-messages="errors.password"
-            v-bind="field"
-          >
-            <template #append-inner>
-              <v-icon @click="showPassword = !showPassword">{{
-                showPassword ? 'mdi-eye' : 'mdi-eye-off'
-              }}</v-icon>
-            </template>
-          </v-text-field>
-        </Field>
+          <template #append-inner>
+            <v-icon @click="showPassword = !showPassword">{{
+              showPassword ? 'mdi-eye' : 'mdi-eye-off'
+            }}</v-icon>
+          </template>
+        </base-text-field>
       </div>
 
       <div class="flex gap-2">
         <v-btn-cancel @click="goBack">Cancel</v-btn-cancel>
 
-        <v-btn
-          type="submit"
-          :loading="loading"
-          :disabled="!!Object.keys(errors)?.length"
-        >
-          Save
-        </v-btn>
+        <v-btn type="submit" :loading="loading"> Save </v-btn>
       </div>
-    </Form>
+    </form>
   </base-dialog>
 </template>
 
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+
 const authStore = useAuthStore()
 
 const { user } = storeToRefs(authStore)
@@ -91,7 +57,15 @@ const showPassword = ref<boolean>(false)
 
 user.value = {} as User
 
-const submit = async () => {
+const { handleSubmit } = useForm<User>({
+  validationSchema: yup.object().shape({
+    name: yup.string().required().min(8),
+    phone_number: yup.string().required().min(8),
+    password: yup.string().required()
+  })
+})
+
+const submitFun = async () => {
   loading.value = true
 
   try {
@@ -104,6 +78,8 @@ const submit = async () => {
     loading.value = false
   }
 }
+
+const submit = handleSubmit(submitFun)
 
 const goBack = () => navigateTo('/admin/users')
 </script>

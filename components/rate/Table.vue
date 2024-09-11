@@ -69,6 +69,7 @@
 
       <template #item.number="{ item }">
         <v-rating
+          half-increments
           size="sm"
           color="secondary"
           disabled

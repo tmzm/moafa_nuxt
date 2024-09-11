@@ -7,7 +7,7 @@
   >
     <template #title>Category details</template>
 
-    <Form v-slot="{ errors }" @submit="submit">
+    <form @submit.prevent="submit">
       <base-label>Image</base-label>
       <base-image-input
         :model-url="
@@ -18,19 +18,7 @@
 
       <base-label>Name</base-label>
 
-      <Field
-        v-model="category.name"
-        rules="required"
-        name="name"
-        v-slot="{ field }"
-      >
-        <v-text-field
-          v-bind="field"
-          variant="outlined"
-          label=""
-          :error-messages="errors.name"
-        />
-      </Field>
+      <base-text-field v-model="category.name" name="name" />
 
       <div class="flex justify-between">
         <base-action-button
@@ -48,16 +36,10 @@
         <div class="flex gap-2">
           <v-btn-cancel @click="goBack">Cancel</v-btn-cancel>
 
-          <v-btn
-            type="submit"
-            :loading="loading"
-            :disabled="!!Object.keys(errors)?.length"
-          >
-            Save
-          </v-btn>
+          <v-btn type="submit" :loading="loading"> Save </v-btn>
         </div>
       </div>
-    </Form>
+    </form>
   </base-dialog>
 
   <base-alert-dialog
@@ -71,6 +53,9 @@
 </template>
 
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+
 const categoryStore = useCategoryStore()
 const route = useRoute()
 
@@ -83,11 +68,21 @@ const categoryId = route.params.category_id
 
 const editMode = categoryId != 'create'
 
-const { pending } = useLazyAsyncData<Category>(() => {
-  // reset
-  category.value = {} as Category
+const { handleSubmit, setValues } = useForm<Category>({
+  validationSchema: yup.object().shape({
+    name: yup.string().required().min(8)
+  })
+})
 
-  if (editMode) categoryStore.get(Number(categoryId))
+const { pending } = useLazyAsyncData<Category>(async () => {
+  // reset
+  categoryStore.reset()
+
+  if (editMode) {
+    await categoryStore.get(Number(categoryId))
+
+    setValues(category.value)
+  }
 
   return Promise.resolve({} as Category)
 })
@@ -105,7 +100,7 @@ const remove = async (callback: any) => {
   }
 }
 
-const submit = async () => {
+const submitFun = async () => {
   loading.value = true
 
   try {
@@ -121,6 +116,8 @@ const submit = async () => {
     loading.value = false
   }
 }
+
+const submit = handleSubmit(submitFun)
 
 const goBack = () => navigateTo('/admin/categories')
 </script>

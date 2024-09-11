@@ -1,13 +1,17 @@
+import { initBrand } from "~/composables/init"
+
 export const useBrandStore = defineStore('brand', () => {
   const brands = ref<Brand[]>([])
 
-  const brand = ref<Brand>({} as Brand)
+  const brand = ref<Brand>(initBrand())
 
   const selectedBrand = ref<number>()
 
   const imageFileInput = ref()
 
   const loading = ref(false)
+
+  const reset = () => { brand.value = initBrand() }
 
   const list = async () => {
     const res = await api('/brands')
@@ -63,6 +67,7 @@ export const useBrandStore = defineStore('brand', () => {
     selectedBrand,
     imageFileInput,
     edit,
+    reset,
     remove,
     create
   }

@@ -1,4 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
+
   if (to.path.includes('invite') || to.path.includes('auth')) return
 
   const authStore = useAuthStore()

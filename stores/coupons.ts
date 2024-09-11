@@ -1,3 +1,5 @@
+import { initCoupon } from '~/composables/init'
+
 export const useCouponStore = defineStore('coupon', () => {
   const coupons = ref<Coupon[]>([])
 
@@ -12,7 +14,11 @@ export const useCouponStore = defineStore('coupon', () => {
     sortBy: []
   })
 
-  const coupon = ref<Coupon>({} as Coupon)
+  const coupon = ref<Coupon>(initCoupon())
+
+  const reset = () => {
+    coupon.value = initCoupon()
+  }
 
   const list = async () => {
     const res = await api('/coupons', {
@@ -63,6 +69,7 @@ export const useCouponStore = defineStore('coupon', () => {
     get,
     create,
     edit,
+    reset,
     unique,
     remove,
     couponsTotalCount,

@@ -14,7 +14,6 @@ import en from '@vee-validate/i18n/dist/locale/en.json'
 export default defineNuxtPlugin((nuxtApp) => {
   localize({ en, ar })
 
-
   configure({
     generateMessage: localize('ar', {
       names: {

@@ -6,6 +6,12 @@
     <template v-if="$slots.prepend" #prepend>
       <slot name="prepend"/>
     </template>
+    <template v-if="$slots.prependInner" #prepend-inner>
+      <slot name="prependInner"/>
+    </template>
+    <template v-if="$slots.appendInner" #append-inner>
+      <slot name="appendInner"/>
+    </template>
   </v-text-field>
 </template>
 

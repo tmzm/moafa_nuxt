@@ -1,7 +1,13 @@
+import { initCategory } from "~/composables/init"
+
 export const useCategoryStore = defineStore('categoryStore', () => {
   const categories = ref<Category[]>([])
 
-  const category = ref<Category>({} as Category)
+  const category = ref<Category>(initCategory())
+
+  const reset = () => {
+    category.value = initCategory()
+  }
 
   const dialogDelete = ref(false)
 
@@ -72,6 +78,7 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     category,
     list,
     get,
+    reset,
     selectedCategories,
     edit,
     remove,

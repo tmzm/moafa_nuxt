@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-3 min-h-screen bg-background">
     <div
-      class="relative col-span-2 bg-light_white flex justify-center items-center"
+      class="relative col-span-2 bg-[#F0F1F3] flex justify-center items-center"
     >
       <img src="/images/login-bg.svg" width="500" alt="" />
       <img class="absolute top-4 start-4 w-24" src="/logo.png" />
@@ -54,6 +54,8 @@ import { useForm } from 'vee-validate'
 const authStore = useAuthStore()
 
 const { user } = storeToRefs(authStore)
+
+user.value = {} as User
 
 const loading = ref(false)
 const showPassword = ref(false)

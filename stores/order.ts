@@ -1,13 +1,11 @@
 import dayjs from 'dayjs'
+import { initOrder } from '~/composables/init'
 
 export const useOrderStore = defineStore('order', () => {
   const cart = useCookie('cart')
   const orders = ref<Order[]>([])
-  const order = ref<Order>({
-    time: null,
-    is_time: false
-  } as Order)
-
+  const order = ref<Order>(initOrder())
+  
   const selectedProducts = ref<{ product: Product; orderedQuantity: number }[]>(
     []
   )

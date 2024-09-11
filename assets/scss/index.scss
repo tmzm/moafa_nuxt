@@ -21,3 +21,18 @@
   transform: translateY(-50px);
   opacity: 0;
 }
+
+.ql-toolbar {
+  border: none !important;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  @apply bg-light;
+}
+
+.ql-container {
+  border: none !important;
+  border-bottom-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+  background-color: #F8F8F9;
+  @apply bg-light;
+}

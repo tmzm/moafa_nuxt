@@ -50,8 +50,7 @@ ol::-webkit-scrollbar,
 pre::-webkit-scrollbar,
 span::-webkit-scrollbar,
 ul::-webkit-scrollbar {
-  width: 14px;
-  background-color: white;
+  @apply bg-background w-4;
 }
 
 div::-webkit-scrollbar-thumb,
@@ -60,7 +59,7 @@ ol::-webkit-scrollbar-thumb,
 pre::-webkit-scrollbar-thumb,
 span::-webkit-scrollbar-thumb,
 ul::-webkit-scrollbar-thumb {
-  background-color: #dde3e9;
+  @apply bg-light;
   border: 4px solid rgba(0, 0, 0, 0);
   border-radius: 9999px;
   background-clip: padding-box;

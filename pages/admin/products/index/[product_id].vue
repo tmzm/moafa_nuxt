@@ -37,7 +37,7 @@
         <v-col cols="12">
           <base-label>Quantity Option</base-label>
 
-          <v-item-group mandatory name="is_quantity" v-model="quantityShow">
+          <v-item-group mandatory v-model="quantityShow">
             <v-row>
               <v-col v-for="i in quantityOptions" cols="6" md="4">
                 <v-item
@@ -131,18 +131,13 @@
         <v-col cols="12" md="6">
           <base-label>Meta subtitle</base-label>
 
-          <v-text-field
-            v-model="product.meta_subtitle"
-            name="meta_subtitle"
-          />
+          <v-text-field v-model="product.meta_subtitle" name="meta_subtitle" />
         </v-col>
 
         <v-col cols="12">
           <base-label>Meta Description</base-label>
 
-          <v-textarea
-            v-model="product.meta_description"
-          />
+          <v-textarea v-model="product.meta_description" />
         </v-col>
       </v-row>
 
@@ -196,8 +191,6 @@
           Delete Product
         </base-action-button>
       </div>
-    {{ errors }}
-
     </form>
   </base-dialog>
 
@@ -254,26 +247,22 @@ const productId = route.params.product_id as string
 
 const editMode = productId != 'create'
 
-const { handleSubmit, errors, setValues } = useForm<Product>({
+const { handleSubmit, setValues } = useForm<Product>({
   validationSchema: yup.object().shape({
     name: yup.string().required().min(8).max(120),
     offer: yup
       .string()
-      .when('is_offer', { is: true, then: (s) => s.required() }),
+      .when('is_offer', { is: true, then: (schema) => schema.required() }),
     price: yup.string().required(),
-    quantity: yup
-      .string()
-      .when('is_quantity', { is: true, then: (s) => s.required() }),
+    quantity: yup.number().min(1).max(500),
     brand: yup.string().required(),
-    categories: yup.array().required()
+    categories: yup.array(yup.number()).min(1).required()
   })
 })
 
 const { pending } = useLazyAsyncData<Product>(async () => {
   // reset
-  product.value = {
-    expiration: new Date()
-  } as Product
+  productStore.reset()
 
   selectedCategories.value = []
 

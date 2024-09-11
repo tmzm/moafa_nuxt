@@ -12,6 +12,8 @@
       </base-icon-button>
 
       <div class="flex gap-4 items-center">
+        <layout-theme-switcher />
+
         <base-icon-button color="dark">mdi-bell-ring-outline</base-icon-button>
 
         <layout-admin-profile-menu />
@@ -22,7 +24,6 @@
 
 <script lang="ts" setup>
 const themeStore = useThemeStore()
-const authStore = useAuthStore()
 </script>
 
 <style></style>

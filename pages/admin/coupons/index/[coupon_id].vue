@@ -7,112 +7,54 @@
   >
     <template #title>Coupon details</template>
 
-    <Form v-slot="{ errors }" @submit="submit">
+    <form @submit.prevent="submit">
       <div>
         <base-label>Coupon code</base-label>
 
-        <Field
-          v-model="coupon.code"
-          :rules="!userCoupon ? 'required' : undefined"
-          name="code"
-          v-slot="{ field }"
-        >
-          <v-text-field
-            v-bind="field"
-            :error-messages="errors.code"
-          />
-        </Field>
+        <base-text-field v-model="coupon.code" name="code" />
       </div>
 
       <div>
         <base-label>Discount Type</base-label>
 
-        <Field
+        <base-select
           v-model="coupon.discount_type"
-          rules="required"
+          :items="[
+            {
+              title: 'Percentage value',
+              value: 'percentage'
+            },
+            {
+              title: 'Fixed value',
+              value: 'fixed'
+            }
+          ]"
           name="discount_type"
-          v-slot="{ field }"
-        >
-          <v-select
-            v-bind="field"
-            :items="[
-              {
-                title: 'Percentage value',
-                value: 'percentage'
-              },
-              {
-                title: 'Fixed value',
-                value: 'fixed'
-              }
-            ]"
-            :model-value="field.value"
-            @update:model-value="coupon.discount_type = $event"
-            :error-messages="errors.discount_type"
-          />
-        </Field>
+        />
       </div>
 
       <div>
         <base-label>Discount value</base-label>
 
-        <Field
+        <base-text-field
+          prepend-inner-icon="mdi-tag-multiple"
           v-model="coupon.discount"
-          rules="required"
+          type="number"
           name="discount"
-          v-slot="{ field }"
-        >
-          <v-text-field
-            prepend-inner-icon="mdi-tag-multiple"
-            v-bind="field"
-            type="number"
-            :error-messages="errors.discount"
-          />
-        </Field>
+        />
       </div>
 
       <base-status-input
         class="my-4"
         item="Is the Coupon for specific user?"
+        name="is_user_coupon"
         v-model="userCoupon"
       />
 
       <div v-if="userCoupon">
-        <base-label>Select User</base-label>
+        <base-label>User Phone number</base-label>
 
-        <Field
-          v-model="coupon.user_id"
-          :rules="userCoupon ? 'required' : undefined"
-          name="user"
-          v-slot="{ field }"
-        >
-          <v-autocomplete
-            v-bind="field"
-            :items="users"
-            variant="outlined"
-            item-title="name"
-            item-value="id"
-            clearable
-            :model-value="field.value"
-            @update:model-value="coupon.user_id = $event"
-            :error-messages="errors.user"
-          >
-            <template v-slot:selection="{ item }">
-              <user-item
-                :name="item.raw.name"
-                :id="item.raw.id"
-                :subtitle="item.raw.phone_number"
-              />
-            </template>
-            <template v-slot:item="{ props, item }">
-              <user-item
-                v-bind="props"
-                :name="item.raw.name"
-                :id="item.raw.id"
-                :subtitle="item.raw.phone_number"
-              />
-            </template>
-          </v-autocomplete>
-        </Field>
+        <base-text-field v-model="coupon.user_id" name="phone_number" />
       </div>
 
       <div class="flex justify-between">
@@ -134,13 +76,12 @@
           <v-btn
             type="submit"
             :loading="loading"
-            :disabled="!!Object.keys(errors)?.length"
           >
             Save
           </v-btn>
         </div>
       </div>
-    </Form>
+    </form>
   </base-dialog>
 
   <base-alert-dialog
@@ -154,12 +95,14 @@
 </template>
 
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+
 const couponStore = useCouponStore()
 const authStore = useAuthStore()
 const route = useRoute()
 
 const { coupon, userCoupon } = storeToRefs(couponStore)
-const { users } = storeToRefs(authStore)
 
 const loading = ref<boolean>(false)
 const deleteDialog = ref(false)
@@ -168,19 +111,35 @@ const couponId = route.params.coupon_id
 
 const editMode = couponId != 'create'
 
+const { handleSubmit, setValues } = useForm<Coupon>({
+  validationSchema: yup.object().shape({
+    code: yup.string().required().min(8),
+    discount: yup.number().required().when('discount_type', {
+      is: (val: any) => {
+        return val === 'percentage'
+      },
+      then: schema => schema.min(1).max(99) 
+    }),
+    phone_number: yup.string().when('is_user_coupon', {
+      is: true,
+      then: schema => schema.required()
+    })
+  })
+})
+
 const { pending } = useLazyAsyncData<Coupon>(async () => {
   // reset
-  coupon.value = {} as Coupon
-
-  coupon.value.discount_type = 'percentage'
+  couponStore.reset()
 
   if (editMode) {
     await couponStore.get(Number(couponId))
+
+    setValues(coupon.value)
   }
 
   await authStore.list()
 
-  userCoupon.value = (coupon.value.user_id !== null)
+  userCoupon.value = coupon.value.user_id !== null
 
   return Promise.resolve({} as Coupon)
 })
@@ -198,7 +157,7 @@ const remove = async (callback: any) => {
   }
 }
 
-const submit = async () => {
+const submitFun = async () => {
   loading.value = true
 
   try {
@@ -220,6 +179,8 @@ const submit = async () => {
     loading.value = false
   }
 }
+
+const submit = handleSubmit(submitFun)
 
 const goBack = () => navigateTo('/admin/coupons')
 </script>

@@ -13,12 +13,10 @@
       :class="{
         '!p-3': rail
       }"
-      active-class="bg-white text-secondary"
-      color="secondary"
       nav
     >
       <v-list-item>
-        <v-img class="min-w-26 w-26 my-8 ml-1" src="/logo.png" />
+        <v-img class="min-w-26 w-26 my-8 ml-1" :src="$vuetify.theme.current.dark ? '/logo-white.png' : '/logo.png'" />
       </v-list-item>
 
       <template v-for="item in navigationItems">
@@ -40,7 +38,6 @@
           </template>
 
           <v-list-item
-            active-class="bg-white text-secondary"
             v-for="child in item.children"
             :to="child.link"
             :title="child.text"

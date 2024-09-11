@@ -1,3 +1,5 @@
+import { initProduct } from '~/composables/init'
+
 export const useProductStore = defineStore('product', () => {
   const sort = ref('Newest')
   const products = ref<Product[]>([])
@@ -13,14 +15,15 @@ export const useProductStore = defineStore('product', () => {
     sortBy: []
   })
 
+  const reset = () => {
+    product.value = initProduct()
+  }
+
   const priceFilter = ref()
 
   const imageFileInput = ref()
 
-  const product = ref<Product>({
-    description: '',
-    name: '',
-  } as Product)
+  const product = ref<Product>(initProduct())
 
   const router = useRouter()
 
@@ -129,6 +132,7 @@ export const useProductStore = defineStore('product', () => {
     getPrice,
     getImage,
     create,
+    reset,
     edit,
     product,
     paginationOptions,
