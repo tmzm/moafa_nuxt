@@ -192,6 +192,7 @@
         </base-action-button>
       </div>
     </form>
+    {{ errors }}
   </base-dialog>
 
   <base-alert-dialog
@@ -247,14 +248,14 @@ const productId = route.params.product_id as string
 
 const editMode = productId != 'create'
 
-const { handleSubmit, setValues } = useForm<Product>({
+const { handleSubmit, setValues, errors } = useForm<Product>({
   validationSchema: yup.object().shape({
     name: yup.string().required().min(8).max(120),
     offer: yup
       .string()
       .when('is_offer', { is: true, then: (schema) => schema.required() }),
     price: yup.string().required(),
-    quantity: yup.number().min(1).max(500),
+    // quantity: yup.number().min(1).max(500),
     brand: yup.string().required(),
     categories: yup.array(yup.number()).min(1).required()
   })

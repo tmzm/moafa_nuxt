@@ -4,12 +4,13 @@
       v-bind="props"
       :elevation="isHovering ? 12 : 0"
       :rounded="false"
-      max-width="270"
+      min-width="260"
+      class="!relative"
     >
       <v-chip
         variant="flat"
         color="error"
-        class="!px-4 absolute top-4 left-6 z-10"
+        class="!px-4 absolute top-4 left-0 z-10"
         >SALE!</v-chip
       >
 

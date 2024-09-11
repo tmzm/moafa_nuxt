@@ -1,34 +1,32 @@
 <template>
-  <v-app-bar height="90" elevation="0" border>
-    <v-container>
-      <div class="flex items-center justify-between p-4">
-        <img src="/logo.png" width="120" />
+  <v-app-bar height="90" border>
+    <div class="w-full flex items-center justify-between py-4 px-8">
+      <img src="/logo.png" width="120" />
 
-        <v-text-field
-          rounded
-          hide-details
-          max-width="400"
-          placeholder="Search"
-          prepend-inner-icon="mdi-magnify"
-        />
+      <v-text-field
+        rounded
+        hide-details
+        max-width="400"
+        placeholder="Search"
+        append-inner-icon="mdi-magnify"
+      />
 
-        <div class="flex items-center gap-4">
-          <layout-language-switcher />
+      <div class="flex items-center gap-4">
+        <layout-language-switcher />
 
-          <v-divider vertical />
+        <v-divider vertical />
 
-          <v-icon size="24">mdi-account-outline</v-icon>
+        <v-icon size="24">mdi-account-outline</v-icon>
 
-          <v-badge color="primary" :content="0">
-            <v-icon size="24">mdi-heart-outline</v-icon>
-          </v-badge>
+        <v-badge color="primary" :content="0">
+          <v-icon size="24">mdi-heart-outline</v-icon>
+        </v-badge>
 
-          <v-badge color="primary" :content="0">
-            <v-icon size="24">mdi-cart-outline</v-icon>
-          </v-badge>
-        </div>
+        <v-badge color="primary" :content="0">
+          <v-icon size="24">mdi-cart-outline</v-icon>
+        </v-badge>
       </div>
-    </v-container>
+    </div>
   </v-app-bar>
 </template>
 

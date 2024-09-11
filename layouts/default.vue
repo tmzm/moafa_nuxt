@@ -2,9 +2,9 @@
   <v-layout>
     <layout-navbar />
     <v-main class="min-h-screen">
-      <v-container class="p-8">
+      <div>
         <slot />
-      </v-container>
+      </div>
     </v-main>
   </v-layout>
 </template>
