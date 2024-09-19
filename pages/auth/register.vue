@@ -30,7 +30,7 @@
             :type="showPassword ? 'text' : 'password'"
             name="password"
           >
-            <template #append-inner>
+            <template #appendInner>
               <v-icon @click="showPassword = !showPassword">{{
                 showPassword ? 'mdi-eye' : 'mdi-eye-off'
               }}</v-icon>

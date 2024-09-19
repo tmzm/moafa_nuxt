@@ -24,8 +24,6 @@
   </base-page-header>
 
   <product-table />
-
-  <nuxt-page />
 </template>
 
 <style></style>

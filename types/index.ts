@@ -155,9 +155,42 @@ declare global {
     updated_at: Date
     id: number
     user_id?: number
+    price?: number
     user?: User
     code: string
     discount: number
     discount_type: 'percentage' | 'fixed'
+  }
+
+  export interface Message {
+    created_at: Date
+    updated_at: Date
+    id: number
+    sender: User
+    receiver: User
+    sender_id: number
+    receiver_id: number
+    content: string
+  }
+
+  export interface CouponPurchase {
+    created_at: Date
+    updated_at: Date
+    id: number
+    user_id: number
+    user?: User
+    coupon_id: number
+    coupon?: Coupon
+  }
+
+  export interface PointsTransfer {
+    created_at: Date
+    updated_at: Date
+    id: number
+    user_id: number
+    user?: User
+    amount: number
+    reason: string
+    type: 'deposit' | 'withdrawal'
   }
 }

@@ -10,8 +10,13 @@
 import { useTheme } from 'vuetify'
 
 const theme = useTheme()
+const themeDefault = useCookie('moafa.theme')
 
 const toggle = () => {
-  theme.global.name.value = theme.global.current.value.dark ? 'lightTheme' : 'darkTheme'
+  theme.global.name.value = theme.global.current.value.dark
+    ? 'lightTheme'
+    : 'darkTheme'
+
+  themeDefault.value = theme.global.name.value
 }
 </script>

@@ -1,27 +1,17 @@
 <template>
   <base-page-header
-    title="Coupons"
+    title="Coupons Purchases"
     :breadcrumbs="[
       {
         title: 'Home',
-        to: '/'
+        to: '/admin'
       },
       {
-        title: 'Coupons',
+        title: 'Coupons Purchases',
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button
-        variant="tonal"
-        to="/admin/coupons/create"
-        icon="mdi-plus"
-      >
-        Add Coupon</base-action-button
-      >
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
     <v-card-text>
@@ -52,26 +42,20 @@
     <v-data-table-server
       density="comfortable"
       class="text-no-wrap"
-      :items="coupons"
-      :items-length="coupons?.length ?? 0"
+      :items="couponsPurchases"
+      :items-length="couponsPurchases?.length ?? 0"
       :loading="pending"
       item-key="id"
-      :headers="couponHeaders"
+      :headers="couponPurchasesHeaders"
     >
       <template #item.actions="{ item }">
         <base-icon-button
-          class="mr-2"
-          @click="navigateTo(`/admin/coupons/${item.id}`)"
-          >mdi-pencil-outline</base-icon-button
-        >
-        <base-icon-button
-          color="primary"
-          @click="navigateTo(`/admin/coupons/${item.id}/details`)"
-          >mdi-eye</base-icon-button
+          color="red"
+          >mdi-delete-outline</base-icon-button
         >
       </template>
 
-      <template #item.user="{ item }">
+      <template #item.user_id="{ item }">
         <template v-if="item.user">
           <user-item
             @click="navigateTo(`/admin/users/${item.user.id}`)"
@@ -85,16 +69,19 @@
         </template>
       </template>
 
-      <template #item.discount_type="{ item }">
-        <v-chip color="success">{{ item.discount_type.toUpperCase() }}</v-chip>
-      </template>
-
-      <template #item.code="{ item }">
-        {{ item.code ?? '----' }}
-      </template>
-
-      <template #item.price="{ item }">
-        {{ item.price && item.price > 0 ? item.price : '--.--' }}
+      <template #item.coupon_id="{ item }">
+        <v-tooltip text="Click to edit coupon" location="end">
+          <template #activator="{ props }">
+            <v-chip
+              v-bind="props"
+              @click="navigateTo(`/admin/coupons/${item.coupon?.id}`)"
+              color="success"
+              >{{
+                item.coupon?.code ? '#' + item.coupon.code : 'Coupon Used'
+              }}</v-chip
+            >
+          </template>
+        </v-tooltip>
       </template>
 
       <template #item.created_at="{ item }">
@@ -125,16 +112,21 @@ definePageMeta({
   layout: 'admin'
 })
 
-const couponStore = useCouponStore()
+const couponPurchasesStore = useCouponPurchasesStore()
 
 const page = ref(1)
 const itemsPerPage = ref(10)
 
-const { coupons, paginationOptions, search, couponsTotalCount } =
-  storeToRefs(couponStore)
+const {
+  couponsPurchases,
+  paginationOptions,
+  search,
+  couponsPurchasesTotalCount
+} = storeToRefs(couponPurchasesStore)
 
-const { pending, refresh } = await useLazyAsyncData('list_all_coupons', () =>
-  couponStore.list()
+const { pending, refresh } = await useLazyAsyncData(
+  'list_all_coupons_purchases',
+  () => couponPurchasesStore.list()
 )
 
 watch(page, () => {
@@ -155,6 +147,6 @@ debouncedWatch(search, () => refresh(), {
 })
 
 const pageCount = computed(() => {
-  return Math.ceil(couponsTotalCount.value / itemsPerPage.value)
+  return Math.ceil(couponsPurchasesTotalCount.value / itemsPerPage.value)
 })
 </script>

@@ -4,6 +4,7 @@ export const useCouponStore = defineStore('coupon', () => {
   const coupons = ref<Coupon[]>([])
 
   const userCoupon = ref(false)
+  const couponIsPrice = ref(false)
 
   const search = ref()
   const couponsTotalCount = ref(0)
@@ -40,6 +41,8 @@ export const useCouponStore = defineStore('coupon', () => {
   }
 
   const create = async () => {
+    coupon.value.price = couponIsPrice.value ? coupon.value.price : 0
+
     await api(`/coupons/create`, {
       method: 'post',
       body: coupon.value
@@ -73,6 +76,7 @@ export const useCouponStore = defineStore('coupon', () => {
     unique,
     remove,
     couponsTotalCount,
+    couponIsPrice,
     search,
     userCoupon
   }

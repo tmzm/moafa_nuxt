@@ -139,6 +139,10 @@ export const useAuthStore = defineStore('auth', () => {
     refreshToken.value = undefined
   }
 
+  const unique = async (phone_number: any) => {
+    return await api(`users/${phone_number}/unique`)
+  }
+
   return {
     me,
     get,
@@ -151,6 +155,7 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     logout,
     signup,
+    unique,
     remove,
     deactivate,
     loading,

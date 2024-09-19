@@ -5,6 +5,9 @@ export const navigationItems = [
     link: '/admin'
   },
   {
+    text: 'Catalog'
+  },
+  {
     text: 'Products',
     icon: 'mdi-cart-outline',
     link: '/admin/products',
@@ -32,7 +35,19 @@ export const navigationItems = [
   {
     text: 'Coupons',
     icon: 'mdi-tag-off-outline',
-    link: '/admin/coupons'
+    children: [
+      {
+        text: 'Coupons List',
+        link: '/admin/coupons'
+      },
+      {
+        text: 'Coupons Purchases',
+        link: '/admin/coupon-purchases'
+      }
+    ]
+  },
+  {
+    text: 'Sales'
   },
   {
     text: 'Orders',
@@ -43,6 +58,22 @@ export const navigationItems = [
     text: 'Prescriptions',
     icon: 'mdi-prescription',
     link: '/admin/prescriptions'
+  },
+  {
+    text: 'Customers'
+  },
+  {
+    text: 'Customer Support',
+    icon: 'mdi-account-tie',
+    link: '/admin/customer-support'
+  },
+  {
+    text: 'Points Transfers',
+    icon: 'mdi-bank-transfer',
+    link: '/admin/points'
+  },
+  {
+    text: 'Management'
   },
   {
     text: 'User Management',
@@ -178,11 +209,34 @@ export const couponHeaders = [
     key: 'discount'
   },
   {
+    title: 'Price',
+    key: 'price'
+  },
+  {
     title: 'User',
     key: 'user'
   },
   {
     title: 'Created At',
+    key: 'created_at'
+  },
+  {
+    title: 'Actions',
+    key: 'actions'
+  }
+]
+
+export const couponPurchasesHeaders = [
+  {
+    title: 'User',
+    key: 'user_id'
+  },
+  {
+    title: 'Coupon',
+    key: 'coupon_id'
+  },
+  {
+    title: 'Purchased At',
     key: 'created_at'
   },
   {
@@ -238,5 +292,28 @@ export const userHeaders = [
   {
     title: 'Actions',
     key: 'actions'
+  }
+]
+
+export const pointsTransfersHeaders = [
+  {
+    title: 'User',
+    key: 'user_id'
+  },
+  {
+    title: 'Amount',
+    key: 'amount'
+  },
+  {
+    title: 'Type',
+    key: 'type'
+  },
+  {
+    title: 'Reason',
+    key: 'reason'
+  },
+  {
+    title: 'Transferred At',
+    key: 'created_at'
   }
 ]

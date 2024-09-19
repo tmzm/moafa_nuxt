@@ -1,8 +1,12 @@
 <template>
-  <div
-    class="flex items-center gap-x-4 border-dark border-1 border-dashed elevation-2 rounded-lg py-2 px-4"
+  <v-card
+    elevation="2"
+    :color
+    variant="outlined"
+    class="border-dark !border-2 border-dashed !rounded-lg"
   >
-    <v-icon size="x-large">mdi-alert-circle-outline</v-icon>
+    <v-card-text class="flex items-center gap-x-4">
+      <v-icon size="x-large">mdi-alert-circle-outline</v-icon>
 
     <div class="flex flex-col flex-grow-1">
       <div class="font-weight-bold text-subtitle-1">
@@ -21,7 +25,8 @@
       color="secondary"
     >
     </v-switch>
-  </div>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script setup lang="ts">

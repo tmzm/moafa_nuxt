@@ -21,6 +21,7 @@
 
       <template v-for="item in navigationItems">
         <v-list-item
+          :class="!item.icon && !item.link ? '!text-sm' : ''"
           v-if="!item.children"
           :prepend-icon="item.icon"
           :title="item.text"
