@@ -9,9 +9,11 @@
     >
       <v-chip
         variant="flat"
-        color="error"
+        color="red"
+        size="large"
+        v-if="product.is_offer"
         class="!px-4 absolute top-4 left-0 z-10"
-        >SALE!</v-chip
+        >{{ product.offer }}%</v-chip
       >
 
       <v-img class="px-6" :aspect-ratio="1" :src="$config.public.baseUrl + product.image">
