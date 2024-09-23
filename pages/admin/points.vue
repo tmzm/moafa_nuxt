@@ -1,24 +1,20 @@
 <template>
   <base-page-header
-    title="Coupons"
+    title="Points Transfers"
     :breadcrumbs="[
       {
         title: 'Home',
-        to: '/'
+        to: '/admin'
       },
       {
-        title: 'Coupons',
+        title: 'Points Transfers',
         disabled: true
       }
     ]"
   >
     <template #actions>
-      <base-action-button
-        variant="tonal"
-        to="/admin/coupons/create"
-        icon="mdi-plus"
-      >
-        Add Coupon</base-action-button
+      <base-action-button icon="mdi-plus" to="/admin/points/transfer"
+        >Create Transfer</base-action-button
       >
     </template>
   </base-page-header>
@@ -52,26 +48,13 @@
     <v-data-table-server
       density="comfortable"
       class="text-no-wrap"
-      :items="coupons"
-      :items-length="coupons?.length ?? 0"
+      :items="pointsTransfers"
+      :items-length="pointsTransfers?.length ?? 0"
       :loading="pending"
       item-key="id"
-      :headers="couponHeaders"
+      :headers="pointsTransfersHeaders"
     >
-      <template #item.actions="{ item }">
-        <base-icon-button
-          class="mr-2"
-          @click="navigateTo(`/admin/coupons/${item.id}`)"
-          >mdi-pencil-outline</base-icon-button
-        >
-        <base-icon-button
-          color="primary"
-          @click="navigateTo(`/admin/coupons/${item.id}/details`)"
-          >mdi-eye</base-icon-button
-        >
-      </template>
-
-      <template #item.user="{ item }">
+      <template #item.user_id="{ item }">
         <template v-if="item.user">
           <user-item
             @click="navigateTo(`/admin/users/${item.user.id}`)"
@@ -85,16 +68,8 @@
         </template>
       </template>
 
-      <template #item.discount_type="{ item }">
-        <v-chip color="success">{{ item.discount_type.toUpperCase() }}</v-chip>
-      </template>
-
-      <template #item.code="{ item }">
-        {{ item.code ?? '----' }}
-      </template>
-
-      <template #item.price="{ item }">
-        {{ item.price && item.price > 0 ? item.price : '--.--' }}
+      <template #item.type="{ item }">
+        <v-chip :color=" item.type == 'deposit' ? 'success' : 'error'">{{ item.type.toUpperCase() }}</v-chip>
       </template>
 
       <template #item.created_at="{ item }">
@@ -125,16 +100,21 @@ definePageMeta({
   layout: 'admin'
 })
 
-const couponStore = useCouponStore()
+const pointsStore = usePointsStore()
 
 const page = ref(1)
 const itemsPerPage = ref(10)
 
-const { coupons, paginationOptions, search, couponsTotalCount } =
-  storeToRefs(couponStore)
+const {
+  pointsTransfers,
+  paginationOptions,
+  search,
+  pointsTransfersTotalCount
+} = storeToRefs(pointsStore)
 
-const { pending, refresh } = await useLazyAsyncData('list_all_coupons', () =>
-  couponStore.list()
+const { pending, refresh } = await useLazyAsyncData(
+  'list_all_points_transfers',
+  () => pointsStore.list()
 )
 
 watch(page, () => {
@@ -155,6 +135,6 @@ debouncedWatch(search, () => refresh(), {
 })
 
 const pageCount = computed(() => {
-  return Math.ceil(couponsTotalCount.value / itemsPerPage.value)
+  return Math.ceil(pointsTransfersTotalCount.value / itemsPerPage.value)
 })
 </script>

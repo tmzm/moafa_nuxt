@@ -28,7 +28,7 @@
             name="password"
             v-model="user.password"
           >
-            <template #append-inner>
+            <template #appendInner>
               <v-icon @click.prevent="showPassword = !showPassword">{{
                 showPassword ? 'mdi-eye' : 'mdi-eye-off'
               }}</v-icon>
