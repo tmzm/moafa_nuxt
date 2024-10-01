@@ -19,7 +19,11 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   >([])
 
   const list = async () => {
-    counts.value = (await api('analytics')).data
+    const res = await api('analytics')
+
+    counts.value = res.data
+    
+    return res.data
   }
 
   const listCategoriesSales = async () => {

@@ -192,13 +192,13 @@
             <v-list-item v-if="item.product" :title="item.product.name">
               <template #prepend>
                 <v-img
-                  :lazy-src="$config.public.basePlaceholderUrl"
+                  :lazy-src="loadImage()"
                   cover
                   rounded="lg"
                   class="mr-2 my-2"
                   width="50"
                   aspect-ratio="1"
-                  :src="$config.public.baseUrl + item.product.image"
+                  :src="loadImage(item.product.image)"
                 />
               </template>
             </v-list-item>

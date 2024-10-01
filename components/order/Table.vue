@@ -36,6 +36,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="orders.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="orders"
@@ -48,12 +49,13 @@
         <base-icon-button
           @click="navigateTo(`/admin/orders/${item.id}`)"
           class="me-2"
+          size="md"
           color="secondary"
           >mdi-eye-outline</base-icon-button
         >
         <v-tooltip text="Click to copy order url">
           <template #activator="{ props }">
-            <base-icon-button color="primary" v-bind="props"
+            <base-icon-button size="md" v-bind="props"
               >mdi-link</base-icon-button
             >
           </template>
@@ -84,7 +86,7 @@
         <user-item
           :id="item.user.id"
           :name="item.user.name"
-          @click="navigateTo(`/admin/users/${item.user?.id}`)"
+          @click="navigateTo(`/admin/users/${item.user?.id}/details`)"
         />
       </template>
 
@@ -131,6 +133,10 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No orders yet </template>
+    </layout-empty-placeholder>
   </v-card>
 </template>
 

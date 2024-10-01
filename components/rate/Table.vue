@@ -36,6 +36,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="rates.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="rates"
@@ -47,13 +48,13 @@
       <template #item.product="{ item }">
         <div class="flex items-center gap-3">
           <v-img
-            :lazy-src="$config.public.basePlaceholderUrl"
+            :lazy-src="loadImage()"
             cover
             rounded="lg"
             class="!my-4 !max-w-24"
             width="50"
             aspect-ratio="1"
-            :src="$config.public.baseUrl + item.product?.image"
+            :src="loadImage(item.product?.image)"
           />
           <div>{{ item.product?.name }}</div>
         </div>
@@ -63,7 +64,7 @@
         <user-item
           :id="item.user?.id ?? 0"
           :name="item.user?.name ?? ''"
-          @click="navigateTo(`/admin/users/${item.user?.id}`)"
+          @click="navigateTo(`/admin/users/${item.user?.id}/details`)"
         />
       </template>
 
@@ -91,6 +92,10 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Rates yet </template>
+    </layout-empty-placeholder>
   </v-card>
 </template>
 

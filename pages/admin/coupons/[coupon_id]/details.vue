@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-page-header
-      title="User Details"
+      title="Coupon Details"
       :breadcrumbs="[
         {
           title: 'Home',
@@ -32,16 +32,22 @@
         <v-col cols="12" md="4">
           <v-card>
             <v-card-title>
-              <div
-                @click="
-                  () => {
-                    useClipboard().copy(coupon.code)
-                    showSuccessToaster('Copied!')
-                  }
-                "
-              >
-                #{{ coupon.code }}
-              </div>
+              <v-tooltip text="Copy coupon code">
+                <template #activator="{ props }">
+                  <div
+                    v-bind="props"
+                    class="w-fit cursor-pointer"
+                    @click="
+                      () => {
+                        useClipboard().copy(coupon.code)
+                        showSuccessToaster('Copied!')
+                      }
+                    "
+                  >
+                    #{{ coupon.code }}
+                  </div>
+                </template>
+              </v-tooltip>
             </v-card-title>
 
             <v-divider />

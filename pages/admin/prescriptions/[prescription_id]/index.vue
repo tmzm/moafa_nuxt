@@ -38,7 +38,7 @@
         <v-col cols="12" md="6">
           <v-img
             rounded="lg"
-            :src="$config.public.baseUrl + prescription.image"
+            :src="loadImage(prescription.image)"
           />
         </v-col>
         <v-col cols="12" md="6">
@@ -46,7 +46,7 @@
             :name="prescription.user?.name"
             :subtitle="prescription.user?.phone_number"
             :id="prescription.user?.id"
-            @click="navigateTo(`/admin/users/${prescription.user?.id}`)"
+            @click="navigateTo(`/admin/users/${prescription.user?.id}/details`)"
           />
           <base-label>Description:</base-label>
           <div class="text-lg">{{ prescription.description }}</div>

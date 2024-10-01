@@ -69,3 +69,17 @@ export const showErrorToaster = (msg: string) => {
   const toasterStore = useToasterStore()
   toasterStore.showErrorToaster(msg)
 }
+
+export const loadImage = (url?: string) => {
+  const config = useRuntimeConfig()
+
+  if (url) {
+    if (url.includes('http')) {
+      return url
+    } else {
+      return config.public.baseUrl + url
+    }
+  } else {
+    return config.public.basePlaceholderUrl
+  }
+}

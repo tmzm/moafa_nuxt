@@ -16,7 +16,7 @@
         >{{ product.offer }}%</v-chip
       >
 
-      <v-img class="px-6" :aspect-ratio="1" :src="$config.public.baseUrl + product.image">
+      <v-img class="px-6" :aspect-ratio="1" :src="loadImage(product.image)">
         <v-overlay
           :model-value="!!isHovering"
           class="align-center justify-center gap-4"

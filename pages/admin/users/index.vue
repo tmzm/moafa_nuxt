@@ -34,23 +34,13 @@
             hide-details
           ></v-text-field>
         </v-col>
-        <v-col md="4" cols="6">
-          <v-text-field
-            type="number"
-            :max="usersTotalCount"
-            min="5"
-            @update:model-value="itemsPerPage = parseInt($event, 10)"
-            :model-value="itemsPerPage"
-            label="items per page"
-            hide-details
-          ></v-text-field>
-        </v-col>
       </v-row>
     </v-card-text>
 
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="users.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="users"
@@ -60,7 +50,7 @@
       :headers="userHeaders"
     >
       <template #item.actions="{ item }">
-        <base-icon-button @click="navigateTo(`/admin/users/${item.id}`)"
+        <base-icon-button @click="navigateTo(`/admin/users/${item.id}/details`)"
           >mdi-eye</base-icon-button
         >
       </template>
@@ -69,7 +59,7 @@
         <user-item
           :id="item.id"
           :name="item.name"
-          @click="navigateTo(`/admin/users/${item?.id}`)"
+          @click="navigateTo(`/admin/users/${item?.id}/details`)"
         />
       </template>
 
@@ -93,6 +83,15 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Users yet </template>
+
+      <template #subtitle>
+        You can create admin by clicking
+        <v-chip size="small" color="secondary">Add admin</v-chip> button
+      </template>
+    </layout-empty-placeholder>
   </v-card>
 
   <nuxt-page />

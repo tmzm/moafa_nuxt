@@ -63,11 +63,6 @@ export const navigationItems = [
     text: 'Customers'
   },
   {
-    text: 'Customer Support',
-    icon: 'mdi-account-tie',
-    link: '/admin/customer-support'
-  },
-  {
     text: 'Points Transfers',
     icon: 'mdi-bank-transfer',
     link: '/admin/points'
@@ -124,7 +119,7 @@ export const productHeaders = [
     key: 'category_products'
   },
   {
-    title: 'Actions',
+    title: '',
     key: 'actions'
   }
 ]
@@ -167,7 +162,7 @@ export const orderHeaders = [
     key: 'order_items_count'
   },
   {
-    title: 'Actions',
+    title: '',
     key: 'actions'
   }
 ]
@@ -221,7 +216,7 @@ export const couponHeaders = [
     key: 'created_at'
   },
   {
-    title: 'Actions',
+    title: '',
     key: 'actions'
   }
 ]
@@ -240,7 +235,7 @@ export const couponPurchasesHeaders = [
     key: 'created_at'
   },
   {
-    title: 'Actions',
+    title: '',
     key: 'actions'
   }
 ]
@@ -267,7 +262,7 @@ export const prescriptionHeaders = [
     key: 'created_at'
   },
   {
-    title: 'Actions',
+    title: '',
     key: 'actions'
   }
 ]
@@ -290,7 +285,7 @@ export const userHeaders = [
     key: 'created_at'
   },
   {
-    title: 'Actions',
+    title: '',
     key: 'actions'
   }
 ]

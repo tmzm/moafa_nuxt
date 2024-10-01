@@ -21,6 +21,7 @@
 
   <v-card class="overflow-hidden">
     <v-data-table-server
+      v-if="brands.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="brands"
@@ -48,6 +49,7 @@
       <template #item.id="{ item }">
         <base-icon-button
           class="me-2"
+          size="small"
           @click="navigateTo(`/admin/brands/${item.id}`)"
           >mdi-pencil-outline</base-icon-button
         >
@@ -56,17 +58,26 @@
       <template #item.image="{ item }">
         <div class="flex items-center gap-3">
           <v-img
-            :lazy-src="$config.public.basePlaceholderUrl"
+            :lazy-src="loadImage()"
             cover
             rounded="lg"
             class="!my-4 !max-w-16"
             width="50"
             aspect-ratio="1"
-            :src="$config.public.baseUrl + item.image"
+            :src="loadImage(item.image)"
           />
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Brands yet </template>
+
+      <template #subtitle>
+        You can create brand by clicking
+        <v-chip size="small" color="secondary">Add brand</v-chip> button
+      </template>
+    </layout-empty-placeholder>
   </v-card>
 
   <nuxt-page />

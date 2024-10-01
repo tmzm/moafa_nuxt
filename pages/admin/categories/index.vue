@@ -24,7 +24,7 @@
       density="comfortable"
       class="text-no-wrap"
       :items="categories"
-      :loading="pending"
+      :loading="status == 'pending'"
       :items-length="categories.length"
       :headers="[
         {
@@ -56,13 +56,13 @@
       <template #item.image="{ item }">
         <div class="flex items-center gap-3">
           <v-img
-            :lazy-src="$config.public.basePlaceholderUrl"
+            :lazy-src="loadImage()"
             cover
             rounded="lg"
             class="!my-4 !max-w-16"
             width="50"
             aspect-ratio="1"
-            :src="$config.public.baseUrl + item.image"
+            :src="loadImage(item.image)"
           />
         </div>
       </template>
@@ -83,7 +83,7 @@ const categoryStore = useCategoryStore()
 
 const { categories } = storeToRefs(categoryStore)
 
-const { pending } = await useAsyncData(() =>
+const { status } = await useLazyAsyncData(() =>
   categoryStore.list()
 )
 </script>

@@ -8,7 +8,7 @@
       <v-img
         class="!w-16 me-4 aspect-square object-cover"
         rounded="lg"
-        :src="$config.public.baseUrl + product.image"
+        :src="loadImage(product.image)"
       />
     </template>
   </v-list-item>

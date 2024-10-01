@@ -164,7 +164,7 @@
           <base-image-input
             class="mx-auto w-fit"
             :model-url="
-              editMode ? $config.public.baseUrl + product.image : undefined
+              editMode ? loadImage(product.image) : undefined
             "
             v-model="imageFileInput"
           />

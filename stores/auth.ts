@@ -68,10 +68,18 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const list = async () => {
-    const res = await api('users')
+    const res = await api('users', {
+      method: 'post',
+      body: {
+        search: search.value,
+        ...paginationParams(paginationOptions.value, usersTotalCount.value)
+      }
+    })
 
     users.value = res.data.users.filter((e: any) => e.id !== user.value?.id)
     usersTotalCount.value = res.data.count
+
+    return res.data
   }
 
   const me = async (token?: string) => {

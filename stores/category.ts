@@ -27,12 +27,16 @@ export const useCategoryStore = defineStore('categoryStore', () => {
     const res = await api('/categories')
 
     categories.value = res.data
+
+    return res.data
   }
 
   const get = async (id: number) => {
     const res = await api(`/categories/${id}`)
 
     category.value = res.data
+
+    return res.data
   }
 
   const create = async () => {

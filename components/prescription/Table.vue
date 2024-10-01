@@ -36,6 +36,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="prescriptions?.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="prescriptions"
@@ -48,7 +49,7 @@
         <user-item
           :id="item.user.id"
           :name="item.user.name"
-          @click="navigateTo(`/admin/users/${item.user?.id}`)"
+          @click="navigateTo(`/admin/users/${item.user?.id}/details`)"
         />
       </template>
 
@@ -56,12 +57,12 @@
         <base-icon-button
           :to="`/admin/prescriptions/${item.id}`"
           class="me-2"
-          color="primary"
+          size="md"
           >mdi-eye-outline</base-icon-button
         >
         <v-tooltip v-if="item.order_id" text="Click to copy order url">
           <template #activator="{ props }">
-            <base-icon-button color="secondary" v-bind="props"
+            <base-icon-button size="md" color="secondary" v-bind="props"
               >mdi-link</base-icon-button
             >
           </template>
@@ -71,13 +72,13 @@
       <template #item.image="{ item }">
         <div class="flex items-center gap-3">
           <v-img
-            :lazy-src="$config.public.basePlaceholderUrl"
+            :lazy-src="loadImage()"
             cover
             rounded="lg"
             class="!my-4 !max-w-24"
             width="50"
             aspect-ratio="1"
-            :src="$config.public.baseUrl + item.image"
+            :src="loadImage(item.image)"
           />
         </div>
       </template>
@@ -86,6 +87,12 @@
         <v-chip :color="item.order_id ? 'success' : 'error'">
           {{ item.order_id ? 'Created' : 'Not Created yet' }}
         </v-chip>
+      </template>
+
+      <template #item.description="{ item }">
+        <div class="max-w-64 overflow-hidden text-truncate">
+          {{ item.description }}
+        </div>
       </template>
 
       <template #item.created_at="{ item }">
@@ -102,6 +109,10 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Prescriptions yet </template>
+    </layout-empty-placeholder>
   </v-card>
 </template>
 

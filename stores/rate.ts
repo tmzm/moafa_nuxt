@@ -24,6 +24,8 @@ export const useRateStore = defineStore('rate', () => {
 
     rates.value = res.data.rates
     ratesTotalCount.value = res.data.count
+
+    return res.data.rates
   }
 
   return {

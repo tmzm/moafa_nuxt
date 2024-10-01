@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    :rail="rail"
+    :rail
     rail-width="76"
     :class="{
       'hide-scrollbar': rail
@@ -9,16 +9,29 @@
     :expand-on-hover="rail"
     :model-value="themeStore.sideOpen || !$vuetify.display.smAndDown"
   >
+    <template #prepend>
+      <v-list
+        :class="{
+          '!p-3': rail
+        }"
+        nav
+      >
+        <v-list-item>
+          <v-img
+            class="min-w-26 w-26 my-6 ml-1"
+            :src="$vuetify.theme.current.dark ? '/logo-white.png' : '/logo.png'"
+          />
+        </v-list-item>
+      </v-list>
+      <v-divider />
+    </template>
+
     <v-list
       :class="{
         '!p-3': rail
       }"
       nav
     >
-      <v-list-item>
-        <v-img class="min-w-26 w-26 my-8 ml-1" :src="$vuetify.theme.current.dark ? '/logo-white.png' : '/logo.png'" />
-      </v-list-item>
-
       <template v-for="item in navigationItems">
         <v-list-item
           :class="!item.icon && !item.link ? '!text-sm' : ''"

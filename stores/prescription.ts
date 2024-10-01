@@ -35,18 +35,25 @@ export const usePrescriptionStore = defineStore('prescription', () => {
         user_id: userId,
         // sort: sort.value != 'Newest' ? sort.value.toLowerCase() : undefined,
         search: search.value,
-        ...paginationParams(paginationOptions.value, prescriptionsTotalCount.value)
+        ...paginationParams(
+          paginationOptions.value,
+          prescriptionsTotalCount.value
+        )
       }
     })
 
     prescriptions.value = res.data.prescriptions
     prescriptionsTotalCount.value = res.data.count
+
+    return res.data.prescriptions
   }
 
   const get = async (id: number) => {
     const res = await api(`prescriptions/${id}`)
 
     prescription.value = res.data
+
+    return res.data
   }
 
   const remove = async (id: number) => {

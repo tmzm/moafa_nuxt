@@ -7,7 +7,7 @@
 
       <v-main class="min-h-screen">
         <div class="p-8 bg-background h-full">
-          <slot />
+          <v-container><slot /></v-container>
         </div>
       </v-main>
     </v-layout>

@@ -39,7 +39,7 @@ const url = ref()
 const config = useRuntimeConfig()
 
 const previewUrl = computed(() => {
-  return url.value ? url.value : props.modelUrl ? props.modelUrl : config.public.basePlaceholderUrl
+  return url.value ? url.value : props.modelUrl ? props.modelUrl : loadImage()
 })
 
 const props = defineProps<{

@@ -34,6 +34,8 @@ export const usePointsStore = defineStore('points', () => {
 
     pointsTransfers.value = res.data.pointsTransfers
     pointsTransfersTotalCount.value = res.data.count
+
+    return res.data.pointsTransfers
   }
 
   const create = async () => {

@@ -69,7 +69,7 @@
               width="150"
               class="mx-auto"
               lazy-src="/images/empty-placeholder.png"
-              :scr="$config.public.baseUrl + category.image"
+              :scr="loadImage(category.image)"
             />
             <div class="text-2xl font-bold">{{ category.name }}</div>
             <v-icon class="text-gray">mdi-arrow-right</v-icon>
@@ -178,7 +178,7 @@
         <div class="flex justify-center items-center aspect-square bg-light">
           <v-img
             max-width="100"
-            :src="$config.public.baseUrl + productStore.products[1].image"
+            :src="loadImage(productStore.products[1].image)"
           ></v-img>
         </div>
       </v-col>

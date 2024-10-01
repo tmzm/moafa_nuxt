@@ -62,12 +62,16 @@ export const useProductStore = defineStore('product', () => {
 
     products.value = res.data.products
     productsTotalCount.value = res.data.count
+
+    return res.data.product
   }
 
   const getTopProductSellers = async () => {
     const res = await api('/products/top_sellers')
 
     products.value = res.data
+
+    return res.data
   }
 
   const getPrice = async (id: number) => {

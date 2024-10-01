@@ -1,5 +1,5 @@
 export const darkColors = {
-  primary: '#1A6350',
+  primary: '#1E6F5C',
   secondary: '#F8D33F',
   'on-primary': '#fff',
   'on-secondary': '#fff',
@@ -9,13 +9,14 @@ export const darkColors = {
   warning: '#ffd240',
   error: '#f1416c',
   background: '#0F1014',
+  surface: '#15171C',
   slate: '#90a4ae',
   'on-background': '#fff',
   'on-surface': '#fff'
 }
 
 export const lightColors = {
-  primary: '#1A6350',
+  primary: '#1E6F5C',
   secondary: '#F8D33F',
   'on-primary': '#fff',
   'on-secondary': '#fff',
@@ -26,6 +27,7 @@ export const lightColors = {
   error: '#f1416c',
   background: '#F6F6F6',
   slate: '#90a4ae',
+  surface: '#fff',
   'on-background': '#262229',
   'on-surface': '#262229'
 }

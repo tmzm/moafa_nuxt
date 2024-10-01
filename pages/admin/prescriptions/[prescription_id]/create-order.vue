@@ -38,7 +38,7 @@
             @click="showImage = true"
             class="mb-4 cursor-pointer"
             rounded="lg"
-            :src="$config.public.baseUrl + prescription.image"
+            :src="loadImage(prescription.image)"
           />
 
           <base-label>User:</base-label>
@@ -48,7 +48,7 @@
             :name="prescription.user?.name"
             :subtitle="prescription.user?.phone_number"
             :id="prescription.user?.id"
-            @click="navigateTo(`/admin/users/${prescription.user?.id}`)"
+            @click="navigateTo(`/admin/users/${prescription.user?.id}/details`)"
           />
           <base-label>Description:</base-label>
           <div class="text-lg">{{ prescription.description }}</div>
@@ -124,8 +124,8 @@
     <v-img
       v-if="showImage"
       class="!max-h-[90vh]"
-      :lazy-src="`${$config.public.baseUrl}/images/placeholder.jpg`"
-      :src="$config.public.baseUrl + prescription.image"
+      :lazy-src="loadImage()"
+      :src="loadImage(prescription.image)"
     />
 
     <base-icon-button

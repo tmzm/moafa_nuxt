@@ -50,6 +50,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="products.length > 0"
       v-model="model"
       :show-select
       density="comfortable"
@@ -82,10 +83,13 @@
       <template v-slot:header.data-table-select> </template>
 
       <template #item.actions="{ item }">
-        <base-icon-button class="me-2" color="primary"
+        <base-icon-button size="md" class="me-2"
           >mdi-eye-outline</base-icon-button
         >
-        <base-icon-button @click="navigateTo(`/admin/products/${item.id}`)"
+        <base-icon-button
+          color="secondary"
+          size="md"
+          @click="navigateTo(`/admin/products/${item.id}`)"
           >mdi-pencil-outline</base-icon-button
         >
       </template>
@@ -155,6 +159,15 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Products yet </template>
+
+      <template #subtitle>
+        You can create product by clicking
+        <v-chip size="small" color="secondary">Add product</v-chip> button
+      </template>
+    </layout-empty-placeholder>
   </v-card>
 </template>
 

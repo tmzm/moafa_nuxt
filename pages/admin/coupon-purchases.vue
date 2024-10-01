@@ -40,6 +40,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="couponsPurchases.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="couponsPurchases"
@@ -49,16 +50,13 @@
       :headers="couponPurchasesHeaders"
     >
       <template #item.actions="{ item }">
-        <base-icon-button
-          color="red"
-          >mdi-delete-outline</base-icon-button
-        >
+        <base-icon-button color="red">mdi-delete-outline</base-icon-button>
       </template>
 
       <template #item.user_id="{ item }">
         <template v-if="item.user">
           <user-item
-            @click="navigateTo(`/admin/users/${item.user.id}`)"
+            @click="navigateTo(`/admin/users/${item.user.id}/details`)"
             size="small"
             :name="item.user?.name"
             :id="item.user?.id"
@@ -98,6 +96,10 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Coupon purchases yet </template>
+    </layout-empty-placeholder>
   </v-card>
 
   <nuxt-page />

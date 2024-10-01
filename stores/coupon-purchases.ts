@@ -32,6 +32,8 @@ export const useCouponPurchasesStore = defineStore('coupon-purchase', () => {
 
     couponsPurchases.value = res.data.couponPurchases
     couponsPurchasesTotalCount.value = res.data.count
+
+    return res.data.couponPurchases
   }
 
   return {

@@ -17,12 +17,16 @@ export const useBrandStore = defineStore('brand', () => {
     const res = await api('/brands')
 
     brands.value = res.data
+
+    return res.data
   }
 
   const get = async (id: number) => {
     const res = await api(`/brands/${id}`)
 
     brand.value = res.data
+
+    return res.data
   }
 
   const create = async () => {

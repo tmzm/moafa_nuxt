@@ -100,12 +100,16 @@ export const useOrderStore = defineStore('order', () => {
 
     orders.value = res.data.orders
     ordersTotalCount.value = res.data.count
+
+    return res.data.orders
   }
 
   const get = async (id: number) => {
     const res = await api(`/orders/${id}/show`)
 
     order.value = res.data
+
+    return res.data
   }
 
   const remove = async (id: number) => {}

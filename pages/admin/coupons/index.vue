@@ -50,6 +50,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="coupons.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="coupons"
@@ -61,11 +62,13 @@
       <template #item.actions="{ item }">
         <base-icon-button
           class="mr-2"
+          size="md"
+          color="secondary"
           @click="navigateTo(`/admin/coupons/${item.id}`)"
           >mdi-pencil-outline</base-icon-button
         >
         <base-icon-button
-          color="primary"
+          size="md"
           @click="navigateTo(`/admin/coupons/${item.id}/details`)"
           >mdi-eye</base-icon-button
         >
@@ -74,7 +77,7 @@
       <template #item.user="{ item }">
         <template v-if="item.user">
           <user-item
-            @click="navigateTo(`/admin/users/${item.user.id}`)"
+            @click="navigateTo(`/admin/users/${item.user.id}/details`)"
             size="small"
             :name="item.user?.name"
             :id="item.user?.id"
@@ -111,6 +114,15 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No Coupons yet </template>
+
+      <template #subtitle>
+        You can create coupon by clicking
+        <v-chip size="small" color="secondary">Add Coupon</v-chip> button
+      </template>
+    </layout-empty-placeholder>
   </v-card>
 
   <nuxt-page />

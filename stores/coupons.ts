@@ -32,12 +32,16 @@ export const useCouponStore = defineStore('coupon', () => {
 
     coupons.value = res.data.coupons
     couponsTotalCount.value = res.data.count
+
+    return res.data.coupons
   }
 
   const get = async (id: number) => {
     const res = await api(`/coupons/${id}`)
 
     coupon.value = res.data
+
+    return res.data
   }
 
   const create = async () => {

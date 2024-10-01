@@ -10,7 +10,7 @@
     <form @submit.prevent="submit">
       <base-label>Image</base-label>
       <base-image-input
-        :model-url="editMode ? $config.public.baseUrl + brand.image : undefined"
+        :model-url="editMode ? loadImage(brand.image) : undefined"
         v-model="imageFileInput"
       />
 

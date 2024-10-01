@@ -14,7 +14,7 @@
   >
     <template #actions>
       <base-action-button icon="mdi-plus" to="/admin/points/transfer"
-        >Create Transfer</base-action-button
+        >Transfer points</base-action-button
       >
     </template>
   </base-page-header>
@@ -26,7 +26,7 @@
           <v-col md="6" cols="12">
             <v-text-field
               v-model="search"
-              placeholder="Search for coupons"
+              placeholder="Search for points transfers"
               prepend-inner-icon="mdi-magnify"
               hide-details
             ></v-text-field>
@@ -46,6 +46,7 @@
     <v-divider></v-divider>
 
     <v-data-table-server
+      v-if="pointsTransfers.length > 0"
       density="comfortable"
       class="text-no-wrap"
       :items="pointsTransfers"
@@ -57,7 +58,7 @@
       <template #item.user_id="{ item }">
         <template v-if="item.user">
           <user-item
-            @click="navigateTo(`/admin/users/${item.user.id}`)"
+            @click="navigateTo(`/admin/users/${item.user.id}/details`)"
             size="small"
             :name="item.user?.name"
             :id="item.user?.id"
@@ -69,7 +70,9 @@
       </template>
 
       <template #item.type="{ item }">
-        <v-chip :color=" item.type == 'deposit' ? 'success' : 'error'">{{ item.type.toUpperCase() }}</v-chip>
+        <v-chip :color="item.type == 'deposit' ? 'success' : 'error'">{{
+          item.type.toUpperCase()
+        }}</v-chip>
       </template>
 
       <template #item.created_at="{ item }">
@@ -86,6 +89,15 @@
         </div>
       </template>
     </v-data-table-server>
+
+    <layout-empty-placeholder size="small" v-else>
+      <template #title> No points transfers yet </template>
+
+      <template #subtitle>
+        You can transfer points to any user by clicking
+        <v-chip size="small" color="secondary">Transfer points</v-chip> button
+      </template>
+    </layout-empty-placeholder>
   </v-card>
 
   <nuxt-page />
