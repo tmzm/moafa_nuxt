@@ -5,7 +5,7 @@
     variant="outlined"
     class="border-dark !border-2 border-dashed !rounded-lg"
   >
-    <v-card-text class="flex items-center gap-x-4 !px-2 !py-1">
+    <v-card-text class="flex items-center gap-x-4 !py-2 !px-4">
       <v-icon size="x-large">mdi-alert-circle-outline</v-icon>
 
     <div class="flex flex-col flex-grow-1">

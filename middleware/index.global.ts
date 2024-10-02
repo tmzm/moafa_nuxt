@@ -14,14 +14,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       return await navigateTo(
         `/auth/verify?verify_token=${authStore.accessToken}`
       )
-  } catch {
+  } catch (e) {
     try {
       const res = await authStore.refreshTokens()
 
       authStore.accessToken = res.token.accessToken
 
       return
-    } catch {
+    } catch (e) {
       return await navigateTo('/auth/login')
     }
   }

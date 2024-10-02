@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4 flex items-center cursor-pointer">
+  <div class="m-4 flex gap-4 items-center cursor-pointer">
     <v-card
       class="aspect-square !rounded-full !flex items-center justify-center"
       :class="classes.avatar"
@@ -39,7 +39,7 @@ const classes = computed(() => {
   return {
     font: props.size === 'small' ? 'text-lg' : 'text-xl',
     subtitleFont: props.size === 'small' ? 'text-xs' : 'text-lg',
-    avatar: props.size === 'small' ? 'w-10 mr-2' : 'w-12 mr-3'
+    avatar: props.size === 'small' ? 'w-10' : 'w-12'
   }
 })
 

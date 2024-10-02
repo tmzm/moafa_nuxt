@@ -22,11 +22,18 @@
   >
     <template #actions>
       <v-btn @click="goBack" color="gray">Cancel</v-btn>
-      <v-btn @click="create">Save</v-btn>
+      <v-btn :disabled="selectedProducts.length <= 0" @click="create"
+        >Save</v-btn
+      >
     </template>
   </base-page-header>
 
-  <v-row v-if="!pending">
+  <v-skeleton-loader
+    v-if="pending"
+    type="list-item-two-line, list-item-two-line, table"
+  />
+
+  <v-row v-else>
     <v-col cols="12" md="3">
       <v-card>
         <v-card-title>Prescription Details</v-card-title>
@@ -87,34 +94,25 @@
         </div>
       </product-table>
 
-      <v-card class="mt-6">
-        <v-card-title> Coupon </v-card-title>
+      <base-status-input
+        v-model="selectCoupon"
+        item="Do you want to apply coupon?"
+        class="mt-6"
+      />
 
-        <v-divider />
+      <transition>
+        <v-card v-if="selectCoupon" class="mt-6">
+          <v-card-title> Coupon </v-card-title>
 
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" md="6">
-              <base-status-input
-                v-model="selectCoupon"
-                item="Do you want to apply Coupon?"
-              />
-            </v-col>
-            <v-col cols="12" md="6">
-              <transition>
-                <coupon-lookup v-if="selectCoupon"> </coupon-lookup>
-              </transition>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+          <v-divider />
+
+          <v-card-text>
+            <coupon-lookup> </coupon-lookup>
+          </v-card-text>
+        </v-card>
+      </transition>
     </v-col>
   </v-row>
-
-  <v-skeleton-loader
-    v-else
-    type="list-item-two-line, list-item-two-line, table"
-  />
 
   <v-dialog
     class="!h-screen"
@@ -196,7 +194,7 @@ const create = () => {
   }
 }
 
-const goBack = () => navigateTo('/admin/prescriptions')
+const goBack = () => navigateTo(`/admin/prescriptions/${prescriptionId}`)
 </script>
 
 <style></style>

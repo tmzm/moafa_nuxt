@@ -1,59 +1,82 @@
 <template>
   <div>
     <div
-      class="relative h-[86vh] w-full bg-[url(/02.6143e946.jpg)] bg-center bg-cover"
+      style="clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%)"
+      class="relative h-screen w-full bg-[url(/images/curved-2.jpg)] bg-center bg-cover home-area"
     >
       <v-container class="px-12 py-32 h-full">
-        <div class="flex justify-between items-center h-full">
-          <div>
-            <div class="text-red font-semibold flex items-center gap-2">
-              <div class="w-8 h-1 bg-red"></div>
-              <div>NEW FORMELA</div>
-            </div>
-            <div class="text-7xl font-bold">Lab Hand Santiviter</div>
-            <div class="text-xl text-gray">
+        <div class="flex justify-center items-center h-full">
+          <div class="flex flex-col items-center justify-center gap-4">
+            <div class="text-7xl font-bold text-white">Lab Hand Santiviter</div>
+            <div class="text-xl text-white">
               Lab Hand Sanitizer: A vital tool for maintaining hygiene in
               laboratories. Our specialized formula
             </div>
             <div class="flex gap-2 mt-4">
-              <v-btn append-icon="mdi-plus" color="red" size="x-large" rounded
+              <v-btn
+                append-icon="mdi-plus"
+                color="red"
+                size="x-large"
+                variant="flat"
+                rounded
                 >SHOP NOW</v-btn
               >
-              <v-btn append-icon="mdi-plus" size="x-large" rounded
+              <v-btn
+                append-icon="mdi-plus"
+                size="x-large"
+                rounded
+                variant="flat"
                 >BY NOW</v-btn
               >
             </div>
           </div>
-
-          <v-img max-width="200" src="/02.webp">
-            <div
-              class="w-24 flex items-center justify-center aspect-square bg-red rounded-full shadow-lg border-8"
-            >
-              <div class="text-xl">8832 SP</div>
-            </div>
-          </v-img>
         </div>
       </v-container>
-
-      <div
-        class="absolute top-0 left-0 flex justify-between items-center h-full w-full p-8"
-      >
-        <v-btn
-          :rounded="false"
-          size="x-large"
-          variant="outlined"
-          icon="mdi-arrow-left"
-        ></v-btn>
-        <v-btn
-          :rounded="false"
-          size="x-large"
-          variant="outlined"
-          icon="mdi-arrow-right"
-        ></v-btn>
-      </div>
     </div>
 
     <v-container>
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div
+          class="flex justify-between items-stretch h-74 rounded-lg bg-[#D7E2F2] p-10"
+        >
+          <div class="flex flex-col justify-between">
+            <div class="text-xl">Home Medical Supplies</div>
+            <div class="text-3xl font-bold">Medicine Product</div>
+            <div class="text-2xl text-red font-semibold">$1.00 – $55.00</div>
+            <v-btn
+              append-icon="mdi-plus"
+              color="red"
+              class="w-fit"
+              size="large"
+              variant="flat"
+              rounded
+              >SHOP NOW</v-btn
+            >
+          </div>
+        </div>
+
+        <div
+          class="flex justify-between items-stretch h-74 rounded-lg bg-[#DEF2F4] p-10"
+        >
+          <div class="flex flex-col justify-between">
+            <div class="text-xl">Home Medical Supplies</div>
+            <div class="text-3xl font-bold">Medicine Product</div>
+            <div class="text-2xl text-red font-semibold">$1.00 – $55.00</div>
+            <v-btn
+              append-icon="mdi-plus"
+              color="red"
+              class="w-fit"
+              size="large"
+              variant="flat"
+              rounded
+              >SHOP NOW</v-btn
+            >
+          </div>
+        </div>
+      </div>
+    </v-container>
+
+    <!-- <v-container>
       <div class="text-center my-16">
         <div class="text-3xl font-bold">Category Products</div>
         <div class="text-xl text-gray">
@@ -76,47 +99,41 @@
           </div>
         </div>
       </div>
+    </v-container> -->
+
+    <v-container>
+      <div class="my-12 flex justify-between">
+        <div class="text-4xl font-bold">Features Products</div>
+
+        <v-tabs fixed-tabs>
+          <v-tab>
+            All
+          </v-tab>
+          <v-tab>
+            All
+          </v-tab>
+          <v-tab>
+            All
+          </v-tab>
+          <v-tab>
+            All
+          </v-tab>
+        </v-tabs>
+      </div>
+
+      <div class="text-center">
+        <v-row class="!w-fit mx-auto">
+          <v-col
+            v-for="product in [
+              ...productStore.products,
+              ...productStore.products
+            ]"
+          >
+            <product-card :product />
+          </v-col>
+        </v-row>
+      </div>
     </v-container>
-
-    <div class="p-8 bg-light">
-      <v-container>
-        <div class="text-center my-12">
-          <div class="text-3xl font-bold">Features Products</div>
-          <div class="text-xl text-gray">
-            Explore cutting-edge Features in our medical equipment
-          </div>
-        </div>
-
-        <div class="text-center">
-          <div class="flex gap-3 items-center justify-center mb-8 mt-6">
-            <v-btn size="large" color="primary" :rounded="false">
-              Show All
-            </v-btn>
-            <v-btn size="large" color="gray" :rounded="false"> Medicine </v-btn>
-            <v-btn size="large" color="gray" :rounded="false">
-              Sanitizer
-            </v-btn>
-            <v-btn size="large" color="gray" :rounded="false">
-              Thermometer
-            </v-btn>
-            <v-btn size="large" color="gray" :rounded="false">
-              Accessories
-            </v-btn>
-          </div>
-
-          <v-row class="!w-fit mx-auto">
-            <v-col
-              v-for="product in [
-                ...productStore.products,
-                ...productStore.products
-              ]"
-            >
-              <product-card :product />
-            </v-col>
-          </v-row>
-        </div>
-      </v-container>
-    </div>
 
     <v-container>
       <v-card :rounded="false" elevation="0" class="mt-12">
@@ -245,4 +262,40 @@ await useAsyncData(() => productStore.getTopProductSellers())
 const { pending } = await useAsyncData(() => categoryStore.list())
 </script>
 
-<style></style>
+<style>
+.v-main {
+  padding-top: 0 !important;
+}
+
+.home-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    110deg,
+    #1e6f5c 16%,
+    rgba(255, 255, 255, 0) 64%
+  );
+  opacity: 0.91;
+  z-index: -1;
+}
+
+.home-area::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to left,
+    #1e6f5c 16%,
+    rgba(255, 255, 255, 0) 64%
+  );
+  opacity: 0.91;
+  z-index: -1;
+}
+</style>

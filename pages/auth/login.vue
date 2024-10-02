@@ -12,13 +12,18 @@
         <div>Your Beautiful online pharmacy</div>
       </div>
 
-      <form
-        class="flex flex-col gap-4"
-        @submit.prevent="submit"
-      >
+      <form class="flex flex-col gap-4" @submit.prevent="submit">
         <div>
           <base-label>Phone number</base-label>
-          <base-text-field name="phone_number" v-model="user.phone_number" />
+          <base-text-field name="phone_number" v-model="user.phone_number">
+            <template #prependInner>
+              <div class="flex gap-3 me-3">
+                <img class="h-6 rounded-md" src="https://flagcdn.com/sy.svg" />
+                <div class="font-bold">+960</div>
+                <v-divider vertical />
+              </div>
+            </template>
+          </base-text-field>
         </div>
 
         <div>
@@ -36,7 +41,7 @@
           </base-text-field>
         </div>
 
-        <v-btn type="submit" block :loading >Sign in</v-btn>
+        <v-btn type="submit" block :loading>Sign in</v-btn>
       </form>
 
       <div class="flex gap-2 mt-3">
@@ -63,7 +68,7 @@ const showPassword = ref(false)
 const { handleSubmit } = useForm<User>({
   validationSchema: yup.object().shape({
     phone_number: yup.string().required().min(8),
-    password: yup.string().required() 
+    password: yup.string().required()
   })
 })
 

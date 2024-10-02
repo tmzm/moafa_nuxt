@@ -74,6 +74,9 @@ const authStore = useAuthStore()
 const { messages, message, allFetched } = storeToRefs(messageStore)
 const { userDetails } = storeToRefs(authStore)
 
+// reset
+messages.value = []
+
 const loading = ref(false)
 
 const { handleSubmit } = useForm({
