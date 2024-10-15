@@ -5,10 +5,8 @@
 
       <layout-admin-navbar />
 
-      <v-main class="min-h-screen">
-        <div class="p-8 bg-background h-full">
-          <v-container><slot /></v-container>
-        </div>
+      <v-main class="min-h-screen bg-background">
+        <v-container><slot /></v-container>
       </v-main>
     </v-layout>
   </v-locale-provider>

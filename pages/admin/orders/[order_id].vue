@@ -87,7 +87,7 @@
             <v-card-text>
               <div class="flex items-center justify-between">
                 <v-list-item prepend-icon="mdi-account" title="Customer" />
-                <p>{{ order.user.name }}</p>
+                <p>{{ order.user.first_name }}</p>
               </div>
 
               <v-divider />
@@ -107,7 +107,7 @@
                 <p>
                   {{ order.coupon.discount }}
                   <span>{{
-                    order.coupon.discount_type == 'fixed' ? 'SP' : '%'
+                    order.coupon.discount_type == 'FIXED' ? 'SP' : '%'
                   }}</span>
                 </p>
               </div>

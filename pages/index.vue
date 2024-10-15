@@ -263,10 +263,6 @@ const { pending } = await useAsyncData(() => categoryStore.list())
 </script>
 
 <style>
-.v-main {
-  padding-top: 0 !important;
-}
-
 .home-area::before {
   content: '';
   position: absolute;

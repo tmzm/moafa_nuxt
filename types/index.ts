@@ -6,9 +6,10 @@ declare global {
     updated_at: Date
     id: number
     phone_number: string
-    name: string
+    first_name: string
+    last_name: string
     device_key?: string
-    role: string
+    role: 'ADMIN' | 'USER'
     password?: string
     verified: boolean
   }
@@ -20,6 +21,10 @@ declare global {
     name: string
     image: string
     products_count: number
+    meta_description?: string
+    meta_title?: string
+    meta_subtitle?: string
+    status: boolean
   }
 
   export interface Product {
@@ -41,9 +46,10 @@ declare global {
     description: string
     image: string
     slug: string
-    meta_description: string
-    meta_title: string
-    meta_subtitle: string
+    meta_description?: string
+    meta_title?: string
+    meta_subtitle?: string
+    status: boolean
   }
 
   export interface CategoryProduct {
@@ -61,6 +67,10 @@ declare global {
     name: string
     image: string
     category_products_count: number
+    meta_description?: string
+    meta_title?: string
+    meta_subtitle?: string
+    status: boolean
   }
 
   export interface Order {
@@ -68,7 +78,7 @@ declare global {
     updated_at: Date
     id: number
     name: string
-    status: string
+    status: 'PREPARING' | 'SHIPPING' | 'DELIVERED'
     payment_status: boolean
     user_id: number
     location_id: number
@@ -159,17 +169,17 @@ declare global {
     user?: User
     code: string
     discount: number
-    discount_type: 'percentage' | 'fixed'
+    discount_type: 'PERCENTAGE' | 'FIXED'
+    status: boolean
   }
 
   export interface Message {
     created_at: Date
     updated_at: Date
     id: number
-    sender: User
-    receiver: User
-    sender_id: number
-    receiver_id: number
+    user: User
+    user_id: number
+    type: 'SENDED' | 'RECEIVED'
     content: string
   }
 
@@ -191,6 +201,6 @@ declare global {
     user?: User
     amount: number
     reason: string
-    type: 'deposit' | 'withdrawal'
+    type: 'DEPOSIT' | 'WITHDRAWAL'
   }
 }

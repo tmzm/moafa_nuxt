@@ -36,12 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
   const signup = async () => {
     const res = await api('users/create', {
       method: 'post',
-      body: {
-        name: user.value.name,
-        phone_number: user.value.phone_number,
-        password: user.value.password,
-        role: 'user'
-      }
+      body: user.value
     })
 
     accessToken.value = res.token.accessToken
@@ -118,10 +113,8 @@ export const useAuthStore = defineStore('auth', () => {
     await api('users/create', {
       method: 'post',
       body: {
-        name: user.value.name,
-        phone_number: user.value.phone_number,
-        password: user.value.password,
-        role: 'admin'
+        ...user.value,
+        role: 'ADMIN'
       }
     })
   }

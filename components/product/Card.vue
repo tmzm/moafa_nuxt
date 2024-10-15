@@ -4,7 +4,7 @@
       v-bind="props"
       :elevation="isHovering ? 12 : 0"
       :rounded="false"
-      min-width="260"
+      width="260"
       class="!relative"
     >
       <v-chip
@@ -16,7 +16,7 @@
         >{{ product.offer }}%</v-chip
       >
 
-      <v-img class="px-6" :aspect-ratio="1" :src="loadImage(product.image)">
+      <v-img class="px-6" max-height="250" cover :aspect-ratio="1" :src="loadImage(product.image)">
         <v-overlay
           :model-value="!!isHovering"
           class="align-center justify-center gap-4"

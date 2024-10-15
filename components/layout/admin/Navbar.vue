@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation="0" height="80" class="px-9 bg-background">
+  <v-app-bar elevation="8" height="70" class="px-9">
     <div class="flex gap-4 items-center justify-between w-full">
       <base-icon-button
         @click="themeStore.toggleSidebar"

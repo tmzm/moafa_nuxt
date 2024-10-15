@@ -16,7 +16,7 @@ export const usePointsStore = defineStore('points', () => {
 
   const reset = () => {
     pointsTransfer.value = {
-      type: 'deposit'
+      type: 'DEPOSIT'
     } as PointsTransfer
   }
 

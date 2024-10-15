@@ -24,8 +24,6 @@
               </v-col>
 
               <v-col cols="12">
-                <base-label>Quantity Option</base-label>
-
                 <v-item-group mandatory v-model="quantityShow">
                   <v-row>
                     <v-col v-for="i in quantityOptions" cols="6" md="4">
@@ -36,12 +34,14 @@
                         <v-card
                           elevation="2"
                           @click="toggle"
-                          class="!border-dark !border !border-dashed !rounded-lg"
+                          class="!border-dark !border-2 !border-dashed !rounded-lg"
                           :class="selectedClass"
+                          variant="tonal"
+                          :color="isSelected ? 'primary' : 'dark'"
                           ><v-card-text class="py-2"
                             ><v-radio
-                              :color="isSelected ? 'secondary' : 'dark'"
                               :label="i.title"
+                              :class="isSelected ? 'font-semibold' : ''"
                               :model-value="isSelected" /></v-card-text
                         ></v-card>
                       </v-item>
@@ -68,29 +68,6 @@
                   v-model="product.expiration"
                   name="expiration"
                 ></base-date-picker>
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <base-status-input
-                  name="is_offer"
-                  v-model="product.is_offer"
-                  item="Is this product has offer ?"
-                />
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <transition>
-                  <div v-if="product.is_offer">
-                    <base-label>Offer</base-label>
-                    <base-text-field
-                      v-model="product.offer"
-                      type="number"
-                      name="offer"
-                    >
-                      <template #append> % </template>
-                    </base-text-field>
-                  </div>
-                </transition>
               </v-col>
 
               <ClientOnly>
@@ -163,9 +140,7 @@
         <v-card-text>
           <base-image-input
             class="mx-auto w-fit"
-            :model-url="
-              editMode ? loadImage(product.image) : undefined
-            "
+            :model-url="editMode ? loadImage(product.image) : undefined"
             v-model="imageFileInput"
           />
           <div class="text-center">
@@ -175,7 +150,7 @@
         </v-card-text>
       </v-card>
 
-            <v-card class="mt-6">
+      <v-card class="mt-6">
         <v-card-title> Product Details </v-card-title>
         <v-card-text>
           <div>
@@ -212,9 +187,35 @@
           </div>
         </v-card-text>
       </v-card>
+
+      <base-status-input
+        class="mt-6"
+        name="is_offer"
+        v-model="product.is_offer"
+        item="Is this product has offer ?"
+      />
+
+      <transition>
+        <v-card class="mt-6" v-if="product.is_offer">
+          <v-card-title> Offer </v-card-title>
+          <v-card-text>
+            <base-text-field v-model="product.offer" type="number" name="offer">
+              <template #append> % </template>
+            </base-text-field>
+          </v-card-text>
+        </v-card>
+      </transition>
+
+      <base-status-input
+        name="status"
+        v-model="product.status"
+        class="mt-6"
+        color="primary"
+        item="Is product active ?"
+      ></base-status-input>
     </v-col>
   </v-row>
-
+  {{ errors }}
   <base-alert-dialog
     :title="$t('delete_dialog.text')"
     :action="$t('actions.yes_delete')"

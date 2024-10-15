@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-page-header
-      :title="userDetails.name"
+      :title="userDetails.first_name + ' ' + userDetails.last_name"
       :pending="status == 'pending'"
       :breadcrumbs="[
         {
@@ -31,6 +31,9 @@
     <v-tabs class="mb-6">
       <v-tab :to="`/admin/users/${userId}/details`">Details</v-tab>
       <v-tab :to="`/admin/users/${userId}/chat`">Chat</v-tab>
+      <v-tab :to="`/admin/users/${userId}/orders`">Orders</v-tab>
+      <v-tab :to="`/admin/users/${userId}/rates`">Rates</v-tab>
+      <v-tab :to="`/admin/users/${userId}/prescriptions`">Prescriptions</v-tab>
     </v-tabs>
   </div>
 

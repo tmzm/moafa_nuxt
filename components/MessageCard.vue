@@ -2,31 +2,36 @@
   <div
     class="flex"
     :class="{
-      'flex-row-reverse': received
+      'flex-row-reverse': message.type == 'RECEIVED'
     }"
   >
     <div class="min-w-1/2">
       <div
         class="flex gap-4 items-center mb-3"
         :class="{
-          'flex-row-reverse': received
+          'flex-row-reverse': message.type == 'RECEIVED'
         }"
       >
         <user-item
-          class="!m-0"
-          :class="{
-            'flex-row-reverse gap-2': received
-          }"
+          v-if="message.type == 'RECEIVED'"
+          class="!m-0 flex-row-reverse gap-2"
           size="small"
-          :name="message.sender.name"
-          :id="message.sender.id"
+          :name="message.user.first_name + ' ' + message.user.last_name"
+          :id="message.user.id"
         />
 
-        <div>
+        <div class="text-xs">
           {{ dayjs(message.created_at).fromNow() }}
         </div>
       </div>
-      <div class="p-4 rounded-lg bg-light">
+      <div
+        class="p-3 rounded-lg text-xs bg-light"
+        :style="
+          message.type == 'SENDED'
+            ? 'border-start-start-radius: 0 !important;'
+            : 'border-start-end-radius: 0 !important;'
+        "
+      >
         {{ message.content }}
       </div>
     </div>
@@ -38,6 +43,5 @@ import dayjs from 'dayjs'
 
 defineProps<{
   message: Message
-  received?: boolean
 }>()
 </script>

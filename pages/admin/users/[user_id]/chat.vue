@@ -2,18 +2,17 @@
   <v-card>
     <v-card-text>
       <v-infinite-scroll
-        class="!flex-col-reverse gap-10"
+        class="!flex-col-reverse gap-6"
         @load="listChat"
         height="300"
       >
         <message-card
-          :received="message.receiver.id != userDetails.id"
           :message
           v-for="message in messages"
         />
 
         <template v-slot:empty>
-          <v-alert variant="tonal" color="warning" type="warning"
+          <v-alert variant="outlined" class="border-dashed !border-2 !rounded-lg" color="warning" type="warning"
             >No more messages!</v-alert
           >
         </template>

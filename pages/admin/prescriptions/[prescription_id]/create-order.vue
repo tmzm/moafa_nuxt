@@ -52,7 +52,7 @@
           <user-item
             size="small"
             class="!m-0 !mb-2"
-            :name="prescription.user?.name"
+            :name="prescription.user?.first_name + prescription.user.last_name"
             :subtitle="prescription.user?.phone_number"
             :id="prescription.user?.id"
             @click="navigateTo(`/admin/users/${prescription.user?.id}/details`)"

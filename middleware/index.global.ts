@@ -1,13 +1,13 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
 
-  if (to.path.includes('invite') || to.path.includes('auth')) return
+  if (to.path.includes('auth')) return
 
   const authStore = useAuthStore()
 
   try {
     await authStore.me()
 
-    if (authStore.user.role === 'user' && to.path.includes('admin'))
+    if (authStore.user.role === 'USER' && to.path.includes('admin'))
       return await navigateTo('/')
 
     if (!authStore.user.verified)

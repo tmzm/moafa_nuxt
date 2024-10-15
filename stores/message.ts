@@ -29,10 +29,10 @@ export const useMessageStore = defineStore('message', () => {
   }
 
   const send = async (userId: number) => {
-    return await api(`messages/create`, {
+    return await api(`messages/users/${userId}/create`, {
       method: 'post',
       body: {
-        receiver_id: userId,
+        type: 'SENDED',
         content: message.value.content
       }
     })

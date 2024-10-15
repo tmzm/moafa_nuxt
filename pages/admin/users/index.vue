@@ -58,7 +58,7 @@
       <template #item.name="{ item }">
         <user-item
           :id="item.id"
-          :name="item.name"
+          :name="item.first_name + ' ' + item.last_name"
           @click="navigateTo(`/admin/users/${item?.id}/details`)"
         />
       </template>

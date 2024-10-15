@@ -6,10 +6,10 @@
     class="border-dark !border-2 border-dashed !rounded-lg"
   >
     <v-card-text class="flex items-center gap-x-4 !py-2 !px-4">
-      <v-icon size="x-large">mdi-alert-circle-outline</v-icon>
+      <v-icon size="xx-large">mdi-alert-circle</v-icon>
 
     <div class="flex flex-col flex-grow-1">
-      <div class="font-weight-bold text-subtitle-1">
+      <div class="text-md font-bold">
         <slot name="title"> {{ props.item }} </slot>
       </div>
 
@@ -22,7 +22,7 @@
       class="flex-grow-0"
       v-model="value"
       @update:modelValue="$emit('update:modelValue', $event)"
-      color="secondary"
+      :color
     >
     </v-switch>
     </v-card-text>

@@ -34,7 +34,7 @@
     >
       <template v-for="item in navigationItems">
         <v-list-item
-          :class="!item.icon && !item.link ? '!text-sm' : ''"
+          :class="(!item.icon && !item.link) ? '!text-sm !text-gray !font-bold' : ''"
           v-if="!item.children"
           :prepend-icon="item.icon"
           :title="item.text"

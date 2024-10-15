@@ -85,7 +85,7 @@
       <template #item.user="{ item }">
         <user-item
           :id="item.user.id"
-          :name="item.user.name"
+          :name="item.user.first_name + ' ' + item.user.last_name"
           @click="navigateTo(`/admin/users/${item.user?.id}/details`)"
         />
       </template>
@@ -97,9 +97,9 @@
       <template #item.status="{ item }">
         <v-chip
           :color="
-            item.status == 'preparing'
+            item.status == 'PREPARING'
               ? 'error'
-              : item.status == 'shipping'
+              : item.status == 'SHIPPING'
               ? 'info'
               : 'success'
           "

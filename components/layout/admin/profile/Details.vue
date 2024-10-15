@@ -9,7 +9,9 @@
         <div class="item-center md:grid grid-cols-3 flex flex-col gap-2">
           <base-label>Name</base-label>
 
-          <base-text-field v-model="user.name" name="name" />
+          <base-text-field v-model="user.first_name" name="first_name" />
+
+          <base-text-field v-model="user.last_name" name="last_name" />
         </div>
 
         <div class="flex justify-end gap-4">
