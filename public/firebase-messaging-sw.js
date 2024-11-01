@@ -8,7 +8,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js')
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 firebase.initializeApp({
-    apiKey: 'AIzaSyAmgFZaPrI6L3nM42CrVu1W39zxWDolqEo',
+    apiKey: '1212121212',
     authDomain: 'even-crossing-400500.firebaseapp.com',
     projectId: 'even-crossing-400500',
     storageBucket: 'even-crossing-400500.appspot.com',
