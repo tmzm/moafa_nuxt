@@ -37,7 +37,6 @@
 
     <v-data-table-server
       v-if="rates.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="rates"
       :items-length="rates?.length ?? 0"

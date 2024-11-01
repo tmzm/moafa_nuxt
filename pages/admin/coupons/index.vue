@@ -11,17 +11,7 @@
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button
-        variant="tonal"
-        to="/admin/coupons/create"
-        icon="mdi-plus"
-      >
-        Add Coupon</base-action-button
-      >
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
     <v-card-text>
@@ -37,11 +27,15 @@
           </v-col>
         </v-row>
         <div class="flex gap-2">
-          <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
-            >mdi-filter</base-icon-button
-          > -->
           <base-icon-button color="primary" :loading="pending" @click="refresh"
             >mdi-refresh</base-icon-button
+          >
+          <base-action-button
+            variant="tonal"
+            to="/admin/coupons/create"
+            icon="mdi-plus"
+          >
+            Add Coupon</base-action-button
           >
         </div>
       </div>
@@ -51,7 +45,6 @@
 
     <v-data-table-server
       v-if="coupons.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="coupons"
       :items-length="coupons?.length ?? 0"
@@ -62,13 +55,11 @@
       <template #item.actions="{ item }">
         <base-icon-button
           class="mr-2"
-          size="md"
           color="secondary"
           @click="navigateTo(`/admin/coupons/${item.id}`)"
           >mdi-pencil-outline</base-icon-button
         >
         <base-icon-button
-          size="md"
           @click="navigateTo(`/admin/coupons/${item.id}/details`)"
           >mdi-eye</base-icon-button
         >

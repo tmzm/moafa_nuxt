@@ -52,23 +52,29 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
 
       VCard: {
-        elevation: 2,
-        border: true
+        elevation: 0,
+        rounded: 'lg'
       },
 
       VTextField: {
-        variant: 'solo-filled',
-        density: 'compact'
+        variant: 'outlined',
+        bgColor: 'light',
+        rounded: 'lg',
+        color: 'primary'
       },
 
       VTextarea: {
-        variant: 'solo-filled',
-        density: 'compact'
+        variant: 'outlined',
+        bgColor: 'light',
+        rounded: 'lg',
+        color: 'primary'
       },
 
       VSelect: {
-        variant: 'solo-filled',
-        density: 'compact'
+        variant: 'outlined',
+        bgColor: 'light',
+        rounded: 'lg',
+        color: 'primary'
       },
 
       VBtn: {

@@ -41,7 +41,6 @@
 
     <v-data-table-server
       v-if="users.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="users"
       :items-length="users?.length ?? 0"

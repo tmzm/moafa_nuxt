@@ -16,30 +16,13 @@
       }
     ]"
   >
-    <template #actions>
-      <base-action-button
-        v-if="!prescription.order_id"
-        :to="`/admin/prescriptions/${prescriptionId}/create-order`"
-        icon="mdi-shopping"
-        >Create Order</base-action-button
-      >
-      <base-action-button
-        @click="deleteDialog = true"
-        color="error"
-        icon="mdi-delete"
-        >Delete Prescription</base-action-button
-      >
-    </template>
   </base-page-header>
 
   <v-card v-if="!pending">
     <v-card-text>
       <v-row>
         <v-col cols="12" md="6">
-          <v-img
-            rounded="lg"
-            :src="loadImage(prescription.image)"
-          />
+          <v-img rounded="lg" :src="loadImage(prescription.image)" />
         </v-col>
         <v-col cols="12" md="6">
           <user-item
@@ -53,6 +36,20 @@
         </v-col>
       </v-row>
     </v-card-text>
+    <v-card-actions class="justify-end">
+      <base-action-button
+        v-if="!prescription.order_id"
+        :to="`/admin/prescriptions/${prescriptionId}/create-order`"
+        icon="mdi-shopping"
+        >Create Order</base-action-button
+      >
+      <base-action-button
+        @click="deleteDialog = true"
+        color="error"
+        icon="mdi-delete"
+        >Delete Prescription</base-action-button
+      >
+    </v-card-actions>
   </v-card>
 
   <v-skeleton-loader v-else type="image, avatar, list-item-two-line" />

@@ -11,7 +11,9 @@
         disabled: true
       }
     ]"
-  >
+  />
+
+  <product-table>
     <template #actions>
       <base-action-button
         variant="tonal"
@@ -21,9 +23,7 @@
         Add products</base-action-button
       >
     </template>
-  </base-page-header>
-
-  <product-table />
+  </product-table>
 </template>
 
 <style></style>

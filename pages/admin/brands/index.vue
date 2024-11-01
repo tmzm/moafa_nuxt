@@ -22,7 +22,6 @@
   <v-card class="overflow-hidden">
     <v-data-table-server
       v-if="brands.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="brands"
       :loading="pending"

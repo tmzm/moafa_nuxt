@@ -41,7 +41,6 @@
 
     <v-data-table-server
       v-if="couponsPurchases.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="couponsPurchases"
       :items-length="couponsPurchases?.length ?? 0"

@@ -21,7 +21,6 @@
           </v-col>
           <v-col md="3" cols="6">
             <v-select
-              density="compact"
               return-object
               v-model="sort"
               hide-details
@@ -37,12 +36,10 @@
           </v-col>
         </v-row>
         <div class="flex gap-2">
-          <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
-            >mdi-filter</base-icon-button
-          > -->
           <base-icon-button color="primary" :loading="pending" @click="refresh"
             >mdi-refresh</base-icon-button
           >
+          <slot name="actions" />
         </div>
       </div>
     </v-card-text>
@@ -53,7 +50,6 @@
       v-if="products.length > 0"
       v-model="model"
       :show-select
-      density="comfortable"
       class="text-no-wrap"
       :items="products"
       :items-length="products?.length ?? 0"

@@ -21,7 +21,6 @@
 
   <v-card class="overflow-hidden">
     <v-data-table-server
-      density="comfortable"
       class="text-no-wrap"
       :items="categories"
       :loading="status == 'pending'"

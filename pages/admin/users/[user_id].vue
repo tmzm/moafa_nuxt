@@ -1,8 +1,7 @@
 <template>
   <div>
     <base-page-header
-      :title="userDetails.first_name + ' ' + userDetails.last_name"
-      :pending="status == 'pending'"
+      title="User details"
       :breadcrumbs="[
         {
           title: 'Home',
@@ -58,11 +57,7 @@ const deleteDialog = ref(false)
 
 const authStore = useAuthStore()
 
-const { userDetails } = storeToRefs(authStore)
-
 const userId = useRoute().params.user_id
-
-const { status } = await useLazyAsyncData(() => authStore.get(Number(userId)))
 
 const goBack = () => navigateTo('/admin/users')
 

@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="!m-0" v-if="status !== 'pending'">
     <v-card>
       <v-card-title>
         <user-item
@@ -55,6 +55,8 @@ import dayjs from 'dayjs'
 const authStore = useAuthStore()
 
 const { userDetails } = storeToRefs(authStore)
+
+const { status } = await useLazyAsyncData(() => authStore.get(Number(userId)))
 
 const userId = useRoute().params.user_id
 </script>

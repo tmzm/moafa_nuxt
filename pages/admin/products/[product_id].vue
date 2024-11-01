@@ -215,7 +215,6 @@
       ></base-status-input>
     </v-col>
   </v-row>
-  {{ errors }}
   <base-alert-dialog
     :title="$t('delete_dialog.text')"
     :action="$t('actions.yes_delete')"

@@ -4,7 +4,7 @@
 
     <!-- <profile-card /> -->
 
-    <layout-admin-profile-details class="my-8" />
+    <layout-admin-profile-details class="my-4" />
 
     <layout-admin-profile-deactivate />
   </div>

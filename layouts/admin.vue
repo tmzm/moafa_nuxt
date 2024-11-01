@@ -1,12 +1,14 @@
 <template>
   <v-locale-provider :rtl="$i18n.locale === 'ar'">
-    <v-layout class="bg-background">
+    <v-layout>
       <layout-admin-sidebar />
 
       <layout-admin-navbar />
 
-      <v-main class="min-h-screen bg-background">
-        <v-container><slot /></v-container>
+      <v-main class="min-h-screen">
+        <div class="p-4 mr-4 bg-background rounded-lg min-h-screen">
+          <slot></slot>
+        </div>
       </v-main>
     </v-layout>
   </v-locale-provider>

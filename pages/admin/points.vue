@@ -47,7 +47,6 @@
 
     <v-data-table-server
       v-if="pointsTransfers.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="pointsTransfers"
       :items-length="pointsTransfers?.length ?? 0"

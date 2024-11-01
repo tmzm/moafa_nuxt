@@ -37,7 +37,6 @@
 
     <v-data-table-server
       v-if="prescriptions?.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="prescriptions"
       :items-length="prescriptions?.length ?? 0"

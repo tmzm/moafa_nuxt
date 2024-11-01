@@ -2,6 +2,7 @@
   <v-btn
     :prepend-icon="icon"
     :icon="$vuetify.display.xs"
+    variant="tonal"
     rounded="lg"
     :size="!$vuetify.display.xs ? undefined : 'small'"
   >

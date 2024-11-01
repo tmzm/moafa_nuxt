@@ -37,7 +37,6 @@
 
     <v-data-table-server
       v-if="orders.length > 0"
-      density="comfortable"
       class="text-no-wrap"
       :items="orders"
       :items-length="orders?.length ?? 0"

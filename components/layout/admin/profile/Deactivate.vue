@@ -6,20 +6,20 @@
 
     <v-card-text>
       <v-card
-        variant="tonal"
+        variant="outlined"
         color="warning"
         elevation="0"
-        class="!flex !border-2 !border-dashed !border-warning items-center gap-4 px-8 py-4"
+        class="!border-2 !border-dashed !border-warning"
       >
-        <v-icon size="xxx-large" color="warning"
+        <v-card-text class="!flex items-center gap-4 !p-4">
+          <v-icon size="xxx-large" color="warning"
           >mdi-alert-circle-outline</v-icon
         >
 
-        <div>
-          <div class="text-xl text-dark mb-2">
+          <div class="text-lg text-warning">
             You are deactivating you account
           </div>
-        </div>
+        </v-card-text>
       </v-card>
 
       <v-checkbox
