@@ -11,7 +11,7 @@
         >
           {{ $vuetify.display.smAndDown ? 'mdi-menu' : 'mdi-menu-open' }}
         </base-icon-button>
-        <v-text-field prepend-inner-icon="mdi-magnify" placeholder="Search for something" min-width="400" hide-details></v-text-field>
+        <base-icon-button color="dark">mdi-magnify</base-icon-button>
       </div>
 
       <div class="flex gap-4 items-center">

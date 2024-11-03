@@ -1,6 +1,5 @@
 <template>
   <v-card
-    elevation="2"
     :color
     variant="outlined"
     class="border-dark !border-2 border-dashed !rounded-lg"

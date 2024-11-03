@@ -79,15 +79,21 @@
       <template v-slot:header.data-table-select> </template>
 
       <template #item.actions="{ item }">
-        <base-icon-button size="md" class="me-2"
-          >mdi-eye-outline</base-icon-button
+        <base-action-menu
+          item="product"
+          :actions="[
+            {
+              icon: 'mdi-pencil-outline',
+              text: 'edit'
+            },
+            {
+              icon: 'mdi-eye-outline',
+              text: 'view'
+            }
+          ]"
+          @edit="navigateTo(`/admin/products/${item.id}`)"
         >
-        <base-icon-button
-          color="secondary"
-          size="md"
-          @click="navigateTo(`/admin/products/${item.id}`)"
-          >mdi-pencil-outline</base-icon-button
-        >
+        </base-action-menu>
       </template>
 
       <template #item.image="{ item }">

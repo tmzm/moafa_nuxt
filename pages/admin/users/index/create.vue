@@ -8,11 +8,18 @@
     <template #title>Admin details</template>
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">
-      <div>
-        <base-label>Name</base-label>
+        <v-row>
+          <v-col cols="6">
+            <base-label>First Name</base-label>
 
-        <base-text-field v-model="user.name" name="name" />
-      </div>
+            <base-text-field v-model="user.first_name" name="first_name" />
+          </v-col>
+          <v-col cols="6">
+            <base-label>Last Name</base-label>
+
+            <base-text-field v-model="user.last_name" name="last_name" />
+          </v-col>
+        </v-row>
 
       <div>
         <base-label>Phone Number</base-label>
@@ -59,7 +66,8 @@ user.value = {} as User
 
 const { handleSubmit } = useForm<User>({
   validationSchema: yup.object().shape({
-    name: yup.string().required().min(8),
+    first_name: yup.string().required().min(4),
+    last_name: yup.string().required().min(4),
     phone_number: yup.string().required().min(8),
     password: yup.string().required()
   })

@@ -56,9 +56,9 @@
         <template v-if="item.user">
           <user-item
             @click="navigateTo(`/admin/users/${item.user.id}/details`)"
+            :user="item.user"
+            class="cursor-pointer"
             size="small"
-            :name="item.user?.first_name + ' ' + item.user?.last_name"
-            :id="item.user?.id"
           />
         </template>
         <template v-else>

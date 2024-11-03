@@ -58,21 +58,18 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       VTextField: {
         variant: 'outlined',
-        bgColor: 'light',
         rounded: 'lg',
         color: 'primary'
       },
 
       VTextarea: {
         variant: 'outlined',
-        bgColor: 'light',
         rounded: 'lg',
         color: 'primary'
       },
 
       VSelect: {
         variant: 'outlined',
-        bgColor: 'light',
         rounded: 'lg',
         color: 'primary'
       },

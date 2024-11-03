@@ -1,19 +1,17 @@
 <template>
   <v-navigation-drawer
     :rail
-    rail-width="76"
+    rail-width="69"
     :class="{
       'hide-scrollbar': rail
     }"
-    class="!border-none"
+    floating
     width="300"
     :expand-on-hover="rail"
     :model-value="themeStore.sideOpen || !$vuetify.display.smAndDown"
   >
     <template #prepend>
-      <v-list-item title="Moafa Dashboard" class="px-6 pb-4 pt-8">
-        
-      </v-list-item>
+      <v-list-item title="Moafa Dashboard" class="px-6 pb-4 pt-8" />
     </template>
 
     <v-list
@@ -62,5 +60,3 @@ const themeStore = useThemeStore()
 
 const { rail } = storeToRefs(themeStore)
 </script>
-
-<style></style>

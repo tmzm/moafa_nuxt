@@ -11,30 +11,34 @@
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button
-        to="/admin/users/create"
-        variant="tonal"
-        icon="mdi-plus"
-      >
-        Add Admin
-      </base-action-button>
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
     <v-card-text>
-      <v-row>
-        <v-col md="8" cols="12">
-          <v-text-field
-            v-model="search"
-            label="Search"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <div class="flex justify-between items-center">
+        <v-row>
+          <v-col md="6" cols="12">
+            <v-text-field
+              v-model="search"
+              placeholder="Search for users"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <div class="flex gap-2">
+          <base-icon-button color="primary" :loading="pending" @click="refresh"
+            >mdi-refresh</base-icon-button
+          >
+          <base-action-button
+            variant="tonal"
+            to="/admin/users/create"
+            icon="mdi-plus"
+          >
+            Add New Admin</base-action-button
+          >
+        </div>
+      </div>
     </v-card-text>
 
     <v-divider></v-divider>
@@ -56,9 +60,8 @@
 
       <template #item.name="{ item }">
         <user-item
-          :id="item.id"
-          :name="item.first_name + ' ' + item.last_name"
           @click="navigateTo(`/admin/users/${item?.id}/details`)"
+          :user="item"
         />
       </template>
 

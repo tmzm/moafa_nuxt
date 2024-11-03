@@ -14,10 +14,9 @@
       >
         <user-item
           v-if="message.type == 'RECEIVED'"
+          :user="message.user"
           class="!m-0 flex-row-reverse gap-2"
           size="small"
-          :name="message.user.first_name + ' ' + message.user.last_name"
-          :id="message.user.id"
         />
 
         <div class="text-xs">

@@ -10,7 +10,7 @@
       </div>
     </template>
 
-    <v-card :loading min-width="250">
+    <v-card class="!shadow-lg" :loading min-width="250">
       <slot name="menu" />
     </v-card>
   </v-menu>

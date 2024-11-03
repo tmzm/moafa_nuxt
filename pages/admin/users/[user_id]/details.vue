@@ -2,11 +2,7 @@
   <v-row class="!m-0" v-if="status !== 'pending'">
     <v-card>
       <v-card-title>
-        <user-item
-          class="!m-0"
-          :id="userDetails.id"
-          :name="userDetails.first_name + ' ' + userDetails.last_name"
-        />
+        <user-item :user="userDetails" class="!m-0" />
       </v-card-title>
 
       <v-divider />

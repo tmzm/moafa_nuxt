@@ -1,110 +1,12 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="6" md="3">
-        <v-card>
-          <v-card-title>
-            <div class="flex justify-between">
-              <div>
-                <v-chip class="mr-4" size="x-large" color="secondary">{{
-                  counts?.products_count
-                }}</v-chip>
-                <v-icon>mdi-cart-outline</v-icon>
-                <div class="flex gap-4 items-center mt-4">
-                  <div class="text-lg text-gray">All Products</div>
-                  <base-icon-button to="/admin/products/create">mdi-plus</base-icon-button>
-                </div>
-              </div>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-col>
-
-      <v-col cols="6" md="3">
-        <v-card>
-          <v-card-title>
-            <v-chip class="mr-4" size="x-large" color="secondary">{{
-              counts?.categories_count
-            }}</v-chip>
-            <v-icon>mdi-format-list-bulleted-type</v-icon>
-            <div class="flex gap-4 items-center mt-4">
-              <div class="text-lg text-gray">All Categories</div>
-              <base-icon-button to="/admin/categories/create">mdi-plus</base-icon-button>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-col>
-
-      <v-col cols="6" md="3">
-        <v-card>
-          <v-card-title>
-            <v-chip class="mr-4" size="x-large" color="secondary">{{
-              counts?.brands_count
-            }}</v-chip>
-            <v-icon>mdi-check-decagram-outline</v-icon>
-            <div class="flex gap-4 items-center mt-4">
-              <div class="text-lg text-gray">All Brands</div>
-              <base-icon-button to="/admin/brands/create">mdi-plus</base-icon-button>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-col>
-
-      <v-col cols="6" md="3">
-        <v-card>
-          <v-card-title>
-            <v-chip class="mr-4" size="x-large" color="secondary">{{
-              counts?.orders_count
-            }}</v-chip>
-            <v-icon>mdi-shopping-outline</v-icon>
-            <div class="flex gap-4 items-center mt-4">
-              <div class="text-lg text-gray">All Orders</div>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-col>
-
-      <v-col cols="6" md="4">
-        <v-card>
-          <v-card-title>
-            <v-chip class="mr-4" size="x-large" color="secondary">{{
-              counts?.coupons_count
-            }}</v-chip>
-            <v-icon>mdi-tag-outline</v-icon>
-            <div class="flex gap-4 items-center mt-4">
-              <div class="text-lg text-gray">All Coupons</div>
-              <base-icon-button to="/admin/coupons/create">mdi-plus</base-icon-button>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-col>
-
-      <v-col cols="6" md="4">
-        <v-card>
-          <v-card-title>
-            <v-chip class="mr-4" size="x-large" color="secondary">{{
-              counts?.prescriptions_count
-            }}</v-chip>
-            <v-icon>mdi-medication-outline</v-icon>
-            <div class="flex gap-4 items-center mt-4">
-              <div class="text-lg text-gray">All Prescriptions</div>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-col>
-
-      <v-col cols="6" md="4">
-        <v-card>
-          <v-card-title>
-            <v-chip class="mr-4" size="x-large" color="secondary">{{
-              counts?.rates_count
-            }}</v-chip>
-            <v-icon>mdi-star-outline</v-icon>
-            <div class="flex gap-4 items-center mt-4">
-              <div class="text-lg text-gray">All Rates</div>
-            </div>
-          </v-card-title>
-        </v-card>
+      <v-col
+        v-for="{ icon, color, number, to, text, cardColor } in items"
+        cols="6"
+        md="3"
+      >
+        <base-status-card :icon :color :number :to :text :card-color />
       </v-col>
     </v-row>
   </div>
@@ -119,10 +21,66 @@ const analyticsStore = useAnalyticsStore()
 
 const { counts, salesCategories } = storeToRefs(analyticsStore)
 
-const { pending } = useLazyAsyncData(async () => {
+const { status } = useLazyAsyncData(async () => {
   await analyticsStore.list()
   await analyticsStore.listCategoriesSales()
 })
+
+const items : {
+  icon: string
+  color: string
+  number?: number
+  to?: string
+  text: string
+  cardColor?: string
+}[] = [
+  {
+    icon: 'mdi-cart-outline',
+    color: 'secondary',
+    number: counts.value?.products_count,
+    to: '/admin/products/create',
+    text: 'All Products'
+  },
+  {
+    icon: 'mdi-format-list-bulleted-type',
+    color: 'primary',
+    number: counts.value?.products_count,
+    to: '/admin/categories/create',
+    text: 'All Categories',
+  },
+  {
+    icon: 'mdi-check-decagram-outline',
+    color: 'purple',
+    number: counts.value?.brands_count,
+    to: '/admin/brands/create',
+    text: 'All Brands'
+  },
+  {
+    icon: 'mdi-shopping-outline',
+    color: 'pink',
+    number: counts.value?.orders_count,
+    text: 'All Orders'
+  },
+  {
+    icon: 'mdi-tag-outline',
+    color: 'red',
+    number: counts.value?.coupons_count,
+    to: '/admin/coupons/create',
+    text: 'All Coupons',
+  },
+  {
+    icon: 'mdi-medication-outline',
+    color: 'cyan',
+    number: counts.value?.prescriptions_count,
+    text: 'All Prescriptions'
+  },
+  {
+    icon: 'mdi-star-outline',
+    color: 'secondary',
+    number: counts.value?.rates_count,
+    text: 'All Rates'
+  }
+] 
 
 const options = ref({
   chart: {

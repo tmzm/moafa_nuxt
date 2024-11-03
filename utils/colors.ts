@@ -25,7 +25,7 @@ export const lightColors = {
   'light-2': '#F0F1F3',
   warning: '#ffd240',
   error: '#f1416c',
-  background: '#edf4f0',
+  background: '#eef2f6',
   slate: '#90a4ae',
   surface: '#fff',
   'on-background': '#262229',

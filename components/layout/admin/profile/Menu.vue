@@ -7,11 +7,7 @@
     </template>
 
     <template #menu>
-      <user-item
-        class="mx-5 my-3"
-        :id="authStore.user.id"
-        :name="authStore.user.first_name + ' ' + authStore.user.last_name"
-      />
+      <user-item :user="authStore.user" class="mx-5 my-3" />
 
       <v-divider class="my-2" />
 

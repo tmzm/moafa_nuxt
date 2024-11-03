@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4 flex gap-4 items-center cursor-pointer">
+  <div class="m-4 flex gap-4 items-center">
     <v-card
       class="aspect-square !rounded-full !flex items-center justify-center"
       :class="classes.avatar"
@@ -8,15 +8,15 @@
       elevation="0"
     >
       <div :class="classes.font" class="font-semibold">
-        {{ name.slice(0, 1).toUpperCase() }}
+        {{ user.first_name.slice(0, 1).toUpperCase() + user.last_name.slice(0, 1).toUpperCase() }}
       </div>
     </v-card>
     <div>
       <div :class="classes.font" class="text-dark transition-all">
-        {{ name }}
+        {{ user.first_name + ' ' + user.last_name }}
       </div>
-      <div :class="classes.subtitleFont" class="text-gray">
-        {{ subtitle }}
+      <div v-if="showPhoneNumber" :class="classes.subtitleFont" class="text-gray">
+        {{ user.phone_number }}
       </div>
     </div>
   </div>
@@ -25,10 +25,9 @@
 <script lang="ts" setup>
 const props = withDefaults(
   defineProps<{
-    subtitle?: string
     size?: 'small' | 'large'
-    name: string
-    id: number
+    showPhoneNumber?: boolean
+    user: User
   }>(),
   {
     size: 'large'
@@ -87,7 +86,7 @@ const colors = [
 ]
 
 const color = computed(() => {
-  const id = props.id.toString().charAt(props.id.toString().length - 1)
+  const id = props.user.id.toString().charAt(props.user.id.toString().length - 1)
 
   return colors.find((c) => c.id === Number(id))?.color
 })

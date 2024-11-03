@@ -26,10 +26,9 @@
         </v-col>
         <v-col cols="12" md="6">
           <user-item
-            :name="prescription.user?.first_name + prescription.user.last_name"
-            :subtitle="prescription.user?.phone_number"
-            :id="prescription.user?.id"
             @click="navigateTo(`/admin/users/${prescription.user?.id}/details`)"
+            show-phone-number
+            :user="prescription.user"
           />
           <base-label>Description:</base-label>
           <div class="text-lg">{{ prescription.description }}</div>

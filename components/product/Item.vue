@@ -2,16 +2,9 @@
   <v-list-item
     class="!p-3"
     :title="product.name"
-    :subtitle="'Price: $' + product.price"
-  >
-    <template #prepend>
-      <v-img
-        class="!w-16 me-4 aspect-square object-cover"
-        rounded="lg"
-        :src="loadImage(product.image)"
-      />
-    </template>
-  </v-list-item>
+    :subtitle="`price: $${product.price}`"
+    :prepend-avatar="loadImage(product.image)"
+  />
 </template>
 
 <script lang="ts" setup>

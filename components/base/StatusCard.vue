@@ -1,19 +1,23 @@
 <template>
-  <v-card :color="color" :variant="variant" elevation="0">
-    <v-card-text class="py-1">
-      <div class="text-4xl">
-        {{ number }}
+  <v-card
+    :color="cardColor"
+    class="relative before:absolute before:bg-secondary before:w-44 before:h-44 before:right-0 before:top-0"
+  >
+    <v-card-text class="!p-4 flex justify-between items-center">
+      <div class="flex gap-4 items-center">
+        <v-avatar :variant :color rounded="lg">
+          <v-icon size="20">{{ icon }}</v-icon>
+        </v-avatar>
+        <div>
+          <div class="text-lg font-bold">
+            {{ number }}
+          </div>
+          <div class="text-xs text-gray">{{ text }}</div>
+        </div>
       </div>
-
-      <div class="text-md -mt-2">
-        {{ title }}
-      </div>
-
-      <v-icon
-        v-if="icon"
-        :icon="icon"
-        class="!absolute top-[10%] left-0 !text-8xl opacity-20"
-      />
+      <base-icon-button :variant v-if="to" :to :color
+        >mdi-plus</base-icon-button
+      >
     </v-card-text>
   </v-card>
 </template>
@@ -21,13 +25,16 @@
 <script lang="ts" setup>
 withDefaults(
   defineProps<{
-    title: string
-    number: number
+    text: string
+    number?: number
     icon?: string
     color: string
-    variant?: NonNullable<"tonal" | "flat" | "text" | "elevated" | "outlined" | "plain">
+    cardColor?: string
+    variant?: 'tonal' | 'flat' | 'text' | 'elevated' | 'outlined' | 'plain'
+    to?: string
   }>(),
   {
+    cardColor: 'white',
     variant: 'tonal'
   }
 )

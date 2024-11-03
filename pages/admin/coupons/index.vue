@@ -16,16 +16,13 @@
   <v-card class="overflow-hidden">
     <v-card-text>
       <div class="flex justify-between items-center">
-        <v-row>
-          <v-col md="6" cols="12">
-            <v-text-field
-              v-model="search"
-              placeholder="Search for coupons"
-              prepend-inner-icon="mdi-magnify"
-              hide-details
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <v-text-field
+          v-model="search"
+          placeholder="Search for coupons"
+          prepend-inner-icon="mdi-magnify"
+          hide-details
+          max-width="400"
+        ></v-text-field>
         <div class="flex gap-2">
           <base-icon-button color="primary" :loading="pending" @click="refresh"
             >mdi-refresh</base-icon-button
@@ -53,25 +50,31 @@
       :headers="couponHeaders"
     >
       <template #item.actions="{ item }">
-        <base-icon-button
-          class="mr-2"
-          color="secondary"
-          @click="navigateTo(`/admin/coupons/${item.id}`)"
-          >mdi-pencil-outline</base-icon-button
+        <base-action-menu
+          item="coupon"
+          :actions="[
+            {
+              icon: 'mdi-pencil-outline',
+              text: 'edit'
+            },
+            {
+              icon: 'mdi-eye-outline',
+              text: 'view'
+            }
+          ]"
+          @edit="navigateTo(`/admin/coupons/${item.id}`)"
+          @view="navigateTo(`/admin/coupons/${item.id}/details`)"
         >
-        <base-icon-button
-          @click="navigateTo(`/admin/coupons/${item.id}/details`)"
-          >mdi-eye</base-icon-button
-        >
+        </base-action-menu>
       </template>
 
       <template #item.user="{ item }">
         <template v-if="item.user">
           <user-item
             @click="navigateTo(`/admin/users/${item.user.id}/details`)"
+            :user="item.user"
+            class="cursor-pointer"
             size="small"
-            :name="item.user?.first_name + ' ' + item.user.last_name"
-            :id="item.user?.id"
           />
         </template>
         <template v-else>

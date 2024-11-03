@@ -32,7 +32,6 @@
                         v-slot="{ isSelected, toggle, selectedClass }"
                       >
                         <v-card
-                          elevation="2"
                           @click="toggle"
                           class="!border-dark !border-2 !border-dashed !rounded-lg"
                           :class="selectedClass"
