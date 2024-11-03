@@ -52,8 +52,16 @@
           <div v-if="status == 'pending'">
             Loading <v-progress-circular indeterminate size="x-small" />
           </div>
-          <div class="text-error" v-else-if="status == 'error'">Phone number not valid</div>
+          <div class="text-error" v-else-if="status == 'error'">
+            Phone number not valid
+          </div>
           <div class="text-success" v-else>Phone number valid</div>
+        </transition>
+
+        <transition>
+          <v-card class="my-4" v-if="userDetails" color="primary" variant="tonal">
+            <user-item :user="(userDetails as any)" />
+          </v-card>
         </transition>
       </div>
 
@@ -63,7 +71,13 @@
         <div class="flex gap-2">
           <v-btn-cancel @click="goBack">Cancel</v-btn-cancel>
 
-          <v-btn :disabled="status !== 'success'" type="submit" :loading="loading"> Save </v-btn>
+          <v-btn
+            :disabled="status !== 'success'"
+            type="submit"
+            :loading="loading"
+          >
+            Save
+          </v-btn>
         </div>
       </div>
     </form>
@@ -79,6 +93,8 @@ const authStore = useAuthStore()
 const route = useRoute()
 
 const { pointsTransfer } = storeToRefs(pointsStore)
+
+const userDetails = ref<User | undefined>()
 
 const loading = ref<boolean>(false)
 
@@ -112,15 +128,16 @@ const submitFun = async () => {
   }
 }
 
-const {
-  status,
-  refresh,
-} = useLazyAsyncData(async () => {
+const { status, refresh } = useLazyAsyncData(async () => {
   try {
     const res = await authStore.unique(phoneNumber.value)
 
+    userDetails.value = res.data
+
     pointsTransfer.value.user_id = res.data.id
   } catch (e) {
+    userDetails.value = undefined
+
     pointsTransfer.value.user_id = undefined as any
 
     throw e

@@ -6,9 +6,6 @@ export default function (
     pagination.page == 1 ? 0 : (pagination.page - 1) * pagination.itemsPerPage
 
   // handle 'all' option in pagination
-  const take =
-    count - skip > pagination.itemsPerPage
-      ? pagination.itemsPerPage
-      : count - skip
+  const take = pagination.itemsPerPage > 0 ? pagination.itemsPerPage : count
   return { skip, take }
 }

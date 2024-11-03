@@ -11,4 +11,10 @@ defineProps({
     default: null
   }
 })
+
+import { useTheme } from 'vuetify'
+
+const theme = useTheme()
+
+theme.global.name.value = 'lightTheme'
 </script>

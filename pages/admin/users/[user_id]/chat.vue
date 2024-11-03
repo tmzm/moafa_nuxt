@@ -1,20 +1,24 @@
 <template>
   <v-card>
+    <v-card-title class="!flex justify-between items-center">
+      <div>User Chat</div>
+    </v-card-title>
     <v-card-text>
       <v-infinite-scroll
         class="!flex-col-reverse gap-6"
         @load="listChat"
         height="300"
       >
-        <message-card
-          :message
-          v-for="message in messages"
-        />
+        <message-card :message v-for="message in messages" />
 
         <template v-slot:empty>
-          <v-alert variant="outlined" class="border-dashed !border-2 !rounded-lg" color="warning" type="warning"
-            >No more messages!</v-alert
-          >
+          <v-alert
+            variant="outlined"
+            class="border-dashed !border-2 !rounded-lg"
+            color="warning"
+            type="warning"
+            >No more messages!
+          </v-alert>
         </template>
 
         <template v-slot:error="{ props }">

@@ -11,13 +11,7 @@
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button icon="mdi-plus" to="/admin/points/transfer"
-        >Transfer points</base-action-button
-      >
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
     <v-card-text>
@@ -36,6 +30,9 @@
           <!-- <base-icon-button @click="isVisible = !isVisible" color="primary"
             >mdi-filter</base-icon-button
           > -->
+          <base-action-button icon="mdi-plus" to="/admin/points/transfer"
+            >Transfer points</base-action-button
+          >
           <base-icon-button color="primary" :loading="pending" @click="refresh"
             >mdi-refresh</base-icon-button
           >

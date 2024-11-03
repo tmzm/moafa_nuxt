@@ -48,15 +48,12 @@
         <base-icon-button
           @click="navigateTo(`/admin/orders/${item.id}`)"
           class="me-2"
-          size="md"
           color="secondary"
           >mdi-eye-outline</base-icon-button
         >
         <v-tooltip text="Click to copy order url">
           <template #activator="{ props }">
-            <base-icon-button size="md" v-bind="props"
-              >mdi-link</base-icon-button
-            >
+            <base-icon-button v-bind="props">mdi-link</base-icon-button>
           </template>
         </v-tooltip>
       </template>
@@ -152,7 +149,6 @@ const props = defineProps<{
 const orderStore = useOrderStore()
 
 const page = ref(1)
-const itemsPerPage = ref(10)
 
 const { orders, paginationOptions, search, ordersTotalCount } =
   storeToRefs(orderStore)
@@ -166,16 +162,10 @@ watch(page, () => {
   refresh()
 })
 
-watch(itemsPerPage, () => {
-  paginationOptions.value.itemsPerPage = itemsPerPage.value
-
-  refresh()
-})
-
 watch(search, () => refresh())
 
 const pageCount = computed(() => {
-  return Math.ceil(ordersTotalCount.value / itemsPerPage.value)
+  return Math.ceil(ordersTotalCount.value / paginationOptions.value.itemsPerPage)
 })
 </script>
 

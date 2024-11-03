@@ -52,20 +52,11 @@
       <template #item.actions="{ item }">
         <base-action-menu
           item="coupon"
-          :actions="[
-            {
-              icon: 'mdi-pencil-outline',
-              text: 'edit'
-            },
-            {
-              icon: 'mdi-eye-outline',
-              text: 'view'
-            }
-          ]"
+          view-action
+          edit-action
           @edit="navigateTo(`/admin/coupons/${item.id}`)"
           @view="navigateTo(`/admin/coupons/${item.id}/details`)"
-        >
-        </base-action-menu>
+        />
       </template>
 
       <template #item.user="{ item }">

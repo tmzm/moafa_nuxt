@@ -8,10 +8,24 @@
     <template #menu>
       <v-list>
         <v-list-item
-          v-for="action in actions"
-          @click="emit(action.text)"
-          :title="`${action.text} ${item}`"
-          :prepend-icon="action.icon"
+          v-if="editAction"
+          @click="$emit('edit')"
+          :title="`Edit ${item}`"
+          prepend-icon="mdi-pencil-outline"
+        />
+
+        <v-list-item
+          v-if="deleteAction"
+          @click="$emit('delete')"
+          :title="`Delete ${item}`"
+          prepend-icon="mdi-delete-outline"
+        />
+
+        <v-list-item
+          v-if="viewAction"
+          @click="$emit('view')"
+          :title="`view ${item}`"
+          prepend-icon="mdi-eye-outline"
         />
       </v-list>
     </template>
@@ -20,14 +34,11 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
-  actions?: {
-    text: string
-    icon: string
-  }[]
+  deleteAction?: boolean
+  viewAction?: boolean
+  editAction?: boolean
   item?: string
 }>()
-
-const emit = defineEmits(props.actions?.map((action) => action.text) ?? [])
 </script>
 
 <style></style>

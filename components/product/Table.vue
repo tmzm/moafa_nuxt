@@ -21,7 +21,6 @@
           </v-col>
           <v-col md="3" cols="6">
             <v-select
-              return-object
               v-model="sort"
               hide-details
               :items="[
@@ -31,7 +30,6 @@
                 'Prices (Low First)',
                 'Prices (High First)'
               ]"
-              bg-color="white"
             />
           </v-col>
         </v-row>
@@ -81,16 +79,7 @@
       <template #item.actions="{ item }">
         <base-action-menu
           item="product"
-          :actions="[
-            {
-              icon: 'mdi-pencil-outline',
-              text: 'edit'
-            },
-            {
-              icon: 'mdi-eye-outline',
-              text: 'view'
-            }
-          ]"
+          edit-action
           @edit="navigateTo(`/admin/products/${item.id}`)"
         >
         </base-action-menu>
@@ -174,26 +163,20 @@
 </template>
 
 <script lang="ts" setup>
-import dayjs from 'dayjs'
-
 defineProps<{
   title?: string
   showSelect?: boolean
   show?: string[]
 }>()
 
-const isVisible = ref(false)
-
 const model = defineModel()
 
 const productStore = useProductStore()
 
 const page = ref(1)
-const itemsPerPage = ref(10)
 
 const { products, paginationOptions, sort, search, productsTotalCount } =
   storeToRefs(productStore)
-const { selectedCategories } = storeToRefs(useCategoryStore())
 
 const { pending, refresh } = await useLazyAsyncData('list_all_products', () =>
   productStore.list()
@@ -204,12 +187,6 @@ watch(page, () => {
   refresh()
 })
 
-watch(itemsPerPage, (oldValue, newValue) => {
-  paginationOptions.value.itemsPerPage = itemsPerPage.value
-
-  refresh()
-})
-
 watch(sort, (value, oldValue) => {
   refresh()
 })
@@ -217,7 +194,7 @@ watch(sort, (value, oldValue) => {
 watch(search, () => refresh())
 
 const pageCount = computed(() => {
-  return Math.ceil(productsTotalCount.value / itemsPerPage.value)
+  return Math.ceil(productsTotalCount.value / paginationOptions.value.itemsPerPage)
 })
 
 // watch(selectedCategories, () => refresh())

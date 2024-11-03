@@ -19,14 +19,7 @@
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <v-btn @click="goBack" color="gray">Cancel</v-btn>
-      <v-btn :disabled="selectedProducts.length <= 0" @click="create"
-        >Save</v-btn
-      >
-    </template>
-  </base-page-header>
+  />
 
   <v-skeleton-loader
     v-if="pending"
@@ -112,6 +105,13 @@
       </transition>
     </v-col>
   </v-row>
+
+  <div class="flex gap-2 justify-end mt-4">
+          <v-btn @click="goBack" color="gray">Cancel</v-btn>
+      <v-btn :disabled="selectedProducts.length <= 0" @click="create"
+        >Save</v-btn
+      >
+  </div>
 
   <v-dialog
     class="!h-screen"

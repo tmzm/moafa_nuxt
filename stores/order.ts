@@ -17,7 +17,7 @@ export const useOrderStore = defineStore('order', () => {
   const locationStore = useLocationStore()
 
   const search = ref('')
-  const ordersTotalCount = ref(15)
+  const ordersTotalCount = ref(0)
   const paginationOptions = ref({
     groupBy: [],
     itemsPerPage: 10,
@@ -48,8 +48,8 @@ export const useOrderStore = defineStore('order', () => {
         user_id: user_id,
         coupon_code:
           selectCoupon.value && couponCode.value ? couponCode.value : undefined,
-        products: selectedProducts.value.map((product) => {
-          return { id: product.product.id, quantity: 1 }
+        order_items: selectedProducts.value.map((product) => {
+          return { product_id: product.product.id, quantity: 1 }
         })
       }
     })
@@ -91,9 +91,9 @@ export const useOrderStore = defineStore('order', () => {
     const res = await api('/orders', {
       method: 'post',
       body: {
-        coupon_id: couponId,
-        user_id: userId,
-        search: search.value,
+        coupon_id: couponId ?? undefined,
+        user_id: userId ?? undefined,
+        search: search.value != '' ? search.value : undefined,
         ...paginationParams(paginationOptions.value, ordersTotalCount.value)
       }
     })
