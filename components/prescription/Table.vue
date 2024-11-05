@@ -56,12 +56,11 @@
         <base-icon-button
           :to="`/admin/prescriptions/${item.id}`"
           class="me-2"
-          size="md"
           >mdi-eye-outline</base-icon-button
         >
         <v-tooltip v-if="item.order_id" text="Click to copy order url">
           <template #activator="{ props }">
-            <base-icon-button size="md" color="secondary" v-bind="props"
+            <base-icon-button color="secondary" v-bind="props"
               >mdi-link</base-icon-button
             >
           </template>

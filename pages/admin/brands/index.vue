@@ -11,15 +11,17 @@
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button to="/admin/brands/create" icon="mdi-plus">
-        Add new brand</base-action-button
-      >
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
+    <v-card-title>
+      <div class="flex justify-end">
+        <base-action-button to="/admin/brands/create" icon="mdi-plus">
+          Add new brand</base-action-button
+        >
+      </div>
+    </v-card-title>
+
     <v-data-table-server
       v-if="brands.length > 0"
       class="text-no-wrap"

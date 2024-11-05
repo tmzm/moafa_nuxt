@@ -11,15 +11,17 @@
         disabled: true
       }
     ]"
-  >
-    <template #actions>
-      <base-action-button to="/admin/categories/create" icon="mdi-plus">
-        Add new category</base-action-button
-      >
-    </template>
-  </base-page-header>
+  />
 
   <v-card class="overflow-hidden">
+    <v-card-title>
+      <div class="flex justify-end">
+        <base-action-button to="/admin/categories/create" icon="mdi-plus">
+          Add new category</base-action-button
+        >
+      </div>
+    </v-card-title>
+
     <v-data-table-server
       class="text-no-wrap"
       :items="categories"
@@ -82,7 +84,5 @@ const categoryStore = useCategoryStore()
 
 const { categories } = storeToRefs(categoryStore)
 
-const { status } = await useLazyAsyncData(() =>
-  categoryStore.list()
-)
+const { status } = await useLazyAsyncData(() => categoryStore.list())
 </script>
